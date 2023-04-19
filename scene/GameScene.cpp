@@ -4,13 +4,28 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	//モデルの解放
+	delete model_;
+	//プレイヤー解放
+	delete player_;
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+	//テクスチャハンドルにテクスチャ読み込み
+	textureHandle_ = TextureManager::Load("sample.png");
+	//モデル生成
+	model_ = Model::Create();
+	//ビュープロジェクションの初期化
+	viewProjection_->Initialize();
+	//プレイヤー生成
+	player_ = new Player();
+	//プレイヤー初期化
+	player_->Initialize(model_, textureHandle_);
 }
 
 void GameScene::Update() {}
@@ -41,6 +56,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	
+	//自キャラの描画
+	player_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
