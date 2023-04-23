@@ -8,7 +8,9 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
+
 	delete model_;
+
 	delete player_;
 }
 
@@ -17,11 +19,13 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
 	textureHandle_ = TextureManager::Load("sample.png");
 	model_ = Model::Create();
 	vieProjection_.Initialize();
 	player_ = new Player();
 	player_->Initialize(model_,textureHandle_);
+
 }
 
 void GameScene::Update() { player_->Updete(); }
@@ -38,7 +42,6 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
-	player_->Draw();
 
 
 	// スプライト描画後処理
@@ -55,8 +58,10 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	
+
 	// 3Dモデルの描画
-	
+	player_->Draw();
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
