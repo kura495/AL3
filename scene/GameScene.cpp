@@ -22,7 +22,7 @@ void GameScene::Initialize() {
 
 	textureHandle_ = TextureManager::Load("sample.png");
 	model_ = Model::Create();
-	vieProjection_.Initialize();
+	viewProjection_.Initialize();
 	player_ = new Player();
 	player_->Initialize(model_,textureHandle_);
 

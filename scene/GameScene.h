@@ -49,7 +49,7 @@ private: // メンバ変数
 	//3Dモデル
 	Model* model_ = nullptr;
 	//ビュープロジェクション
-	ViewProjection* viewProjection_;
+	ViewProjection viewProjection_;
 	//自キャラ
 	Player* player_ = nullptr;
 
@@ -57,8 +57,4 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	
-	uint32_t textureHandle_ = 0;
-	Model* model_ = nullptr;
-	ViewProjection vieProjection_;
-	Player* player_ = nullptr;
 };
