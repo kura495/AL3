@@ -1,6 +1,9 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include "ImGuiManager.h"
+#include"PrimitiveDrawer.h"
+#include"AxisIndicator.h"
 
 GameScene::GameScene() {}
 
@@ -11,6 +14,7 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
 }
 
 void GameScene::Update() {}
@@ -28,6 +32,7 @@ void GameScene::Draw() {
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
 
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
@@ -41,9 +46,13 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	
+	// 3Dモデルの描画
+	
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
+
 #pragma endregion
 
 #pragma region 前景スプライト描画
@@ -58,4 +67,6 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+
+	
 }
