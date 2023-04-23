@@ -1,12 +1,15 @@
-﻿#include"Player.h"
 
-void Player::Initialize(Model* model, uint32_t textureHandlle) { 
+#include <Player.h>
+#include<cassert>
+void Player::Initialize(Model* model, uint32_t textureHandle) { 
 	assert(model);
+	textureHandle_ = textureHandle;
 	model_ = model;
-	textureHandle_ = textureHandlle;
-	worldTransform_->Initialize();
+	worldTransform_.Initialize();
 }
 
-void Player::Update() {}
+void Player::Updete() {}
 
 void Player::Draw() {}
+	
+
