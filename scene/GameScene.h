@@ -50,26 +50,5 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	//テクスチャハンドル
-	uint32_t textureHandle_ = 0;
-	//スプライト
-	Sprite* sprite_ = nullptr;
-	//3Dモデル
-	Model* model_ = nullptr;
-
-	//モデルの描画にはワールドトランスフォームとビュープロジェクションが必要になるので、作る
-	//ワールドトランスフォーム
-	WorldTransform worldTransform_;
-	//ビュープロジェクション
-	ViewProjection viewprojection_;
-
-	//サウンドデータハンドル
-	uint32_t soundDataHandle_ = 0;
-	//音声の再生ハンドル
-	uint32_t voiseHandle_ = 0;
-
-	//ImGuiで値を入力する変数
-	float inputFloat3[3] = {0, 0, 0};
-	//デバッグカメラ
-	DebugCamera* debugCamera_ = nullptr;
 	
 };
