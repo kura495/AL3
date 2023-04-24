@@ -10,7 +10,6 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 
 	delete model_;
-
 	delete player_;
 }
 
@@ -60,7 +59,7 @@ void GameScene::Draw() {
 	
 
 	// 3Dモデルの描画
-	player_->Draw();
+	player_->Draw(viewProjection_);
 
 
 	// 3Dオブジェクト描画後処理

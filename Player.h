@@ -9,7 +9,7 @@ public:
 
 	void Updete();
 
-	void Draw();
+	void Draw(ViewProjection viewProjection_);
 
 private:
 	WorldTransform worldTransform_;
