@@ -9,7 +9,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 }
 
 void Player::Updete() { 
-	
+	//キャラの移動
 	//キャラクターの移動ベクトル
 	Vector3 move = {0, 0, 0};
 	//float theta = 0.0f;
@@ -33,15 +33,23 @@ void Player::Updete() {
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y,-kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y,+kMoveLimitY);
 
-	
+	//回転
+	const float RotSpeed = 0.02f;
+	//Y軸
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.rotation_.y -= RotSpeed;
+	}else if (input_->PushKey(DIK_D)) {
+		worldTransform_.rotation_.y += RotSpeed;
+	}
+
 	//ImGuiの準備
-	float inputFloat3[Vector3D] = {worldTransform_.translation_.x, worldTransform_.translation_.y,worldTransform_.translation_.z};
+	float point[Vector3D] = {worldTransform_.translation_.x, worldTransform_.translation_.y,worldTransform_.translation_.z};
 	ImGui::Begin("Player");
-	ImGui::SliderFloat3("SliderFloat3", inputFloat3, -30.0f, 30.0f);
+	ImGui::SliderFloat3("Point", point, -30.0f, 30.0f);
 	ImGui::End();
-	worldTransform_.translation_.x = inputFloat3[x];
-	worldTransform_.translation_.y = inputFloat3[y];
-	worldTransform_.translation_.z = inputFloat3[z];
+	worldTransform_.translation_.x = point[x];
+	worldTransform_.translation_.y = point[y];
+	worldTransform_.translation_.z = point[z];
 	worldTransform_.translation_ = Add(worldTransform_.translation_,move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
