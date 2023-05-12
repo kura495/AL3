@@ -1,6 +1,5 @@
 #pragma once
 #include"Model.h"
-#include"Vector3.h"
 class PlayerBullet {
 public:
 	PlayerBullet();
@@ -16,6 +15,8 @@ public:
 	/// çXêV
 	/// </summary>
 	void Update();
+
+	void Draw(const ViewProjection&viewProjection);
 
 private:
 };
