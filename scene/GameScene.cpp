@@ -4,6 +4,7 @@
 #include "ImGuiManager.h"
 #include"PrimitiveDrawer.h"
 #include"AxisIndicator.h"
+#include"Affine.h"
 
 GameScene::GameScene() {}
 
@@ -27,7 +28,23 @@ void GameScene::Initialize() {
 
 }
 
-void GameScene::Update() { player_->Updete(); }
+void GameScene::Update() { 
+	Vector3 move = {0, 0, 0};
+	const float CharacterSpeed = 0.2f;
+	if (input_->PushKey(DIK_LEFT)) {
+		move.x -= CharacterSpeed;
+	}
+	if (input_->PushKey(DIK_RIGHT)) {
+		move.x += CharacterSpeed;
+	}
+	if (input_->PushKey(DIK_UP)) {
+		move.y += CharacterSpeed;
+	}
+	if (input_->PushKey(DIK_DOWN)) {
+		move.y -= CharacterSpeed;
+	}
+	WorldTransform 
+}
 
 void GameScene::Draw() {
 

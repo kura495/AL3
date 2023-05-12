@@ -124,9 +124,3 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Ve
 
 	return result;
 }
-Matrix4x4 MakeAffineMatrix(const Matrix4x4& scale, const Matrix4x4& rotate, const Matrix4x4& translate) {
-	Matrix4x4 result = Multiply(scale, Multiply(rotate, translate));
-
-	return result;
-}
-
