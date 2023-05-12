@@ -5,6 +5,7 @@
 #include"PrimitiveDrawer.h"
 #include"AxisIndicator.h"
 #include"Affine.h"
+#include"AxisIndicator.h"
 
 GameScene::GameScene() {}
 
@@ -12,6 +13,7 @@ GameScene::~GameScene() {
 
 	delete model_;
 	delete player_;
+	delete debugCamera_;
 }
 
 void GameScene::Initialize() {
@@ -25,25 +27,30 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 	player_ = new Player();
 	player_->Initialize(model_,textureHandle_);
-
+	debugCamera_ = new DebugCamera(1280,720);
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
 void GameScene::Update() { 
-	Vector3 move = {0, 0, 0};
-	const float CharacterSpeed = 0.2f;
-	if (input_->PushKey(DIK_LEFT)) {
-		move.x -= CharacterSpeed;
+	player_->Updete();
+	#ifdef _DEBUG
+	if (input_->TriggerKey(DIK_0)) {
+		isDebugCameraActive_ = true;
 	}
-	if (input_->PushKey(DIK_RIGHT)) {
-		move.x += CharacterSpeed;
+	#endif
+	ImGui::Begin("Control");
+	ImGui::Text("DebugCamera : 0");
+	ImGui::End();
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		viewProjection_.matView=debugCamera_->GetViewProjection().constMap->view;
+		viewProjection_.matProjection=debugCamera_->GetViewProjection().constMap->projection;
+		viewProjection_.TransferMatrix();
+	} else {
+		viewProjection_.UpdateMatrix();
 	}
-	if (input_->PushKey(DIK_UP)) {
-		move.y += CharacterSpeed;
-	}
-	if (input_->PushKey(DIK_DOWN)) {
-		move.y -= CharacterSpeed;
-	}
-	WorldTransform 
+	
 }
 
 void GameScene::Draw() {

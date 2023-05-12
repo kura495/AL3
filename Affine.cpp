@@ -26,6 +26,10 @@ Matrix4x4 Add(const Matrix4x4& m1, const Matrix4x4& m2) {
 	return result;
 }
 
+Vector3 Add(const Vector3& m1, const Vector3& m2) { 
+	return Vector3{m1.x+m2.x,m1.y+m2.y,m1.z+m2.z}; 
+}
+
 Matrix4x4 Multiply(const Matrix4x4& m1, const Matrix4x4& m2) {
 	Matrix4x4 result;
 

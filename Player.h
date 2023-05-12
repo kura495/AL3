@@ -3,6 +3,7 @@
 #include "WorldTransform.h"
 #include"Input.h"
 #include"Affine.h"
+#include"ImGuiManager.h"
 class Player {
 public:
 
@@ -17,4 +18,11 @@ private:
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	Input* input_ = nullptr;
+	//ImGui用
+	enum {
+		x,
+		y,
+		z,
+		Vector3D,
+	};
 };
