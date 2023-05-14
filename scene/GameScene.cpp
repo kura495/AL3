@@ -40,7 +40,10 @@ void GameScene::Update() {
 	}
 	#endif
 	ImGui::Begin("Control");
-	ImGui::Text("DebugCamera : 0");
+	ImGui::Text("DebugCamera : 0\n");
+	ImGui::Text("PlayerMove : ARROWKEY\n");
+	ImGui::Text("PlayerRotate : A D\n");
+	ImGui::Text("PlayerShot : SPACE\n");
 	ImGui::End();
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
@@ -84,7 +87,6 @@ void GameScene::Draw() {
 
 	// 3Dモデルの描画
 	player_->Draw(viewProjection_);
-
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

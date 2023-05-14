@@ -4,20 +4,32 @@
 #include"Input.h"
 #include"Affine.h"
 #include"ImGuiManager.h"
-class Player {
+#include"WorldTransformEx.h"
+#include"PlayerBullet.h"
+class Player{
 public:
 
 	void Initialize(Model*model,uint32_t textureHandle);
 
 	void Updete();
 
-	void Draw(ViewProjection viewProjection_);
+	void Draw(const ViewProjection viewProjection_);
+
+	
 
 private:
+	
+	void Move();
+	void Rotate();
+	void Attack();
+	
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	Input* input_ = nullptr;
+	PlayerBullet* bullet_ = nullptr;
+
+	WorldTransformEx worldTransformEx_;
 	//ImGui用
 	enum {
 		x,

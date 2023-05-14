@@ -1,23 +1,32 @@
 #pragma once
 #include"Model.h"
+#include "WorldTransform.h"
+#include"WorldTransformEx.h"
 class PlayerBullet {
 public:
 	PlayerBullet();
 	~PlayerBullet();
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
-	/// <param name="model">ƒ‚ƒfƒ‹</param>
-	/// <param name="position">‰ŠúÀ•W</param>
+	/// <param name="model">ãƒ¢ãƒ‡ãƒ«</param>
+	/// <param name="position">åˆæœŸåº§æ¨™</param>
 	void Initialize(Model* model, const Vector3& position);
 
 	/// <summary>
-	/// XV
+	/// æ›´æ–°
 	/// </summary>
 	void Update();
 
-	void Draw(const ViewProjection&viewProjection);
+	void Draw(const ViewProjection viewProjection);
 
 private:
+
+	void Move();
+
+	WorldTransform worldTransform_;
+	Model* model_ = nullptr;
+	uint32_t textureHandle_ = 0u;
+	WorldTransformEx worldTransformEx_;
 };
 
