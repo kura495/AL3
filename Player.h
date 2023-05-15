@@ -6,8 +6,11 @@
 #include"ImGuiManager.h"
 #include"WorldTransformEx.h"
 #include"PlayerBullet.h"
+#include<list>
 class Player{
 public:
+	Player();
+	~Player();
 
 	void Initialize(Model*model,uint32_t textureHandle);
 
@@ -27,9 +30,10 @@ private:
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	Input* input_ = nullptr;
-	PlayerBullet* bullet_ = nullptr;
+	std::list<PlayerBullet*> bullets_;
 
 	WorldTransformEx worldTransformEx_;
+
 	//ImGui用
 	enum {
 		x,

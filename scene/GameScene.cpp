@@ -34,6 +34,8 @@ void GameScene::Initialize() {
 
 void GameScene::Update() { 
 	player_->Updete();
+
+	//デバッグとImGui
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = true;
