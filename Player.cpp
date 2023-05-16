@@ -18,6 +18,14 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 }
 
 void Player::Updete() { 
+	//デスフラグが立った玉を削除
+	bullets_.remove_if([](PlayerBullet* bullet) { 
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
 	//キャラの移動
 	Move();
 	//キャラの回転

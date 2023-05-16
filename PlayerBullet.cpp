@@ -20,12 +20,19 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 }
 
 void PlayerBullet::Update() { 
+	
+
 	//玉の移動
 	Move();
 
 	worldTransformEx_.UpdateMatrix(
 	    worldTransform_, worldTransform_.scale_, worldTransform_.rotation_,
 	    worldTransform_.translation_);
+
+	//時間経過でデスフラグを立てる
+	if(--deathTimer_ <= 0) {
+		isDead_ = true;
+	}
 }
 
 void PlayerBullet::Draw(const ViewProjection viewProjection_) { 

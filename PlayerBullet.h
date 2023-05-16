@@ -20,14 +20,22 @@ public:
 
 	void Draw(const ViewProjection viewProjection);
 
+	bool IsDead() const { return isDead_; };
+
 private:
 
 	void Move();
-
+	
 	Vector3 velocity_;
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	WorldTransformEx worldTransformEx_;
+	//玉の寿命
+	static const int32_t kLifeTime = 60 * 5;
+	//デスタイマー
+	int32_t deathTimer_ = kLifeTime;
+	//デスフラグ
+	bool isDead_ = false;
 };
 
