@@ -4,13 +4,15 @@ PlayerBullet::PlayerBullet() {}
 
 PlayerBullet::~PlayerBullet() {}
 
-void PlayerBullet::Initialize(Model* model, const Vector3& position) { 
+void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) { 
 	//modelチェック
 	assert(model);
 	//モデル読み込み
 	model_ = model;
 	//テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("sample.png");
+	//プレイヤーの向きを玉にも反映
+	velocity_ = velocity;
 	//ワールドトランスフォーム初期化
 	worldTransform_.Initialize();
 	//初期値セット
@@ -32,19 +34,7 @@ void PlayerBullet::Draw(const ViewProjection viewProjection_) {
 
 //private関数
 void PlayerBullet::Move() {
-	// 玉の移動ベクトル
-	Vector3 move = {0, 0, 0};
-	// 玉の移動の速さ
-	const float BulletSpeed = 0.2f;
-	move.y += BulletSpeed;
-	// 移動制限
-	/*const float kMoveLimitX = 30;
-	const float kMoveLimitY = 15;
-	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
-	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
-	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
-	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);*/
 	// 加算
-	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 
 }

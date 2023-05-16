@@ -39,7 +39,6 @@ void Player::Updete() {
 	worldTransform_.translation_.y = point[y];
 	worldTransform_.translation_.z = point[z];
 
-
 	worldTransformEx_.UpdateMatrix(worldTransform_,worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_);
 }
 
@@ -92,8 +91,14 @@ void Player::Rotate() {
 	
 void Player::Attack() {
 	if (input_->TriggerKey(DIK_SPACE)) {
+		//玉の速度
+		const float kBulletSpeed = 1.0f;
+		//1フレームにつきZ方向に1.0f進む
+		Vector3 velocity(0, 0, kBulletSpeed);
+		//速度ベクトルを自機の向きに合わせて回転
+		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_);
+		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 		bullets_.push_back(newBullet);
 	}
 	
