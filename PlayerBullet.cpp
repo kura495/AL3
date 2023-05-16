@@ -1,8 +1,6 @@
 #include"PlayerBullet.h"
 #include<cassert>
-PlayerBullet::PlayerBullet() {}
 
-PlayerBullet::~PlayerBullet() {}
 
 void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) { 
 	//modelチェック

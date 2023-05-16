@@ -4,8 +4,7 @@
 #include"WorldTransformEx.h"
 class PlayerBullet {
 public:
-	PlayerBullet();
-	~PlayerBullet();
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
