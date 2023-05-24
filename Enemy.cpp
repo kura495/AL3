@@ -10,11 +10,17 @@ void Enemy::Initialize(Model* model) {
 	textureHandle_ = TextureManager::Load("sample.png");
 	// ワールドトランスフォーム初期化
 	worldTransform_.Initialize();
-	
 }
 
 void Enemy::Update() {
-	Move();
+	switch(phase_) { 
+	case Phase::approach:
+	default:
+		PhaseApproach();
+	case Phase::Leave:
+		PhaseLeave();
+		break;
+	}
 
 	worldTransformEx_.UpdateMatrix(
 	    worldTransform_, worldTransform_.scale_, worldTransform_.rotation_,
@@ -28,4 +34,20 @@ void Enemy::Draw(const ViewProjection viewProjection) {
 //プライベート関数
 void Enemy::Move() { 
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_); 
+}
+
+void Enemy::PhaseApproach() 
+{
+	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
+	/*if (worldTransform_.translation_.z > -10.0f) {
+		phase_ = Phase::Leave;
+	}*/
+}
+
+void Enemy::PhaseLeave() 
+{
+	worldTransform_.translation_ = Subtract(worldTransform_.translation_, velocity_);
+	if (worldTransform_.translation_.z < 10.0f) {
+		phase_ = Phase::approach;
+	}
 }
