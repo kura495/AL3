@@ -1,10 +1,6 @@
 #include "Enemy.h"
 #include<cassert>
 
-Enemy::Enemy() {state_ = new PhaseApproach();}
-
-Enemy::~Enemy() { delete state_; }
-
 void Enemy::Initialize(Model* model) {
 	// modelチェック
 	assert(model);
@@ -15,11 +11,11 @@ void Enemy::Initialize(Model* model) {
 	// ワールドトランスフォーム初期化
 	worldTransform_.Initialize();
 	
-	
+	state_ = new PhaseApproach();
 }
 
 void Enemy::Update() {
-	StateUpdate();
+	worldTransform_.translation_=state_->Update(this, &velocity_);
 
 	ImGui::Begin("Enemy");
 	float point[Vector3D] = {
@@ -36,10 +32,6 @@ void Enemy::Update() {
 	    worldTransform_.translation_);
 }
 
-void Enemy::StateUpdate() { 
-	state_->Update(this);
-}
-
 void Enemy::Draw(const ViewProjection viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
@@ -49,29 +41,17 @@ void Enemy::PhaseChange(PhaseState* newState) {
 	state_ = newState;
 }
 
-
-
-void PhaseApproach::Update(Enemy* enemy) {
+Vector3 PhaseApproach::Update(Enemy* enemy,Vector3* velocity) {
 
 	if (enemy->GetTransform().z < -30.0f) {
 		enemy->PhaseChange(new PhaseLeave());
 	}
+	return Add(enemy->GetTransform(), *velocity);
 }
 
-PhaseApproach::PhaseApproach() {}
-
-PhaseApproach::~PhaseApproach() {}
-
-void PhaseLeave::Update(Enemy* enemy) {
+Vector3 PhaseLeave::Update(Enemy* enemy, Vector3* velocity) {
 	if (enemy->GetTransform().z > 30.0f) {
 		enemy->PhaseChange(new PhaseApproach());
 	}
+	return Subtract(enemy->GetTransform(), *velocity);
 }
-
-PhaseLeave::PhaseLeave() {}
-
-PhaseLeave::~PhaseLeave() {}
-
-PhaseState::PhaseState() {}
-
-PhaseState::~PhaseState() {}

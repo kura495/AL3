@@ -6,20 +6,30 @@
 #include"ImGuiSupport.h"
 #include"Phase.h"
 
-class PhaseState;
-class PhaseApproach;
-class PhaseLeave;
+class Enemy;
+
+class PhaseState {
+public:
+	virtual Vector3 Update(Enemy* enemy, Vector3* velocity) = 0;
+};
+
+class PhaseApproach : public PhaseState {
+public:
+	Vector3 Update(Enemy* enemy, Vector3* velocity);
+};
+
+class PhaseLeave : public PhaseState {
+public:
+	Vector3 Update(Enemy* enemy, Vector3* velocity);
+};
+
 
 class Enemy {
 public:
-	Enemy();
-	~Enemy();
 
 	void Initialize(Model* model);
 
 	void Update();
-
-	void StateUpdate();
 
 	void Draw(const ViewProjection viewProjection);
 
@@ -39,24 +49,4 @@ private:
 
 	PhaseState* state_;
 
-};
-class PhaseState {
-public:
-	PhaseState();
-	~PhaseState();
-	virtual void Update(Enemy* enemy) = 0;
-};
-
-class PhaseApproach : public PhaseState {
-public:
-	PhaseApproach();
-	~PhaseApproach();
-	void Update(Enemy* enemy);
-};
-
-class PhaseLeave : public PhaseState {
-public:
-	PhaseLeave();
-	~PhaseLeave();
-	void Update(Enemy* enemy);
 };
