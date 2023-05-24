@@ -1,6 +1,10 @@
 #include "Enemy.h"
 #include<cassert>
 
+Enemy::Enemy() {state_ = new PhaseApproach();}
+
+Enemy::~Enemy() { delete state_; }
+
 void Enemy::Initialize(Model* model) {
 	// modelチェック
 	assert(model);
@@ -11,11 +15,11 @@ void Enemy::Initialize(Model* model) {
 	// ワールドトランスフォーム初期化
 	worldTransform_.Initialize();
 	
+	
 }
 
 void Enemy::Update() {
-
-	(this->*PhaseFuncTable[static_cast<size_t>(phase_)])();
+	StateUpdate();
 
 	ImGui::Begin("Enemy");
 	float point[Vector3D] = {
@@ -32,37 +36,42 @@ void Enemy::Update() {
 	    worldTransform_.translation_);
 }
 
+void Enemy::StateUpdate() { 
+	state_->Update(this);
+}
+
 void Enemy::Draw(const ViewProjection viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
-//プライベート関数
-void Enemy::Move() { 
-	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_); 
-}
-/// <summary>
-/// カメラに近づく関数
-/// </summary>
-void Enemy::Approach() 
-{
-	if (worldTransform_.translation_.z < -30.0f) {
-		phase_ = Phase::Leave;
-	}
-	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
-}
-/// <summary>
-/// カメラから遠ざかる関数
-/// </summary>
-void Enemy::Leave()
-{
-	if (worldTransform_.translation_.z > 30.0f) {
-		phase_ = Phase::Approach;
-	}
-
-	worldTransform_.translation_ = Subtract(worldTransform_.translation_, velocity_);
+void Enemy::PhaseChange(PhaseState* newState) { 
+	delete state_;
+	state_ = newState;
 }
 
-void (Enemy::*Enemy::PhaseFuncTable[])() = {
-		&Enemy::Approach,
-		&Enemy::Leave
-	};
+
+
+void PhaseApproach::Update(Enemy* enemy) {
+
+	if (enemy->GetTransform().z < -30.0f) {
+		enemy->PhaseChange(new PhaseLeave());
+	}
+}
+
+PhaseApproach::PhaseApproach() {}
+
+PhaseApproach::~PhaseApproach() {}
+
+void PhaseLeave::Update(Enemy* enemy) {
+	if (enemy->GetTransform().z > 30.0f) {
+		enemy->PhaseChange(new PhaseApproach());
+	}
+}
+
+PhaseLeave::PhaseLeave() {}
+
+PhaseLeave::~PhaseLeave() {}
+
+PhaseState::PhaseState() {}
+
+PhaseState::~PhaseState() {}

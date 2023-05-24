@@ -4,22 +4,30 @@
 #include"WorldTransformEx.h"
 #include"ImGuiManager.h"
 #include"ImGuiSupport.h"
+#include"Phase.h"
+
+class PhaseState;
+class PhaseApproach;
+class PhaseLeave;
+
 class Enemy {
 public:
+	Enemy();
+	~Enemy();
+
 	void Initialize(Model* model);
 
 	void Update();
 
+	void StateUpdate();
+
 	void Draw(const ViewProjection viewProjection);
-	
+
+	Vector3 GetTransform() { return worldTransform_.translation_; }
+
+	void PhaseChange(PhaseState* newState);
 private:
 
-	enum class Phase {
-		Approach,
-		Leave,
-	};
-
-	Phase phase_ = Phase::Approach;
 	const float kEnemySpeed = -0.2f;
 	const float kEnemySpeedY = 0.02f;
 	Vector3 velocity_ = {0, kEnemySpeedY, kEnemySpeed};
@@ -28,11 +36,27 @@ private:
 	uint32_t textureHandle_ = 0u;
 	WorldTransformEx worldTransformEx_;
 	//プライベート関数
-	void Move();
-	void Approach();
-	void Leave();
 
-	//メンバー関数ポインタ
-	static void (Enemy::*PhaseFuncTable[])();
+	PhaseState* state_;
+
+};
+class PhaseState {
+public:
+	PhaseState();
+	~PhaseState();
+	virtual void Update(Enemy* enemy) = 0;
 };
 
+class PhaseApproach : public PhaseState {
+public:
+	PhaseApproach();
+	~PhaseApproach();
+	void Update(Enemy* enemy);
+};
+
+class PhaseLeave : public PhaseState {
+public:
+	PhaseLeave();
+	~PhaseLeave();
+	void Update(Enemy* enemy);
+};
