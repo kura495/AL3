@@ -29,7 +29,10 @@ private:
 	WorldTransformEx worldTransformEx_;
 	//プライベート関数
 	void Move();
-	void PhaseApproach();
-	void PhaseLeave();
+	void Approach();
+	void Leave();
+
+	//メンバー関数ポインタ
+	static void (Enemy::*PhaseFuncTable[])();
 };
 

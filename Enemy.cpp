@@ -10,18 +10,13 @@ void Enemy::Initialize(Model* model) {
 	textureHandle_ = TextureManager::Load("sample.png");
 	// ワールドトランスフォーム初期化
 	worldTransform_.Initialize();
+	
 }
 
 void Enemy::Update() {
 
-	switch(phase_) { 
-	case Phase::Approach:
-		PhaseApproach();
-		break;
-	case Phase::Leave:
-		PhaseLeave();
-		break;
-	}
+	(this->*PhaseFuncTable[static_cast<size_t>(phase_)])();
+
 	ImGui::Begin("Enemy");
 	float point[Vector3D] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
@@ -48,23 +43,26 @@ void Enemy::Move() {
 /// <summary>
 /// カメラに近づく関数
 /// </summary>
-void Enemy::PhaseApproach() 
+void Enemy::Approach() 
 {
 	if (worldTransform_.translation_.z < -30.0f) {
 		phase_ = Phase::Leave;
 	}
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
-	
 }
 /// <summary>
 /// カメラから遠ざかる関数
 /// </summary>
-void Enemy::PhaseLeave()
+void Enemy::Leave()
 {
 	if (worldTransform_.translation_.z > 30.0f) {
 		phase_ = Phase::Approach;
 	}
 
 	worldTransform_.translation_ = Subtract(worldTransform_.translation_, velocity_);
-	
 }
+
+void (Enemy::*Enemy::PhaseFuncTable[])() = {
+		&Enemy::Approach,
+		&Enemy::Leave
+	};
