@@ -19,7 +19,7 @@ private:
 		Leave,
 	};
 
-	Phase phase_ = Phase::Leave;
+	Phase phase_ = Phase::Approach;
 	const float kEnemySpeed = -0.2f;
 	const float kEnemySpeedY = 0.02f;
 	Vector3 velocity_ = {0, kEnemySpeedY, kEnemySpeed};

@@ -45,7 +45,9 @@ void Enemy::Draw(const ViewProjection viewProjection) {
 void Enemy::Move() { 
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_); 
 }
-
+/// <summary>
+/// カメラに近づく関数
+/// </summary>
 void Enemy::PhaseApproach() 
 {
 	if (worldTransform_.translation_.z < -30.0f) {
@@ -54,12 +56,15 @@ void Enemy::PhaseApproach()
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 	
 }
-
+/// <summary>
+/// カメラから遠ざかる関数
+/// </summary>
 void Enemy::PhaseLeave()
 {
 	if (worldTransform_.translation_.z > 30.0f) {
 		phase_ = Phase::Approach;
 	}
+
 	worldTransform_.translation_ = Subtract(worldTransform_.translation_, velocity_);
 	
 }
