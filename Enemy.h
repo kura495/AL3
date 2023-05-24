@@ -2,7 +2,8 @@
 #include"Model.h"
 #include "WorldTransform.h"
 #include"WorldTransformEx.h"
-
+#include"ImGuiManager.h"
+#include"ImGuiSupport.h"
 class Enemy {
 public:
 	void Initialize(Model* model);
@@ -14,12 +15,11 @@ public:
 private:
 
 	enum class Phase {
-		approach,
+		Approach,
 		Leave,
 	};
 
-	Phase phase_ = Phase::approach;
-	
+	Phase phase_ = Phase::Leave;
 	const float kEnemySpeed = -0.2f;
 	const float kEnemySpeedY = 0.02f;
 	Vector3 velocity_ = {0, kEnemySpeedY, kEnemySpeed};

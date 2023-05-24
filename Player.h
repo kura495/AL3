@@ -4,6 +4,7 @@
 #include"Input.h"
 #include"Affine.h"
 #include"ImGuiManager.h"
+#include"ImGuiSupport.h"
 #include"WorldTransformEx.h"
 #include"PlayerBullet.h"
 #include<list>
@@ -34,11 +35,5 @@ private:
 
 	WorldTransformEx worldTransformEx_;
 
-	//ImGui用
-	enum {
-		x,
-		y,
-		z,
-		Vector3D,
-	};
+	
 };

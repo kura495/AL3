@@ -13,14 +13,24 @@ void Enemy::Initialize(Model* model) {
 }
 
 void Enemy::Update() {
+
 	switch(phase_) { 
-	case Phase::approach:
-	default:
+	case Phase::Approach:
 		PhaseApproach();
+		break;
 	case Phase::Leave:
 		PhaseLeave();
 		break;
 	}
+	ImGui::Begin("Enemy");
+	float point[Vector3D] = {
+	    worldTransform_.translation_.x, worldTransform_.translation_.y,
+	    worldTransform_.translation_.z};
+	ImGui::SliderFloat3("Point", point, -30.0f, 30.0f);
+	ImGui::End();
+	worldTransform_.translation_.x = point[x];
+	worldTransform_.translation_.y = point[y];
+	worldTransform_.translation_.z = point[z];
 
 	worldTransformEx_.UpdateMatrix(
 	    worldTransform_, worldTransform_.scale_, worldTransform_.rotation_,
@@ -38,16 +48,18 @@ void Enemy::Move() {
 
 void Enemy::PhaseApproach() 
 {
-	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
-	/*if (worldTransform_.translation_.z > -10.0f) {
+	if (worldTransform_.translation_.z < -30.0f) {
 		phase_ = Phase::Leave;
-	}*/
+	}
+	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
+	
 }
 
-void Enemy::PhaseLeave() 
+void Enemy::PhaseLeave()
 {
-	worldTransform_.translation_ = Subtract(worldTransform_.translation_, velocity_);
-	if (worldTransform_.translation_.z < 10.0f) {
-		phase_ = Phase::approach;
+	if (worldTransform_.translation_.z > 30.0f) {
+		phase_ = Phase::Approach;
 	}
+	worldTransform_.translation_ = Subtract(worldTransform_.translation_, velocity_);
+	
 }
