@@ -15,7 +15,7 @@ void Enemy::Initialize(Model* model) {
 }
 
 void Enemy::Update() {
-	worldTransform_.translation_=state_->Update(this, &velocity_);
+	state_->Update(this, velocity_);
 
 	ImGui::Begin("Enemy");
 	float point[Vector3D] = {
@@ -36,22 +36,30 @@ void Enemy::Draw(const ViewProjection viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
+void Enemy::WorldTransformAdd(const Vector3& velocity) {
+	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity);
+}
+
+void Enemy::WorldTransformSubtract(const Vector3& velocity) {
+	worldTransform_.translation_ = Subtract(worldTransform_.translation_, velocity);
+}
+
 void Enemy::PhaseChange(PhaseState* newState) { 
 	delete state_;
 	state_ = newState;
 }
 
-Vector3 PhaseApproach::Update(Enemy* enemy,Vector3* velocity) {
+void PhaseApproach::Update(Enemy* enemy,const Vector3&velocity) {
 
 	if (enemy->GetTransform().z < -30.0f) {
 		enemy->PhaseChange(new PhaseLeave());
 	}
-	return Add(enemy->GetTransform(), *velocity);
+	enemy->WorldTransformAdd(velocity);
 }
 
-Vector3 PhaseLeave::Update(Enemy* enemy, Vector3* velocity) {
+void PhaseLeave::Update(Enemy* enemy, const Vector3& velocity) {
 	if (enemy->GetTransform().z > 30.0f) {
 		enemy->PhaseChange(new PhaseApproach());
 	}
-	return Subtract(enemy->GetTransform(), *velocity);
+	enemy->WorldTransformSubtract(velocity);
 }
