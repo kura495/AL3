@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include"Player.h"
 #include<cassert>
 
 void Enemy::Initialize(Model* model) {
@@ -52,6 +53,14 @@ void Enemy::Draw(const ViewProjection viewProjection) {
 	}
 }
 
+Vector3 Enemy::GetWorldPosition() {
+	Vector3 worldPos;
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+	return worldPos;
+}
+
 void Enemy::WorldTransformAdd(const Vector3& velocity) {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity);
 }
@@ -73,16 +82,19 @@ if (--BulletShotTimer <= 0) {
 }
 
 void Enemy::Fire() {
-
-		BulletShotTimer = kFireInterval;
-		EnemyBullet* newEnemyBullet_ = new EnemyBullet();
-		// 玉の速度
-		const float kBulletSpeed = -1.0f;
-		// 1フレームにつきZ方向に-1.0f進む
-		Vector3 velocity(0, 0, kBulletSpeed);
-		// 速度ベクトルを自機の向きに合わせて回転
-		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
-		newEnemyBullet_->Initialize(model_, worldTransform_.translation_, velocity);
+	assert(player_);
+	const float kBulletSpeed = 1.0f;
+	Vector3 playerPosition=player_->GetWorldPosition();
+	Vector3 enemyPosition=this->GetWorldPosition();
+	Vector3 Bulletvelocity = Subtract(playerPosition, enemyPosition);
+	Bulletvelocity = Normalize(Bulletvelocity);
+	Bulletvelocity.x *= kBulletSpeed;
+	Bulletvelocity.y *= kBulletSpeed;
+	Bulletvelocity.z *= kBulletSpeed;
+	BulletShotTimer = kFireInterval;
+	EnemyBullet* newEnemyBullet_ = new EnemyBullet();
+	
+	newEnemyBullet_->Initialize(model_, worldTransform_.translation_, Bulletvelocity);
 		bullets_.push_back(newEnemyBullet_);
 
 }
@@ -90,9 +102,6 @@ void Enemy::Fire() {
 void Enemy::ApproachInitialize() { 
 	BulletShotTimer = kFireInterval;
 }
-
-
-
 
 void PhaseApproach::Update(Enemy* enemy,const Vector3&velocity) {
 	    enemy->ApproachUpdate();

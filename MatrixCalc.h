@@ -1,7 +1,5 @@
 #pragma once
 #include<Vector3.h>
-#define _USE_MATH_DEFINES
-#include<math.h>
 #include<Matrix4x4.h>
 #include<cmath>
 Matrix4x4 Add(const Matrix4x4& m1, const Matrix4x4& m2);

@@ -32,6 +32,8 @@ void GameScene::Initialize() {
 	//敵
 	enemy_ = new Enemy();
 	enemy_->Initialize(model_);
+	//EnemyにPlayerのアドレスを渡す
+	enemy_->SetPlayer(player_);
 
 	debugCamera_ = new DebugCamera(1280,720);
 	AxisIndicator::GetInstance()->SetVisible(true);

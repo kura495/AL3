@@ -19,7 +19,7 @@ public:
 
 	void Draw(const ViewProjection viewProjection_);
 
-	
+	Vector3 GetWorldPosition();
 
 private:
 	
