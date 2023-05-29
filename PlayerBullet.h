@@ -2,6 +2,7 @@
 #include"Model.h"
 #include "WorldTransform.h"
 #include"WorldTransformEx.h"
+#include"VectorCalc.h"
 class PlayerBullet {
 public:
 

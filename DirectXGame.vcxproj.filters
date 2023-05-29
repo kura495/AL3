@@ -75,7 +75,7 @@
     <ClCompile Include="2d\ImGuiManager.cpp">
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
-    <ClCompile Include="Affine.cpp">
+    <ClCompile Include="MatrixCalc.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="WorldTransformEx.cpp">
@@ -90,7 +90,10 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Phase.cpp">
+    <ClCompile Include="VectorCalc.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBullet.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,7 +182,7 @@
     <ClInclude Include="2d\ImGuiManager.h">
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
-    <ClInclude Include="Affine.h">
+    <ClInclude Include="MatrixCalc.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="WorldTransformEx.h">
@@ -197,7 +200,10 @@
     <ClInclude Include="ImGuiSupport.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Phase.h">
+    <ClInclude Include="VectorCalc.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

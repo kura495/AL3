@@ -4,7 +4,10 @@
 #include"WorldTransformEx.h"
 #include"ImGuiManager.h"
 #include"ImGuiSupport.h"
-#include"Phase.h"
+#include"EnemyBullet.h"
+#include"MatrixCalc.h"
+#include"VectorCalc.h"
+#include<list>
 
 class Enemy;
 
@@ -34,7 +37,6 @@ public:
 	//ステートパターンで使う移動用関数
 	void WorldTransformAdd(const Vector3& velocity);
 	void WorldTransformSubtract(const Vector3& velocity);
-
 	void PhaseChange(PhaseState* newState);
 private:
 
@@ -45,7 +47,12 @@ private:
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	WorldTransformEx worldTransformEx_;
+	
+	const int kBulletShot = 60;
+	int BulletShotTimer = 0;
+	std::list<std::unique_ptr<EnemyBullet*>> bullets_;
 	//プライベート関数
+	void Fire();
 
 	PhaseState* state_;
 

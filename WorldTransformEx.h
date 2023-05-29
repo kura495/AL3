@@ -1,6 +1,6 @@
 #pragma once
 #include"WorldTransform.h"
-#include"Affine.h"
+#include"MatrixCalc.h"
 class WorldTransformEx {
 public:
 	WorldTransformEx();

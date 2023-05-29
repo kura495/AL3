@@ -107,15 +107,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="2d\ImGuiManager.cpp" />
-    <ClCompile Include="Affine.cpp" />
+    <ClCompile Include="EnemyBullet.cpp" />
+    <ClCompile Include="MatrixCalc.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Phase.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
+    <ClCompile Include="VectorCalc.cpp" />
     <ClCompile Include="WorldTransformEx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +137,8 @@
     <ClInclude Include="3d\TerrainCommon.h" />
     <ClInclude Include="3d\ViewProjection.h" />
     <ClInclude Include="3d\WorldTransform.h" />
-    <ClInclude Include="Affine.h" />
+    <ClInclude Include="EnemyBullet.h" />
+    <ClInclude Include="MatrixCalc.h" />
     <ClInclude Include="audio\Audio.h" />
     <ClInclude Include="base\DirectXCommon.h" />
     <ClInclude Include="base\SafeDelete.h" />
@@ -149,10 +151,10 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
-    <ClInclude Include="Phase.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="scene\GameScene.h" />
+    <ClInclude Include="VectorCalc.h" />
     <ClInclude Include="WorldTransformEx.h" />
   </ItemGroup>
   <ItemGroup>

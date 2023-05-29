@@ -49,6 +49,20 @@ void Enemy::PhaseChange(PhaseState* newState) {
 	state_ = newState;
 }
 
+void Enemy::Fire() {
+
+	if (BulletShotTimer>=kBulletShot) {
+		EnemyBullet* newEnemyBullet_ = new EnemyBullet();
+		newEnemyBullet_->Initialize(model_, worldTransform_.translation_);
+		bullets_ = newEnemyBullet_;
+	}
+	
+
+}
+
+
+
+
 void PhaseApproach::Update(Enemy* enemy,const Vector3&velocity) {
 
 	if (enemy->GetTransform().z < -30.0f) {

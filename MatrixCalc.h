@@ -5,8 +5,6 @@
 #include<Matrix4x4.h>
 #include<cmath>
 Matrix4x4 Add(const Matrix4x4& m1, const Matrix4x4& m2);
-Vector3 Add(const Vector3& m1, const Vector3& m2);
-Vector3 Subtract(const Vector3& m1, const Vector3& m2);
 Matrix4x4 Multiply(const Matrix4x4& m1, const Matrix4x4& m2);
 Matrix4x4 MakeScaleMatrix(const Vector3& scale);
 Matrix4x4 MakeRotateXMatrix(float radian);
