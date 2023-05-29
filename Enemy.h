@@ -38,6 +38,9 @@ public:
 	void WorldTransformAdd(const Vector3& velocity);
 	void WorldTransformSubtract(const Vector3& velocity);
 	void PhaseChange(PhaseState* newState);
+	//フェーズごとのアップデート
+	void ApproachUpdate();
+
 private:
 
 	const float kEnemySpeed = -0.2f;
@@ -47,12 +50,14 @@ private:
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	WorldTransformEx worldTransformEx_;
-	
-	const int kBulletShot = 60;
-	int BulletShotTimer = 0;
-	std::list<std::unique_ptr<EnemyBullet*>> bullets_;
+	//玉の発射間隔
+	static const int32_t kFireInterval = 60;
+	int32_t BulletShotTimer = kFireInterval;
+	std::list<EnemyBullet*> bullets_;
 	//プライベート関数
 	void Fire();
+	//フェーズごとの初期化
+	void ApproachInitialize();
 
 	PhaseState* state_;
 
