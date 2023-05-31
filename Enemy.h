@@ -59,19 +59,18 @@ private:
 	const float kEnemySpeedY = 0.02f;
 	//移動量(Vector)
 	Vector3 velocity_ = {0, kEnemySpeedY, kEnemySpeed};
-	
+
 	WorldTransformEx worldTransformEx_;
-	
 	//玉
 	std::list<EnemyBullet*> bullets_;
+	std::list<TimedCall*> timedCalls_;
 	//玉の発射
 	void Fire();
 	//自キャラ(ここでは絶対にnullptr)(setterで)
 	Player* player_ = nullptr;
-	//ステートパターン
-	
-	std::list<TimedCall*> timedCalls_;
 
+
+	//ステートパターン
 	PhaseState* state_;
 
 };
