@@ -76,7 +76,6 @@ void Enemy::PhaseChange(PhaseState* newState) {
 
 void Enemy::ApproachUpdate() {
 	Fire();
-	//timedCalls_.push_back(new TimedCall(std::bind(&Enemy::Fire, this), 30));
 	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), 60));
 }
 
@@ -96,7 +95,6 @@ void Enemy::Fire() {
 }
 
 void Enemy::ApproachInitialize() { 
-	BulletShotTimer = kFireInterval;
 	    timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), 60));
 }
 void Enemy::LeaveInitialize() {
