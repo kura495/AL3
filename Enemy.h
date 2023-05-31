@@ -8,6 +8,7 @@
 #include"MatrixCalc.h"
 #include"VectorCalc.h"
 #include<list>
+#include"TimedCall.h"
 
 class Enemy;
 
@@ -40,6 +41,9 @@ public:
 	void PhaseChange(PhaseState* newState);
 	//フェーズごとのアップデート
 	void ApproachUpdate();
+	//フェーズごとの初期化
+	void ApproachInitialize();
+	void LeaveInitialize();
 
 private:
 
@@ -56,9 +60,9 @@ private:
 	std::list<EnemyBullet*> bullets_;
 	//プライベート関数
 	void Fire();
-	//フェーズごとの初期化
-	void ApproachInitialize();
-
+	std::list<TimedCall*> timedCalls_;
+	
+	
 	PhaseState* state_;
 
 };
