@@ -63,9 +63,6 @@ private:
 	WorldTransformEx worldTransformEx_;
 	
 	//玉
-	//玉の発射間隔
-	static const int32_t kFireInterval = 60;
-	int32_t BulletShotTimer = kFireInterval;
 	std::list<EnemyBullet*> bullets_;
 	//玉の発射
 	void Fire();

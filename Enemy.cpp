@@ -98,7 +98,6 @@ void Enemy::Fire() {
 	Bulletvelocity.x *= kBulletSpeed;
 	Bulletvelocity.y *= kBulletSpeed;
 	Bulletvelocity.z *= kBulletSpeed;
-	BulletShotTimer = kFireInterval;
 	EnemyBullet* newEnemyBullet_ = new EnemyBullet();
 	
 	newEnemyBullet_->Initialize(model_, worldTransform_.translation_, Bulletvelocity);
