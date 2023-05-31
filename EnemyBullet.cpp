@@ -5,6 +5,9 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 	model_ = model;
 	textureHandle_ = TextureManager::Load("Black.png");
 	worldTransform_.Initialize();
+	worldTransform_.scale_.x = 0.5f;
+	worldTransform_.scale_.y = 0.5f;
+	worldTransform_.scale_.z = 3.0f;
 	worldTransform_.translation_ = position;
 	velosity_=velosity;
 }
