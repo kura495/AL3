@@ -55,8 +55,6 @@ private:
 	uint32_t textureHandle_ = 0u;
 	WorldTransformEx worldTransformEx_;
 	//玉の発射間隔
-	static const int32_t kFireInterval = 60;
-	int32_t BulletShotTimer = kFireInterval;
 	std::list<EnemyBullet*> bullets_;
 	//プライベート関数
 	void Fire();

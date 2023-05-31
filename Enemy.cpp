@@ -81,7 +81,6 @@ void Enemy::ApproachUpdate() {
 
 void Enemy::Fire() {
 
-		BulletShotTimer = kFireInterval;
 		EnemyBullet* newEnemyBullet_ = new EnemyBullet();
 		// 玉の速度
 		const float kBulletSpeed = -1.0f;
