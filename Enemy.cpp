@@ -106,7 +106,7 @@ void Enemy::Fire() {
 }
 
 void Enemy::ApproachInitialize() { 
-	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), 60));
+	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), 0));
 }
 
 void Enemy::LeaveInitialize() {
