@@ -8,6 +8,7 @@
 #include"MatrixCalc.h"
 #include"VectorCalc.h"
 #include<list>
+#include"TimedCall.h"
 //クラスの前方宣言
 class Player;
 class Enemy;
@@ -45,7 +46,9 @@ public:
 	void PhaseChange(PhaseState* newState);
 	//フェーズごとのアップデート
 	void ApproachUpdate();
-
+	//フェーズごとの初期化
+	void ApproachInitialize();
+	void LeaveInitialize();
 private:
 	//基本的な変数
 	WorldTransform worldTransform_;
@@ -58,6 +61,7 @@ private:
 	Vector3 velocity_ = {0, kEnemySpeedY, kEnemySpeed};
 	
 	WorldTransformEx worldTransformEx_;
+	
 	//玉
 	//玉の発射間隔
 	static const int32_t kFireInterval = 60;
@@ -68,8 +72,9 @@ private:
 	//自キャラ(ここでは絶対にnullptr)(setterで)
 	Player* player_ = nullptr;
 	//ステートパターン
-	//フェーズごとの初期化
-	void ApproachInitialize();
+	
+	std::list<TimedCall*> timedCalls_;
+
 	PhaseState* state_;
 
 };

@@ -19,7 +19,16 @@ void Enemy::Initialize(Model* model) {
 
 void Enemy::Update() {
 	state_->Update(this, velocity_);
-	
+	for (TimedCall* timedCall_ : timedCalls_) {
+		timedCall_->Update();
+	}
+	timedCalls_.remove_if([](TimedCall* timedCall_) {
+		if (timedCall_->IsConpleted()) {
+			delete timedCall_;
+			return true;
+		}
+		return false;
+	});
 	for(EnemyBullet* bullet_:bullets_) {
 		bullet_->Update();
 	}
@@ -75,10 +84,8 @@ void Enemy::PhaseChange(PhaseState* newState) {
 }
 
 void Enemy::ApproachUpdate() {
-if (--BulletShotTimer <= 0) {
-		Fire();
-		BulletShotTimer = kFireInterval;
-	}
+	Fire();
+	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), 60));
 }
 
 void Enemy::Fire() {
@@ -100,12 +107,22 @@ void Enemy::Fire() {
 }
 
 void Enemy::ApproachInitialize() { 
-	BulletShotTimer = kFireInterval;
+	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), 60));
+}
+
+void Enemy::LeaveInitialize() {
+	    timedCalls_.remove_if([](TimedCall* timedCall_) {
+		    if (timedCall_ != nullptr) {
+			    delete timedCall_;
+			    return true;
+		    }
+		    return false;
+	    });
 }
 
 void PhaseApproach::Update(Enemy* enemy,const Vector3&velocity) {
-	    enemy->ApproachUpdate();
 	if (enemy->GetTransform().z < -30.0f) {
+		enemy->LeaveInitialize();
 		enemy->PhaseChange(new PhaseLeave());
 	}
 	enemy->WorldTransformAdd(velocity);
@@ -113,6 +130,7 @@ void PhaseApproach::Update(Enemy* enemy,const Vector3&velocity) {
 
 void PhaseLeave::Update(Enemy* enemy, const Vector3& velocity) {
 	if (enemy->GetTransform().z > 30.0f) {
+		enemy->ApproachInitialize();
 		enemy->PhaseChange(new PhaseApproach());
 	}
 	enemy->WorldTransformSubtract(velocity);

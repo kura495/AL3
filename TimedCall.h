@@ -11,10 +11,10 @@ public:
 	bool IsConpleted() const { return IsConplete_; }
 
 private:
-	// コールバック
+	// 繧ｳ繝ｼ繝ｫ繝舌ャ繧ｯ
 	std::function<void()> function_;
-	// 残り時間
+	// 谿九ｊ譎る俣
 	uint32_t time_;
-	// 完了フラグ
+	// 螳御ｺ�繝輔Λ繧ｰ
 	bool IsConplete_ = false;
 };
