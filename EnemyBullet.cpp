@@ -1,6 +1,6 @@
 #include "EnemyBullet.h"
 
-void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velosity) { 
+void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	assert(model);
 	model_ = model;
 	textureHandle_ = TextureManager::Load("Black.png");
@@ -8,9 +8,11 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 	worldTransform_.scale_.x = 0.5f;
 	worldTransform_.scale_.y = 0.5f;
 	worldTransform_.scale_.z = 3.0f;
-	worldTransform_.rotation_.y = std::atan2(velosity.z,velosity.x);
 	worldTransform_.translation_ = position;
-	velosity_=velosity;
+	worldTransform_.rotation_.y = std::atan2(velocity.x,velocity.z);
+	float VelocityXZ = sqrt((velocity.x * velocity.x) + (velocity.z * velocity.z));
+	worldTransform_.rotation_.x = std::atan2(-velocity.y, VelocityXZ);
+	velocity_=velocity;
 }
 
 void EnemyBullet::Update() { 
@@ -27,7 +29,7 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 }
 
 void EnemyBullet::Move() {
-	worldTransform_.translation_ = Add(worldTransform_.translation_, velosity_);
+	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 }
 
 

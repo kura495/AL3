@@ -21,7 +21,7 @@ private:
 	WorldTransform worldTransform_;
 	Model* model_;
 	uint32_t textureHandle_;
-	Vector3 velosity_;
+	Vector3 velocity_;
 	WorldTransformEx worldTransformEx;
 	//玉の寿命
 	static const int32_t kLifeTime = 60 * 3;
