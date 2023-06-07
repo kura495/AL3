@@ -36,7 +36,6 @@ void Player::Updete() {
 		for (PlayerBullet* bullet_ : bullets_) {
 		bullet_->Update();
 		}
-	
 
 	//ImGuiの準備
 	float point[Vector3D] = {worldTransform_.translation_.x, worldTransform_.translation_.y,worldTransform_.translation_.z};
@@ -59,6 +58,9 @@ void Player::Draw(const ViewProjection viewProjection_) {
 }
 
 Vector3 Player::GetWorldPosition() {
+	worldTransformEx_.UpdateMatrix(
+	    worldTransform_, worldTransform_.scale_, worldTransform_.rotation_,
+	    worldTransform_.translation_);
 	Vector3 worldPos;
 	worldPos.x = worldTransform_.translation_.x;
 	worldPos.y = worldTransform_.translation_.y;
