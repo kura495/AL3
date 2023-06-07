@@ -64,9 +64,12 @@ void Enemy::Draw(const ViewProjection viewProjection) {
 
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 worldPos;
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
+	worldTransformEx_.UpdateMatrix(
+	    worldTransform_, worldTransform_.scale_, worldTransform_.rotation_,
+	    worldTransform_.translation_);
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
 	return worldPos;
 }
 
@@ -90,7 +93,7 @@ void Enemy::ApproachUpdate() {
 
 void Enemy::Fire() {
 	assert(player_);
-	const float kBulletSpeed = 1.0f;
+	const float kBulletSpeed = 0.2f;
 	Vector3 playerPosition=player_->GetWorldPosition();
 	Vector3 enemyPosition=this->GetWorldPosition();
 	Vector3 Bulletvelocity = Subtract(playerPosition, enemyPosition);
