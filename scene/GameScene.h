@@ -62,5 +62,9 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	
+	Vector3 v1 = {1.0f, 6.0f, 3.0f};
+	Vector3 v2 = {4.0f, 4.0f, 10.0f};
+	Vector3 Result = {0};
+	float t = 0;
+	bool Spece = false;
 };

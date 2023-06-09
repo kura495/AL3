@@ -14,6 +14,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	textureHandle_ = textureHandle;
 	model_ = model;
 	worldTransform_.Initialize();
+	worldTransform_.translation_ = Add(worldTransform_.translation_, {1.0f, 1.0f, -1.0f});
 	input_ = Input::GetInstance();
 }
 

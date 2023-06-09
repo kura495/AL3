@@ -1,5 +1,5 @@
 #include "EnemyBullet.h"
-
+#include"Player.h"
 void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	assert(model);
 	model_ = model;
@@ -8,17 +8,16 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 	worldTransform_.scale_.x = 0.5f;
 	worldTransform_.scale_.y = 0.5f;
 	worldTransform_.scale_.z = 3.0f;
-	worldTransform_.translation_ = position;
-	worldTransform_.rotation_.y = std::atan2(velocity.x,velocity.z);
-	float VelocityXZ = sqrt((velocity.x * velocity.x) + (velocity.z * velocity.z));
-	worldTransform_.rotation_.x = std::atan2(-velocity.y, VelocityXZ);
 	velocity_=velocity;
+	toPlayer = velocity;
+	worldTransform_.translation_ = position;
 }
 
 void EnemyBullet::Update() { 
+	
+	Homing();
 	Move();
 	worldTransformEx.UpdateMatrix(worldTransform_,worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_); 
-
 	if (--deathTimer_ <= 0) {
 		isDead_ = true;
 	}
@@ -28,8 +27,29 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
-void EnemyBullet::Move() {
-	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
+void EnemyBullet::Move() { worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
+}
+
+void EnemyBullet::Homing() { 
+	//玉のホーミング
+	velocity_=toPlayer;
+	toPlayer = Subtract(player_->GetWorldPosition(), worldTransform_.translation_);
+	toPlayer = Normalize(toPlayer);
+	velocity_ = Normalize(velocity_);
+	velocity_ = VectorSLerp(velocity_, toPlayer, t);
+	velocity_.x *= kBulletSpeed;
+	velocity_.y *= kBulletSpeed;
+	velocity_.z *= kBulletSpeed;
+	//玉の向き
+	worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
+	float VelocityXZ = sqrt((velocity_.x * velocity_.x) + (velocity_.z * velocity_.z));
+	worldTransform_.rotation_.x = std::atan2(-velocity_.y, VelocityXZ);
+	ImGui::Begin("Lerp");
+	ImGui::InputFloat("x", &velocity_.x, 1, 1, "%.3f");
+	ImGui::InputFloat("y", &velocity_.y, 1, 1, "%.3f");
+	ImGui::InputFloat("z", &velocity_.z, 1, 1, "%.3f");
+	ImGui::InputFloat("t", &t, 1, 1, "%.3f");
+	ImGui::End();
 }
 
 

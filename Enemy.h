@@ -57,6 +57,7 @@ private:
 	//移動量
 	const float kEnemySpeed = -0.2f;
 	const float kEnemySpeedY = 0.02f;
+	const int32_t kBulletInterVal = 60;
 	//移動量(Vector)
 	Vector3 velocity_ = {0, kEnemySpeedY, kEnemySpeed};
 

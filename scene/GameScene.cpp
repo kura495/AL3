@@ -63,6 +63,23 @@ void GameScene::Update() {
 	} else {
 		viewProjection_.UpdateMatrix();
 	}
+	if (input_->PushKey(DIK_4)) {
+		Spece = true;
+	}
+	if (Spece == true) {
+		t += 0.005f;
+	}
+	if (t > 1) {
+		t = 1;
+	} else if(t<0) {
+		t = 0;
+	}
+	Result = VectorSLerp(v1, v2, t);
+	/*ImGui::Begin("Lerp");
+	ImGui::InputFloat("x", &Result.x,1,1, "%.3f");
+	ImGui::InputFloat("y", &Result.y,1,1, "%.3f");
+	ImGui::InputFloat("z", &Result.z,1,1, "%.3f");
+	ImGui::End();*/
 	
 }
 

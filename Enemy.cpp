@@ -11,7 +11,7 @@ void Enemy::Initialize(Model* model) {
 	textureHandle_ = TextureManager::Load("sample.png");
 	// ワールドトランスフォーム初期化
 	worldTransform_.Initialize();
-	worldTransform_.translation_ = Add(worldTransform_.translation_, {10.0f, 0.0f, 0.0f});
+	worldTransform_.translation_ = Add(worldTransform_.translation_, {10.0f, 0.0f, 29.0f});
 	//最初の状態
 	state_ = new PhaseApproach();
 	ApproachInitialize();
@@ -88,28 +88,23 @@ void Enemy::PhaseChange(PhaseState* newState) {
 
 void Enemy::ApproachUpdate() {
 	Fire();
-	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), 60));
+	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), kBulletInterVal));
 }
 
 void Enemy::Fire() {
 	assert(player_);
-	const float kBulletSpeed = 0.2f;
 	Vector3 playerPosition=player_->GetWorldPosition();
 	Vector3 enemyPosition=this->GetWorldPosition();
 	Vector3 Bulletvelocity = Subtract(playerPosition, enemyPosition);
-	Bulletvelocity = Normalize(Bulletvelocity);
-	Bulletvelocity.x *= kBulletSpeed;
-	Bulletvelocity.y *= kBulletSpeed;
-	Bulletvelocity.z *= kBulletSpeed;
 	EnemyBullet* newEnemyBullet_ = new EnemyBullet();
-	
 	newEnemyBullet_->Initialize(model_, worldTransform_.translation_, Bulletvelocity);
 		bullets_.push_back(newEnemyBullet_);
+	newEnemyBullet_->SetPlayer(player_);
 
 }
 
 void Enemy::ApproachInitialize() { 
-	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), 60));
+	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::ApproachUpdate, this), kBulletInterVal));
 }
 
 void Enemy::LeaveInitialize() {
