@@ -34,9 +34,9 @@ void EnemyBullet::Homing() {
 	//玉のホーミング
 	velocity_=toPlayer;
 	toPlayer = Subtract(player_->GetWorldPosition(), worldTransform_.translation_);
-	toPlayer = Normalize(toPlayer);
+	Vector3 NormalizetoPlayer = Normalize(toPlayer);
 	velocity_ = Normalize(velocity_);
-	velocity_ = VectorSLerp(velocity_, toPlayer, t);
+	velocity_ = VectorSLerp(velocity_, NormalizetoPlayer, t);
 	velocity_.x *= kBulletSpeed;
 	velocity_.y *= kBulletSpeed;
 	velocity_.z *= kBulletSpeed;
