@@ -31,10 +31,10 @@ private:
 	// デスフラグ
 	bool isDead_ = false;
 	//玉の速さ
-	const float kBulletSpeed=0.1f;
+	const float kBulletSpeed=1.0f;
 	Vector3 toPlayer;
 	//ここでは絶対nullptr setterを利用
 	Player* player_ = nullptr;
-	//
+	
 	float t = 0.02f;
 };
