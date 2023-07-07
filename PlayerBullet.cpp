@@ -23,9 +23,7 @@ void PlayerBullet::Update() {
 	//玉の移動
 	Move();
 
-	worldTransformEx_.UpdateMatrix(
-	    worldTransform_, worldTransform_.scale_, worldTransform_.rotation_,
-	    worldTransform_.translation_);
+	worldTransform_.UpdateMatrix();
 
 	//時間経過でデスフラグを立てる
 	if(--deathTimer_ <= 0) {

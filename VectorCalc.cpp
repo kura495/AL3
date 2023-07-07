@@ -9,7 +9,7 @@ Vector3 Subtract(const Vector3& v1, const Vector3& v2) {
 
 Vector3 Normalize(const Vector3& v1) { 
 	Vector3 Result=v1;
-	float length = sqrt(v1.x * v1.x + v1.y * v1.y+v1.z+v1.z);
+	float length = sqrt(v1.x * v1.x + v1.y * v1.y + v1.z * v1.z);
 	assert(length != 0);
 	Result.x /= length;
 	Result.y /= length;
@@ -36,11 +36,11 @@ Vector3 VectorSLerp(const Vector3& v1, const Vector3& v2, float t) {
 	float h = dot(v1, v2);
 	float Costheta = std::acos((h*(float)std::numbers::pi)/180);
 	float Sintheta = std::sin(Costheta);
-	float Pstert = std::sin(Costheta*(1-t));
-	float Pend = std::sin(Costheta * t);
-	result.x = (Pstert * v1.x + Pend * v2.x) / Sintheta;
-	result.y = (Pstert * v1.y + Pend * v2.y) / Sintheta;
-	result.z = (Pstert * v1.z + Pend * v2.z) / Sintheta;
+	float Pstert = std::sin((1 - t) *Costheta ) / Sintheta;
+	float Pend = std::sin(t * Costheta) / Sintheta;
+	result.x = (Pstert * v1.x + Pend * v2.x);
+	result.y = (Pstert * v1.y + Pend * v2.y);
+	result.z = (Pstert * v1.z + Pend * v2.z);
 
 	return result;
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include"Model.h"
 #include "WorldTransform.h"
-#include"WorldTransformEx.h"
 #include"VectorCalc.h"
 class PlayerBullet {
 public:
@@ -30,7 +29,6 @@ private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
-	WorldTransformEx worldTransformEx_;
 	//玉の寿命
 	static const int32_t kLifeTime = 60 * 5;
 	//デスタイマー

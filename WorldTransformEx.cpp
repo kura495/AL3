@@ -1,11 +1,8 @@
-#include<WorldTransformEx.h>
-WorldTransformEx::WorldTransformEx() {}
-
-WorldTransformEx::~WorldTransformEx() {}
-
-void WorldTransformEx::UpdateMatrix(WorldTransform &worldTransform,const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
-	worldTransform.matWorld_ = MakeAffineMatrix(scale,rotate,translate);
-	worldTransform.TransferMatrix();
+#include<WorldTransform.h>
+#include"MatrixCalc.h"
+void WorldTransform::UpdateMatrix() {
+	matWorld_ = MakeAffineMatrix(scale_, rotation_, translation_);
+	TransferMatrix();
 }
 
 

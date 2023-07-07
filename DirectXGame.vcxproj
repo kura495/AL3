@@ -157,7 +157,6 @@
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="TimedCall.h" />
     <ClInclude Include="VectorCalc.h" />
-    <ClInclude Include="WorldTransformEx.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">

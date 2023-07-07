@@ -1,7 +1,6 @@
 #pragma once
 #include"Model.h"
 #include "WorldTransform.h"
-#include"WorldTransformEx.h"
 #include"ImGuiManager.h"
 #include"ImGuiSupport.h"
 #include"EnemyBullet.h"
@@ -61,7 +60,6 @@ private:
 	//移動量(Vector)
 	Vector3 velocity_ = {0, kEnemySpeedY, kEnemySpeed};
 
-	WorldTransformEx worldTransformEx_;
 	//玉
 	std::list<EnemyBullet*> bullets_;
 	std::list<TimedCall*> timedCalls_;

@@ -2,7 +2,6 @@
 #include<Model.h>
 #include<Vector3.h>
 #include<WorldTransform.h>
-#include"WorldTransformEx.h"
 #include"VectorCalc.h"
 #include<cassert>
 class Player;
@@ -23,7 +22,6 @@ private:
 	Model* model_;
 	uint32_t textureHandle_;
 	Vector3 velocity_;
-	WorldTransformEx worldTransformEx;
 	//玉の寿命
 	static const int32_t kLifeTime = 60 * 3;
 	//デスタイマー
@@ -31,10 +29,10 @@ private:
 	// デスフラグ
 	bool isDead_ = false;
 	//玉の速さ
-	const float kBulletSpeed=1.0f;
+	const float kBulletSpeed=0.5f;
 	Vector3 toPlayer;
 	//ここでは絶対nullptr setterを利用
 	Player* player_ = nullptr;
 	
-	float t = 0.02f;
+	float t = 0.1f;
 };

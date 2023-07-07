@@ -5,7 +5,6 @@
 #include"MatrixCalc.h"
 #include"ImGuiManager.h"
 #include"ImGuiSupport.h"
-#include"WorldTransformEx.h"
 #include"PlayerBullet.h"
 #include<list>
 class Player{
@@ -33,7 +32,4 @@ private:
 	Input* input_ = nullptr;
 	std::list<PlayerBullet*> bullets_;
 
-	WorldTransformEx worldTransformEx_;
-
-	
 };
