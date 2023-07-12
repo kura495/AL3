@@ -58,6 +58,24 @@
     <Filter Include="ヘッダー ファイル\Player">
       <UniqueIdentifier>{657b43ea-ee46-4cfa-8005-13983cfef1d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Calc">
+      <UniqueIdentifier>{698d97f7-ff88-4a5d-9cee-8ca162a3afe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Calc">
+      <UniqueIdentifier>{f4a46a2b-a0aa-4de4-9d64-8f2f5e9d6311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Enemy">
+      <UniqueIdentifier>{4d1b6ea1-f231-4a7f-8bfe-9cd5b3d423c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Enemy">
+      <UniqueIdentifier>{93d4b1b9-56a5-4438-83b3-cefbc138cad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Utility">
+      <UniqueIdentifier>{86467a89-b094-4453-a298-20da865758f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Utility">
+      <UniqueIdentifier>{2b89a8e1-8cd5-4abb-ab9b-7dea0e66ac70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,29 +93,29 @@
     <ClCompile Include="2d\ImGuiManager.cpp">
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
-    <ClCompile Include="MatrixCalc.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>ソース ファイル\Calc</Filter>
     </ClCompile>
-    <ClCompile Include="WorldTransformEx.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Vector.cpp">
+      <Filter>ソース ファイル\Calc</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="GameObject\Player\Player.cpp">
       <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBullet.cpp">
+    <ClCompile Include="GameObject\Enemy\Enemy.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Enemy\EnemyBullet.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Player\PlayerBullet.cpp">
       <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Utility\TimedCall.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="VectorCalc.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyBullet.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="TimedCall.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Utility\WorldTransformEx.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,29 +203,29 @@
     <ClInclude Include="2d\ImGuiManager.h">
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
-    <ClInclude Include="MatrixCalc.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Calc\Matrix.h">
+      <Filter>ヘッダー ファイル\Calc</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Calc\Vector.h">
+      <Filter>ヘッダー ファイル\Calc</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\Enemy.h">
+      <Filter>ヘッダー ファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\EnemyBullet.h">
+      <Filter>ヘッダー ファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Player\Player.h">
       <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBullet.h">
+    <ClInclude Include="GameObject\Player\PlayerBullet.h">
       <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Utility\TimedCall.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
     <ClInclude Include="ImGuiSupport.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="VectorCalc.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="TimedCall.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@
 #include "ImGuiManager.h"
 #include"PrimitiveDrawer.h"
 #include"AxisIndicator.h"
-#include"MatrixCalc.h"
+#include"Calc/Matrix.h"
 #include"AxisIndicator.h"
 
 GameScene::GameScene() {}

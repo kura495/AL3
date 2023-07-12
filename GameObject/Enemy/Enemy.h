@@ -4,10 +4,10 @@
 #include"ImGuiManager.h"
 #include"ImGuiSupport.h"
 #include"EnemyBullet.h"
-#include"MatrixCalc.h"
-#include"VectorCalc.h"
+#include"Calc\Matrix.h"
+#include"Calc\Vector.h"
 #include<list>
-#include"TimedCall.h"
+#include"Utility\TimedCall.h"
 //クラスの前方宣言
 class Player;
 class Enemy;

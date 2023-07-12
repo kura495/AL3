@@ -1,5 +1,5 @@
-#include "Enemy.h"
-#include"Player.h"
+#include "GameObject\Enemy\Enemy.h"
+#include "GameObject\Player\Player.h"
 #include<cassert>
 
 void Enemy::Initialize(Model* model) {

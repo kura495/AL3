@@ -1,5 +1,5 @@
-#include "EnemyBullet.h"
-#include"Player.h"
+#include"GameObject\Enemy\EnemyBullet.h"
+#include"GameObject\Player\Player.h"
 void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velosity) { 
 	assert(model);
 	model_ = model;

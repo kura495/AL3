@@ -1,7 +1,7 @@
 #pragma once
 #include"Model.h"
 #include "WorldTransform.h"
-#include"VectorCalc.h"
+#include"Calc\Vector.h"
 class PlayerBullet {
 public:
 

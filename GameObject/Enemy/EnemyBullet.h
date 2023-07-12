@@ -2,7 +2,7 @@
 #include<Model.h>
 #include<Vector3.h>
 #include<WorldTransform.h>
-#include"VectorCalc.h"
+#include"Calc\Vector.h"
 #include<cassert>
 class Player;
 class EnemyBullet {
