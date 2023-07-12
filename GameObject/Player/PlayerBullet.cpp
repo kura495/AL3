@@ -35,6 +35,8 @@ void PlayerBullet::Draw(const ViewProjection viewProjection_) {
 	model_->Draw(worldTransform_,viewProjection_,textureHandle_);
 }
 
+void PlayerBullet::OnCollision() { isDead_ = true; }
+
 //private関数
 void PlayerBullet::Move() {
 	// 加算

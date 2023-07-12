@@ -1,4 +1,4 @@
-#include"GameObject\Enemy\EnemyBullet.h"
+#include"EnemyBullet.h"
 #include"GameObject\Player\Player.h"
 void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velosity) { 
 	assert(model);
@@ -25,6 +25,8 @@ void EnemyBullet::Update() {
 void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
+
+void EnemyBullet::OnCollision() { isDead_ = true; }
 
 void EnemyBullet::Move() { worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 }

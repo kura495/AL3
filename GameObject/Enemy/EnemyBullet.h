@@ -11,8 +11,11 @@ public:
 	void Initialize(Model* model, const Vector3& position, const Vector3& velosity);
 	void Update();
 	void Draw(const ViewProjection& viewProjection);
+	void OnCollision();
 	bool Isdead() const { return isDead_; }
 	void SetPlayer(Player* player) { player_ = player; }
+	
+
 
 private:
 

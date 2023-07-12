@@ -4,7 +4,7 @@
 #include"Input.h"
 #include"Calc\Matrix.h"
 #include"ImGuiManager.h"
-#include"ImGuiSupport.h"
+#include"Utility\ImGuiSupport.h"
 #include"PlayerBullet.h"
 #include<list>
 class Player{
@@ -17,7 +17,8 @@ public:
 	void Updete();
 
 	void Draw(const ViewProjection viewProjection_);
-
+	void OnCollision();
+	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 	Vector3 GetWorldPosition();
 
 private:

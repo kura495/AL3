@@ -67,4 +67,8 @@ private: // メンバ変数
 	Vector3 Result = {0};
 	float t = 0;
 	bool Spece = false;
+	/// <summary>
+	/// 衝突判定と応答
+	/// </summary>
+	void CheckAllCollisions();
 };

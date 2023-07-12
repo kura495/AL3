@@ -59,7 +59,9 @@ void Enemy::Draw(const ViewProjection viewProjection) {
 		bullet_->Draw(viewProjection);
 	}
 }
+void Enemy::OnCollision() {
 
+}
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 worldPos;
 	worldTransform_.UpdateMatrix();

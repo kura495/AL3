@@ -2,7 +2,7 @@
 #include"Model.h"
 #include "WorldTransform.h"
 #include"ImGuiManager.h"
-#include"ImGuiSupport.h"
+#include"Utility\ImGuiSupport.h"
 #include"EnemyBullet.h"
 #include"Calc\Matrix.h"
 #include"Calc\Vector.h"
@@ -34,6 +34,8 @@ public:
 
 	void Draw(const ViewProjection viewProjection);
 
+	void OnCollision();
+	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
 	Vector3 GetWorldPosition();
 	
 	void SetPlayer(Player* player) { player_ = player; }

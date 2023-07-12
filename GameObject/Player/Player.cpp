@@ -1,14 +1,11 @@
 #include "GameObject\Player\Player.h"
 #include<cassert>
-
 Player::Player() {}
-
 Player::~Player() { 
 	for (PlayerBullet* bullet_ : bullets_) {
 		delete bullet_;
 	}
 }
-
 void Player::Initialize(Model* model, uint32_t textureHandle) { 
 	assert(model);
 	textureHandle_ = textureHandle;
@@ -17,7 +14,6 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, {1.0f, 1.0f, -1.0f});
 	input_ = Input::GetInstance();
 }
-
 void Player::Updete() { 
 	//デスフラグが立った玉を削除
 	bullets_.remove_if([](PlayerBullet* bullet) { 
@@ -50,7 +46,6 @@ void Player::Updete() {
 
 	worldTransform_.UpdateMatrix();
 }
-
 void Player::Draw(const ViewProjection viewProjection_) {
 	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
 	for (PlayerBullet* bullet_ : bullets_) {
@@ -58,7 +53,9 @@ void Player::Draw(const ViewProjection viewProjection_) {
 	}
 	
 }
+void OnCollision() {
 
+}
 Vector3 Player::GetWorldPosition() {
 	Vector3 worldPos;
 	worldTransform_.UpdateMatrix();

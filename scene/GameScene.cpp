@@ -135,3 +135,23 @@ void GameScene::Draw() {
 
 	
 }
+
+void GameScene::CheckAllCollisions() { 
+	//判定対象AとBの座標
+	Vector3 posA, posB;
+	//自弾リストの取得
+	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	//敵弾リストの取得
+	const std::list<EnemyBullet*>& EnemyBullets = enemy_->GetBullets();
+	#pragma region
+
+	#pragma endregion 自キャラと敵弾の当たり判定
+	
+	#pragma region
+
+	#pragma endregion 自弾と敵キャラの当たり判定
+	
+	#pragma region
+
+	#pragma endregion 自弾と敵弾の当たり判定
+}
