@@ -11,6 +11,7 @@
 #include"GameObject/Player/Player.h"
 #include"GameObject/Enemy/Enemy.h"
 #include"DebugCamera.h"
+#include"Utility/Collider.h"
     /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -64,5 +65,11 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	
+
+	/// <summary>
+	/// コライダー2つの当たり判定
+	/// </summary>
+	/// <param name="colliderA">コライダーA</param>
+	/// <param name="colliderB">コライダーB</param>
+	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
 };

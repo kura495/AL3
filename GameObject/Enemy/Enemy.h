@@ -3,6 +3,7 @@
 #include "WorldTransform.h"
 #include"ImGuiManager.h"
 #include"Utility/ImGuiSupport.h"
+#include"Utility/Collider.h"
 #include"EnemyBullet.h"
 #include"Calc/Matrix.h"
 #include"Calc/Vector.h"
@@ -25,7 +26,7 @@ public:
 	void Update(Enemy* enemy, const Vector3& velocity);
 };
 
-class Enemy {
+class Enemy : public Collider {
 public:
 
 	void Initialize(Model* model);

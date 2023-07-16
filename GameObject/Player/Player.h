@@ -5,9 +5,10 @@
 #include"Calc/Matrix.h"
 #include"ImGuiManager.h"
 #include"Utility/ImGuiSupport.h"
+#include"Utility/Collider.h"
 #include"PlayerBullet.h"
 #include<list>
-class Player{
+class Player : public Collider {
 public:
 	Player();
 	~Player();

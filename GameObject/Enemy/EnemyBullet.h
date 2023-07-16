@@ -4,8 +4,9 @@
 #include<WorldTransform.h>
 #include"Calc/Vector.h"
 #include<cassert>
+#include"Utility/Collider.h"
 class Player;
-class EnemyBullet {
+class EnemyBullet : public Collider {
 public:
 
 	void Initialize(Model* model, const Vector3& position, const Vector3& velosity);

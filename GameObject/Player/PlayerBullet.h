@@ -2,7 +2,8 @@
 #include"Model.h"
 #include "WorldTransform.h"
 #include"Calc/Vector.h"
-class PlayerBullet {
+#include"Utility/Collider.h"
+class PlayerBullet : public Collider {
 public:
 
 	/// <summary>
