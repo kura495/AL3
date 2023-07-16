@@ -13,6 +13,8 @@ public:
 	void Draw(const ViewProjection& viewProjection);
 	bool Isdead() const { return isDead_; }
 	void SetPlayer(Player* player) { player_ = player; }
+	void OnCollision();
+	Vector3 GetWorldPosition();
 
 private:
 

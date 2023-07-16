@@ -37,7 +37,8 @@ public:
 	Vector3 GetWorldPosition();
 	
 	void SetPlayer(Player* player) { player_ = player; }
-
+	void OnCollision();
+	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
 	Vector3 GetTransform() { return worldTransform_.translation_; }
 	//ステートパターンで使う移動用関数
 	void WorldTransformAdd(const Vector3& velocity);

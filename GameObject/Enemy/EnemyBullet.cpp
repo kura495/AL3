@@ -5,15 +5,18 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 	model_ = model;
 	textureHandle_ = TextureManager::Load("Black.png");
 	worldTransform_.Initialize();
-	worldTransform_.scale_.x = 0.5f;
+	/*worldTransform_.scale_.x = 0.5f;
 	worldTransform_.scale_.y = 0.5f;
-	worldTransform_.scale_.z = 3.0f;
+	worldTransform_.scale_.z = 3.0f;*/
 	velocity_ = velocity;
 	worldTransform_.translation_ = position;
+	worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
+	float VelocityXZ = sqrt((velocity_.x * velocity_.x) + (velocity_.z * velocity_.z));
+	worldTransform_.rotation_.x = std::atan2(-velocity_.y, VelocityXZ);
 }
 
 void EnemyBullet::Update() { 
-	Homing();
+	//Homing();
 	Move();
 	worldTransform_.UpdateMatrix(); 
 
@@ -24,6 +27,18 @@ void EnemyBullet::Update() {
 
 void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+}
+
+void EnemyBullet::OnCollision() { 
+	isDead_ = true; }
+
+Vector3 EnemyBullet::GetWorldPosition() {
+	Vector3 worldPos;
+	worldTransform_.UpdateMatrix();
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos;
 }
 
 void EnemyBullet::Move() {

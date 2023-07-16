@@ -69,6 +69,10 @@ Vector3 Enemy::GetWorldPosition() {
 	return worldPos;
 }
 
+void Enemy::OnCollision() { 
+	return;
+}
+
 void Enemy::WorldTransformAdd(const Vector3& velocity) {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity);
 }
@@ -90,8 +94,12 @@ void Enemy::ApproachUpdate() {
 void Enemy::Fire() {
 	assert(player_);
 	player_->GetWorldPosition();
+	Vector3 toPlayer = Subtract(player_->GetWorldPosition(), worldTransform_.translation_);
+	Vector3 velosity = Normalize(toPlayer);
 	const float kBulletSpeed = 0.5f;
-	Vector3 velosity{0, 0, kBulletSpeed};
+	velosity.x *= kBulletSpeed;
+	velosity.y *= kBulletSpeed;
+	velosity.z *= kBulletSpeed;
 	EnemyBullet* newEnemyBullet_ = new EnemyBullet();
 	newEnemyBullet_->Initialize(model_, worldTransform_.translation_, velosity);
 	newEnemyBullet_->SetPlayer(player_);

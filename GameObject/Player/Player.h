@@ -19,6 +19,8 @@ public:
 	void Draw(const ViewProjection viewProjection_);
 
 	Vector3 GetWorldPosition();
+	void OnCollision();
+	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 
 private:
 	

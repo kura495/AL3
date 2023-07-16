@@ -35,6 +35,18 @@ void PlayerBullet::Draw(const ViewProjection viewProjection_) {
 	model_->Draw(worldTransform_,viewProjection_,textureHandle_);
 }
 
+void PlayerBullet::OnCollision() { 
+	isDead_ = true; }
+
+Vector3 PlayerBullet::GetWorldPosition() {
+	Vector3 worldPos;
+	worldTransform_.UpdateMatrix();
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos;
+}
+
 //private関数
 void PlayerBullet::Move() {
 	// 加算
