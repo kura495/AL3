@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include"Player.h"
+#include"GameObject/Player/Player.h"
 #include<cassert>
 
 void Enemy::Initialize(Model* model) {
@@ -50,9 +50,7 @@ void Enemy::Update() {
 	worldTransform_.translation_.y = point[y];
 	worldTransform_.translation_.z = point[z];
 
-	worldTransformEx_.UpdateMatrix(
-	    worldTransform_, worldTransform_.scale_, worldTransform_.rotation_,
-	    worldTransform_.translation_);
+	worldTransform_.UpdateMatrix();
 }
 
 void Enemy::Draw(const ViewProjection viewProjection) {
@@ -64,9 +62,7 @@ void Enemy::Draw(const ViewProjection viewProjection) {
 
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 worldPos;
-	worldTransformEx_.UpdateMatrix(
-	    worldTransform_, worldTransform_.scale_, worldTransform_.rotation_,
-	    worldTransform_.translation_);
+	worldTransform_.UpdateMatrix();
 	worldPos.x = worldTransform_.matWorld_.m[3][0];
 	worldPos.y = worldTransform_.matWorld_.m[3][1];
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
@@ -93,19 +89,13 @@ void Enemy::ApproachUpdate() {
 
 void Enemy::Fire() {
 	assert(player_);
-	const float kBulletSpeed = 0.2f;
-	Vector3 playerPosition=player_->GetWorldPosition();
-	Vector3 enemyPosition=this->GetWorldPosition();
-	Vector3 Bulletvelocity = Subtract(playerPosition, enemyPosition);
-	Bulletvelocity = Normalize(Bulletvelocity);
-	Bulletvelocity.x *= kBulletSpeed;
-	Bulletvelocity.y *= kBulletSpeed;
-	Bulletvelocity.z *= kBulletSpeed;
+	player_->GetWorldPosition();
+	const float kBulletSpeed = 0.5f;
+	Vector3 velosity{0, 0, kBulletSpeed};
 	EnemyBullet* newEnemyBullet_ = new EnemyBullet();
-	
-	newEnemyBullet_->Initialize(model_, worldTransform_.translation_, Bulletvelocity);
-		bullets_.push_back(newEnemyBullet_);
-
+	newEnemyBullet_->Initialize(model_, worldTransform_.translation_, velosity);
+	newEnemyBullet_->SetPlayer(player_);
+	bullets_.push_back(newEnemyBullet_);
 }
 
 void Enemy::ApproachInitialize() { 

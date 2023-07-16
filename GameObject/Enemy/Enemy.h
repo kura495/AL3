@@ -1,14 +1,13 @@
 #pragma once
 #include"Model.h"
 #include "WorldTransform.h"
-#include"WorldTransformEx.h"
 #include"ImGuiManager.h"
-#include"ImGuiSupport.h"
+#include"Utility/ImGuiSupport.h"
 #include"EnemyBullet.h"
-#include"MatrixCalc.h"
-#include"VectorCalc.h"
+#include"Calc/Matrix.h"
+#include"Calc/Vector.h"
 #include<list>
-#include"TimedCall.h"
+#include"Utility/TimedCall.h"
 //クラスの前方宣言
 class Player;
 class Enemy;
@@ -60,7 +59,6 @@ private:
 	//移動量(Vector)
 	Vector3 velocity_ = {0, kEnemySpeedY, kEnemySpeed};
 
-	WorldTransformEx worldTransformEx_;
 	//玉
 	std::list<EnemyBullet*> bullets_;
 	std::list<TimedCall*> timedCalls_;

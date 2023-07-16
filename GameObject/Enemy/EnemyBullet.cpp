@@ -1,5 +1,5 @@
-#include "EnemyBullet.h"
-
+﻿#include "EnemyBullet.h"
+#include"GameObject/Player/Player.h"
 void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	assert(model);
 	model_ = model;
@@ -8,16 +8,14 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 	worldTransform_.scale_.x = 0.5f;
 	worldTransform_.scale_.y = 0.5f;
 	worldTransform_.scale_.z = 3.0f;
+	velocity_ = velocity;
 	worldTransform_.translation_ = position;
-	worldTransform_.rotation_.y = std::atan2(velocity.x,velocity.z);
-	float VelocityXZ = sqrt((velocity.x * velocity.x) + (velocity.z * velocity.z));
-	worldTransform_.rotation_.x = std::atan2(-velocity.y, VelocityXZ);
-	velocity_=velocity;
 }
 
 void EnemyBullet::Update() { 
+	Homing();
 	Move();
-	worldTransformEx.UpdateMatrix(worldTransform_,worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_); 
+	worldTransform_.UpdateMatrix(); 
 
 	if (--deathTimer_ <= 0) {
 		isDead_ = true;
@@ -31,5 +29,19 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 void EnemyBullet::Move() {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 }
+void EnemyBullet::Homing() {
+	// 玉のホーミング
+	toPlayer = Subtract(player_->GetWorldPosition(), worldTransform_.translation_);
+	toPlayer = Normalize(toPlayer);
+	velocity_ = Normalize(velocity_);
+	velocity_ = VectorSLerp(velocity_, toPlayer, 0.1f);
+	velocity_.x *= 0.5f;
+	velocity_.y *= 0.5f;
+	velocity_.z *= 0.5f;
+	// 玉の向き
+	worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
+	float VelocityXZ = sqrt((velocity_.x * velocity_.x) + (velocity_.z * velocity_.z));
+	worldTransform_.rotation_.x = std::atan2(-velocity_.y, VelocityXZ);
 
+}
 

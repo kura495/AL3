@@ -1,4 +1,4 @@
-#include <Player.h>
+#include "GameObject/Player/Player.h"
 #include<cassert>
 
 Player::Player() {}
@@ -47,7 +47,7 @@ void Player::Updete() {
 	worldTransform_.translation_.y = point[y];
 	worldTransform_.translation_.z = point[z];
 
-	worldTransformEx_.UpdateMatrix(worldTransform_,worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_);
+	worldTransform_.UpdateMatrix();
 }
 
 void Player::Draw(const ViewProjection viewProjection_) {
@@ -60,9 +60,7 @@ void Player::Draw(const ViewProjection viewProjection_) {
 
 Vector3 Player::GetWorldPosition() {
 	Vector3 worldPos;
-	worldTransformEx_.UpdateMatrix(
-	    worldTransform_, worldTransform_.scale_, worldTransform_.rotation_,
-	    worldTransform_.translation_);
+	worldTransform_.UpdateMatrix();
 	worldPos.x = worldTransform_.matWorld_.m[3][0];
 	worldPos.y = worldTransform_.matWorld_.m[3][1];
 	worldPos.z = worldTransform_.matWorld_.m[3][2];

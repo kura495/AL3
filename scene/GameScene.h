@@ -8,8 +8,8 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include"Player.h"
-#include"Enemy.h"
+#include"GameObject/Player/Player.h"
+#include"GameObject/Enemy/Enemy.h"
 #include"DebugCamera.h"
     /// <summary>
 /// ゲームシーン

@@ -4,7 +4,7 @@
 #include "ImGuiManager.h"
 #include"PrimitiveDrawer.h"
 #include"AxisIndicator.h"
-#include"MatrixCalc.h"
+#include"Calc/Matrix.h"
 #include"AxisIndicator.h"
 
 GameScene::GameScene() {}
@@ -54,7 +54,6 @@ void GameScene::Update() {
 	ImGui::Text("PlayerMove : ARROWKEY\n");
 	ImGui::Text("PlayerRotate : A D\n");
 	ImGui::Text("PlayerShot : SPACE\n");
-	ImGui::Text("SPACE\n");
 	ImGui::End();
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();

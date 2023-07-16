@@ -2,10 +2,9 @@
 #include"Model.h"
 #include "WorldTransform.h"
 #include"Input.h"
-#include"MatrixCalc.h"
+#include"Calc/Matrix.h"
 #include"ImGuiManager.h"
-#include"ImGuiSupport.h"
-#include"WorldTransformEx.h"
+#include"Utility/ImGuiSupport.h"
 #include"PlayerBullet.h"
 #include<list>
 class Player{
@@ -32,8 +31,5 @@ private:
 	uint32_t textureHandle_ = 0u;
 	Input* input_ = nullptr;
 	std::list<PlayerBullet*> bullets_;
-
-	WorldTransformEx worldTransformEx_;
-
 	
 };
