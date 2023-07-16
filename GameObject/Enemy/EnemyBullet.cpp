@@ -42,6 +42,5 @@ void EnemyBullet::Homing() {
 	worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
 	float VelocityXZ = sqrt((velocity_.x * velocity_.x) + (velocity_.z * velocity_.z));
 	worldTransform_.rotation_.x = std::atan2(-velocity_.y, VelocityXZ);
-
 }
 
