@@ -54,6 +54,7 @@ void GameScene::Update() {
 	ImGui::Text("PlayerMove : ARROWKEY\n");
 	ImGui::Text("PlayerRotate : A D\n");
 	ImGui::Text("PlayerShot : SPACE\n");
+	ImGui::Text("SPACE\n");
 	ImGui::End();
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
