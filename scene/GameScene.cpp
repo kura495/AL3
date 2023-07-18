@@ -141,15 +141,15 @@ void GameScene::CheckAllCollisions() {
 	std::list<Collider*>::iterator itrA = colliders_.begin();
 	for (; itrA != colliders_.end();++itrA) {
 		//イテレータAからコライダーを取得
-		std::list<Collider*> colliderA =itrA;
+		Collider* colliderA=*itrA;
 		//イテレータBはイテレータAの次の要素から回す(重複を避ける)
 		std::list<Collider*>::iterator itrB = itrA;
 		itrB++;
 		for (; itrB != colliders_.end(); ++itrB) {
-			
+			Collider* colliderB = *itrB;
+			CheckCollisionPair(colliderA, colliderB);
 		}
 	}
-	//CheckCollisionPair(player_, bullet);
 
 }
 

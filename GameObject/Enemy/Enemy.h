@@ -9,6 +9,7 @@
 #include"Calc/Vector.h"
 #include<list>
 #include"Utility/TimedCall.h"
+#include"Utility/CollisionConfig.h"
 //クラスの前方宣言
 class Player;
 class Enemy;

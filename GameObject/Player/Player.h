@@ -6,6 +6,7 @@
 #include"ImGuiManager.h"
 #include"Utility/ImGuiSupport.h"
 #include"Utility/Collider.h"
+#include"Utility/CollisionConfig.h"
 #include"PlayerBullet.h"
 #include<list>
 class Player : public Collider {

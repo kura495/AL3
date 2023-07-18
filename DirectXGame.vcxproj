@@ -140,6 +140,7 @@
     <ClInclude Include="3d\WorldTransform.h" />
     <ClInclude Include="Calc\Matrix.h" />
     <ClInclude Include="Calc\Vector.h" />
+    <ClInclude Include="CollisionConfig.h" />
     <ClInclude Include="GameObject\Enemy\Enemy.h" />
     <ClInclude Include="GameObject\Enemy\EnemyBullet.h" />
     <ClInclude Include="GameObject\Player\Player.h" />

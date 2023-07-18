@@ -5,6 +5,7 @@
 #include"Calc/Vector.h"
 #include<cassert>
 #include"Utility/Collider.h"
+#include"Utility/CollisionConfig.h"
 class Player;
 class EnemyBullet : public Collider {
 public:
