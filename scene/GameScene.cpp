@@ -161,7 +161,9 @@ void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
 	float Length = sqrt(
 	    (posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) +
 	    (posB.z - posA.z) * (posB.z - posA.z));
-	if (colliderA->GetcollitionAttribute()!=colliderB->GetcollisionMask()||colliderA->GetcollisionMask()!=colliderB->GetcollitionAttribute()) {
+	//コライダーのフィルターの値でビット演算
+	if ((colliderA->GetcollitionAttribute() & colliderB->GetcollisionMask())==0 ||
+	    (colliderB->GetcollitionAttribute() & colliderA->GetcollisionMask())==0) {
 		return;
 	}
 	if (Length<=colliderA->GetRadius()+colliderB->GetRadius()){
