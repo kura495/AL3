@@ -15,6 +15,8 @@ void Enemy::Initialize(Model* model) {
 	//最初の状態
 	state_ = new PhaseApproach();
 	ApproachInitialize();
+	SetcollitionAttribute(kCollitionAttributeEnemy);
+	SetcollisionMask(~kCollitionAttributeEnemy);
 }
 
 void Enemy::Update() {

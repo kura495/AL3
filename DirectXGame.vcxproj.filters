@@ -212,7 +212,7 @@
     <ClInclude Include="Utility\TimedCall.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionConfig.h">
+    <ClInclude Include="Utility\CollisionConfig.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

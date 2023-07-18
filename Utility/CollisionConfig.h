@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 #include<cstdint>
-//ƒvƒŒƒCƒ„[w‰c
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼é™£å–¶
 const uint32_t kCollitionAttributePlayer = 0b1;
-//“Gw‰c
+//æ•µé™£å–¶
 const uint32_t kCollitionAttributeEnemy = 0b1 << 1;

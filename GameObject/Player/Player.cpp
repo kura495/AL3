@@ -15,6 +15,8 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	model_ = model;
 	worldTransform_.Initialize();
 	input_ = Input::GetInstance();
+	SetcollitionAttribute(kCollitionAttributePlayer);
+	SetcollisionMask(~kCollitionAttributePlayer);
 }
 
 void Player::Updete() { 

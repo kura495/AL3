@@ -140,7 +140,6 @@
     <ClInclude Include="3d\WorldTransform.h" />
     <ClInclude Include="Calc\Matrix.h" />
     <ClInclude Include="Calc\Vector.h" />
-    <ClInclude Include="CollisionConfig.h" />
     <ClInclude Include="GameObject\Enemy\Enemy.h" />
     <ClInclude Include="GameObject\Enemy\EnemyBullet.h" />
     <ClInclude Include="GameObject\Player\Player.h" />
@@ -157,6 +156,7 @@
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="Utility\Collider.h" />
+    <ClInclude Include="Utility\CollisionConfig.h" />
     <ClInclude Include="Utility\ImGuiSupport.h" />
     <ClInclude Include="Utility\TimedCall.h" />
   </ItemGroup>
