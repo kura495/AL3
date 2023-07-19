@@ -12,8 +12,8 @@
 #include"GameObject/Enemy/Enemy.h"
 #include"DebugCamera.h"
 #include"Utility/Collider.h"
-#include "Utility/CollisionManager.h"
-#include<list>
+#include"Utility/CollisionManager.h"
+#include"Skydome.h"
     /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -53,12 +53,16 @@ private: // メンバ変数
 	uint32_t textureHandle_ = 0;
 	//3Dモデル
 	Model* model_ = nullptr;
+	//3Dモデル
+	Model* modelSkydome_ = nullptr;
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 	//自キャラ
 	Player* player_ = nullptr;
 	//敵
 	Enemy* enemy_ = nullptr;
+	//天球
+	Skydome* skydome_=nullptr;
 	//デバッグカメラ有効
 	DebugCamera* debugCamera_ = nullptr;
 	bool isDebugCameraActive_ = false;

@@ -15,6 +15,8 @@ GameScene::~GameScene() {
 	delete player_;
 	delete debugCamera_;
 	delete enemy_;
+	delete modelSkydome_;
+	delete skydome_;
 }
 
 void GameScene::Initialize() {
@@ -34,6 +36,9 @@ void GameScene::Initialize() {
 	enemy_->Initialize(model_);
 	//EnemyにPlayerのアドレスを渡す
 	enemy_->SetPlayer(player_);
+	//天球
+	modelSkydome_ = Model::CreateFromOBJ("skydome",true);
+	skydome_->Initialize();
 
 	collisionManager_ = new CollisionManager();
 
