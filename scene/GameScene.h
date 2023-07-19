@@ -13,7 +13,7 @@
 #include"DebugCamera.h"
 #include"Utility/Collider.h"
 #include"Utility/CollisionManager.h"
-#include"Skydome.h"
+#include"GameObject/Skydome/Skydome.h"
     /// <summary>
 /// ゲームシーン
 /// </summary>

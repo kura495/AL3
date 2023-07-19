@@ -79,6 +79,12 @@
     <Filter Include="ヘッダー ファイル\Calc">
       <UniqueIdentifier>{a1b2a19b-799c-4709-b762-6e95cd437687}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameObject\SkyDome">
+      <UniqueIdentifier>{8af9dbcc-cf1a-4154-b996-fe800ae497e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\SkyDome">
+      <UniqueIdentifier>{91d083f9-ef33-49a2-968c-5249c45cd2cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -122,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="Utility\CollisionManager.cpp">
       <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Skydome\Skydome.cpp">
+      <Filter>ソース ファイル\GameObject\SkyDome</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="Utility\Collider.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Skydome\Skydome.h">
+      <Filter>ヘッダー ファイル\GameObject\SkyDome</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
