@@ -115,6 +115,7 @@
     <ClCompile Include="GameObject\Player\PlayerBullet.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
+    <ClCompile Include="GameObject\RailCamera\RailCamera.cpp" />
     <ClCompile Include="GameObject\Skydome\Skydome.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="base\SafeDelete.h" />
     <ClInclude Include="base\TextureManager.h" />
     <ClInclude Include="base\WinApp.h" />
+    <ClInclude Include="GameObject\RailCamera\RailCamera.h" />
     <ClInclude Include="GameObject\Skydome\Skydome.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="math\Matrix4x4.h" />

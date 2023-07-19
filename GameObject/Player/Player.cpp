@@ -69,8 +69,8 @@ Vector3 Player::GetWorldPosition() {
 	return worldPos;
 }
 
-void Player::OnCollision() { return;
-
+void Player::OnCollision() { 
+	return;
 }
 
 //private関数

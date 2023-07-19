@@ -14,6 +14,7 @@
 #include"Utility/Collider.h"
 #include"Utility/CollisionManager.h"
 #include"GameObject/Skydome/Skydome.h"
+#include"GameObject/RailCamera/RailCamera.h"
     /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -57,12 +58,16 @@ private: // メンバ変数
 	Model* modelSkydome_ = nullptr;
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
+	//ビュープロジェクション
+	WorldTransform worldTransform_;
 	//自キャラ
 	Player* player_ = nullptr;
 	//敵
 	Enemy* enemy_ = nullptr;
 	//天球
 	Skydome* skydome_=nullptr;
+	//レールカメラ
+	RailCamera* railCamera_=nullptr;
 	//デバッグカメラ有効
 	DebugCamera* debugCamera_ = nullptr;
 	bool isDebugCameraActive_ = false;

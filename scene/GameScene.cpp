@@ -17,6 +17,7 @@ GameScene::~GameScene() {
 	delete enemy_;
 	delete modelSkydome_;
 	delete skydome_;
+	delete railCamera_;
 }
 
 void GameScene::Initialize() {
@@ -41,6 +42,9 @@ void GameScene::Initialize() {
 	skydome_ = new Skydome;
 	skydome_->Initialize(modelSkydome_);
 
+	worldTransform_.matWorld_();
+	//レールカメラ
+	railCamera_->Initialize();
 	collisionManager_ = new CollisionManager();
 
 	debugCamera_ = new DebugCamera(1280,720);
@@ -67,7 +71,8 @@ if (isDebugCameraActive_) {
 	player_->Updete();
 	enemy_->Update();
 	skydome_->Update();
-	
+	railCamera_->Update();
+
 	CheckAllCollisions();
 	ImGui::Begin("Control");
 	ImGui::Text("DebugCamera : 0\n");
