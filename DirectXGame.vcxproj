@@ -52,7 +52,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\External\DirectXTex\include;$(ProjectDir)..\External\imgui;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\External\DirectXTex\include;$(ProjectDir)..\External\imgui;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib\KamataEngineLib\$(Configuration);$(ProjectDir)..\External\DirectXTex\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
