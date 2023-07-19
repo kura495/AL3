@@ -43,6 +43,8 @@ void GameScene::Initialize() {
 void GameScene::Update() { 
 	player_->Updete();
 	enemy_->Update();
+	CheckAllCollisions();
+
 	//デバッグとImGui
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
@@ -63,7 +65,7 @@ void GameScene::Update() {
 	} else {
 		viewProjection_.UpdateMatrix();
 	}
-	CheckAllCollisions();
+	
 	
 }
 
