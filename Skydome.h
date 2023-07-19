@@ -1,6 +1,7 @@
 #pragma once
 #include"WorldTransform.h"
 #include"Model.h"
+#include<cassert>
 class Skydome {
 public:
 	void Initialize(Model* model);

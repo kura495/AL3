@@ -38,7 +38,8 @@ void GameScene::Initialize() {
 	enemy_->SetPlayer(player_);
 	//天球
 	modelSkydome_ = Model::CreateFromOBJ("skydome",true);
-	skydome_->Initialize();
+	skydome_ = new Skydome;
+	skydome_->Initialize(modelSkydome_);
 
 	collisionManager_ = new CollisionManager();
 
@@ -65,9 +66,15 @@ if (isDebugCameraActive_) {
 
 	player_->Updete();
 	enemy_->Update();
+	skydome_->Update();
 	
 	CheckAllCollisions();
-	
+	ImGui::Begin("Control");
+	ImGui::Text("DebugCamera : 0\n");
+	ImGui::Text("PlayerMove : ARROWKEY\n");
+	ImGui::Text("PlayerRotate : A D\n");
+	ImGui::Text("PlayerShot : SPACE\n");
+	ImGui::End();
 }
 
 void GameScene::Draw() {
@@ -103,6 +110,7 @@ void GameScene::Draw() {
 	// 3Dモデルの描画
 	player_->Draw(viewProjection_);
 	enemy_->Draw(viewProjection_);
+	skydome_->Draw(viewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 
@@ -115,12 +123,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-ImGui::Begin("Control");
-	ImGui::Text("DebugCamera : 0\n");
-	ImGui::Text("PlayerMove : ARROWKEY\n");
-	ImGui::Text("PlayerRotate : A D\n");
-	ImGui::Text("PlayerShot : SPACE\n");
-	ImGui::End();
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
