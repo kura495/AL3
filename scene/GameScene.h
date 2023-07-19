@@ -58,8 +58,6 @@ private: // メンバ変数
 	Model* modelSkydome_ = nullptr;
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
-	//ビュープロジェクション
-	WorldTransform worldTransform_;
 	//自キャラ
 	Player* player_ = nullptr;
 	//敵

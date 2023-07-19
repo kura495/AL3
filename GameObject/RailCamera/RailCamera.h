@@ -6,8 +6,9 @@
 #include"Utility/ImGuiSupport.h"
 class RailCamera {
 public:
-	void Initialize(const WorldTransform& worldTransform);
+	void Initialize(ViewProjection viewProjection);
 	void Update();
+	const ViewProjection& GetViewProjection() const { return viewProjection_; }
 
 private:
 	//ワールド変換データ

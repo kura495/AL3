@@ -1,15 +1,19 @@
 ﻿#include "RailCamera.h"
 
 
-void RailCamera::Initialize(const WorldTransform& worldTransform) { 
-
+void RailCamera::Initialize(ViewProjection viewProjection) { 
+	worldTransform_.translation_ = viewProjection.translation_;
+	worldTransform_.rotation_ = viewProjection.rotation_;
+	worldTransform_.scale_ = {1,1,1};
 	viewProjection_.Initialize();
 }
 
 void RailCamera::Update() { 
-	worldTransform_.translation_.z -= 0.5f;
-	worldTransform_.UpdateMatrix();
+	worldTransform_.translation_.z += 1.0f;
+	worldTransform_.matWorld_ =
+	    MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	viewProjection_.matView = Inverse(worldTransform_.matWorld_);
+	viewProjection_.Map();
 	ImGui::Begin("Camera");
 	float transform[Vector3D] = {
 	    viewProjection_.translation_.x, viewProjection_.translation_.y,

@@ -42,14 +42,17 @@ void GameScene::Initialize() {
 	skydome_ = new Skydome;
 	skydome_->Initialize(modelSkydome_);
 
-	worldTransform_.matWorld_();
-	//レールカメラ
-	railCamera_->Initialize();
 	collisionManager_ = new CollisionManager();
+
 
 	debugCamera_ = new DebugCamera(1280,720);
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
+	//レールカメラ
+	railCamera_ = new RailCamera;
+	railCamera_->Initialize(viewProjection_);
+	
 }
 
 void GameScene::Update() { 
@@ -72,7 +75,8 @@ if (isDebugCameraActive_) {
 	enemy_->Update();
 	skydome_->Update();
 	railCamera_->Update();
-
+	viewProjection_.matView = railCamera_->GetViewProjection().matView;
+	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 	CheckAllCollisions();
 	ImGui::Begin("Control");
 	ImGui::Text("DebugCamera : 0\n");
