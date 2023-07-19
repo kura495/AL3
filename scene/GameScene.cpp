@@ -35,34 +35,32 @@ void GameScene::Initialize() {
 	//EnemyにPlayerのアドレスを渡す
 	enemy_->SetPlayer(player_);
 
+	collisionManager_ = new CollisionManager();
+
 	debugCamera_ = new DebugCamera(1280,720);
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
 void GameScene::Update() { 
-	player_->Updete();
-	enemy_->Update();
-	//デバッグとImGui
+	// デバッグとImGui
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = true;
 	}
-	#endif
-	ImGui::Begin("Control");
-	ImGui::Text("DebugCamera : 0\n");
-	ImGui::Text("PlayerMove : ARROWKEY\n");
-	ImGui::Text("PlayerRotate : A D\n");
-	ImGui::Text("PlayerShot : SPACE\n");
-	ImGui::End();
-	if (isDebugCameraActive_) {
+if (isDebugCameraActive_) {
 		debugCamera_->Update();
-		viewProjection_.matView=debugCamera_->GetViewProjection().constMap->view;
-		viewProjection_.matProjection=debugCamera_->GetViewProjection().constMap->projection;
+		viewProjection_.matView = debugCamera_->GetViewProjection().constMap->view;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().constMap->projection;
 		viewProjection_.TransferMatrix();
 	} else {
 		viewProjection_.UpdateMatrix();
 	}
+	#endif
+
+	player_->Updete();
+	enemy_->Update();
+	
 	CheckAllCollisions();
 	
 }
@@ -94,7 +92,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	
+
+
 
 	// 3Dモデルの描画
 	player_->Draw(viewProjection_);
@@ -111,65 +110,39 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-
+ImGui::Begin("Control");
+	ImGui::Text("DebugCamera : 0\n");
+	ImGui::Text("PlayerMove : ARROWKEY\n");
+	ImGui::Text("PlayerRotate : A D\n");
+	ImGui::Text("PlayerShot : SPACE\n");
+	ImGui::End();
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
 #pragma endregion
 
 }
+
 void GameScene::CheckAllCollisions() {
 	// 自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	// 敵弾リストの取得
 	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
-	//コライダー
-	std::list<Collider*> colliders_;
-	//自機のコライダーを登録
-	colliders_.push_back(player_);
-	//敵機のコライダーを登録
-	colliders_.push_back(enemy_);
-	//自機の弾
+	// 自機のコライダーを登録
+	collisionManager_->AddCollider(player_);
+	// 敵機のコライダーを登録
+	collisionManager_->AddCollider(enemy_);
+	// 自機の弾
 	for (PlayerBullet* bullet : playerBullets) {
-		colliders_.push_back(bullet);
+		collisionManager_->AddCollider(bullet);
 	}
-	//敵機の弾
+	// 敵機の弾
 	for (EnemyBullet* bullet : enemyBullets) {
-		colliders_.push_back(bullet);
+		collisionManager_->AddCollider(bullet);
 	}
-	//リスト内のペアを総当たり
-	std::list<Collider*>::iterator itrA = colliders_.begin();
-	for (; itrA != colliders_.end();++itrA) {
-		//イテレータAからコライダーを取得
-		Collider* colliderA=*itrA;
-		//イテレータBはイテレータAの次の要素から回す(重複を避ける)
-		std::list<Collider*>::iterator itrB = itrA;
-		itrB++;
-		for (; itrB != colliders_.end(); ++itrB) {
-			Collider* colliderB = *itrB;
-			CheckCollisionPair(colliderA, colliderB);
-		}
-	}
-
+	collisionManager_->CheckAllCollisions();
+	collisionManager_->ClearCollider();
 }
 
-void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
-	// 判定対象AとBの座標
-	Vector3 posA, posB;
-	posA = colliderA->GetWorldPosition();
-	posB = colliderB->GetWorldPosition();
-	float Length = sqrt(
-	    (posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) +
-	    (posB.z - posA.z) * (posB.z - posA.z));
-	//コライダーのフィルターの値でビット演算
-	if ((colliderA->GetcollitionAttribute() & colliderB->GetcollisionMask())==0 ||
-	    (colliderB->GetcollitionAttribute() & colliderA->GetcollisionMask())==0) {
-		return;
-	}
-	if (Length<=colliderA->GetRadius()+colliderB->GetRadius()){
-		//コライダーAの衝突時コールバック
-		colliderA->OnCollision();
-		//コライダーBの衝突時コールバック
-		colliderB->OnCollision();
-	}
-}
+
+
