@@ -77,6 +77,7 @@ if (isDebugCameraActive_) {
 	railCamera_->Update();
 	viewProjection_.matView = railCamera_->GetViewProjection().matView;
 	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+	viewProjection_.TransferMatrix();
 	CheckAllCollisions();
 	ImGui::Begin("Control");
 	ImGui::Text("DebugCamera : 0\n");
