@@ -223,7 +223,6 @@ void GameScene::UpdateEnemyPopCommands() {
 			enemyWAITtime = waitTime;
 			break;
 		}
-
 	}
 }
 
