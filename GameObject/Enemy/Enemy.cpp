@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include"GameObject/Player/Player.h"
 #include<cassert>
+#include"scene/GameScene.h"
 
 void Enemy::Initialize(Model* model) {
 	// modelチェック
@@ -31,16 +32,7 @@ void Enemy::Update() {
 		}
 		return false;
 	});
-	for(EnemyBullet* bullet_:bullets_) {
-		bullet_->Update();
-	}
-	bullets_.remove_if([](EnemyBullet* bullet_) { 
-		if (bullet_->Isdead()) {
-			delete bullet_;
-			return true;
-		}
-		return false;
-		});
+	
 
 	ImGui::Begin("Enemy");
 	float point[Vector3D] = {
@@ -57,9 +49,6 @@ void Enemy::Update() {
 
 void Enemy::Draw(const ViewProjection viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-	for (EnemyBullet* bullet_ : bullets_) {
-		bullet_->Draw(viewProjection);
-	}
 }
 
 Vector3 Enemy::GetWorldPosition() {
@@ -72,7 +61,7 @@ Vector3 Enemy::GetWorldPosition() {
 }
 
 void Enemy::OnCollision() { 
-	return;
+	isDead_ = true;
 }
 
 void Enemy::WorldTransformAdd(const Vector3& velocity) {
@@ -105,7 +94,7 @@ void Enemy::Fire() {
 	EnemyBullet* newEnemyBullet_ = new EnemyBullet();
 	newEnemyBullet_->Initialize(model_, worldTransform_.translation_, velosity);
 	newEnemyBullet_->SetPlayer(player_);
-	bullets_.push_back(newEnemyBullet_);
+	gameScene_->AddEnemyBullet(newEnemyBullet_);
 }
 
 void Enemy::ApproachInitialize() { 

@@ -46,6 +46,12 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// エネミーの弾登録
+	/// </summary>
+	/// <param name="enemyBullet"></param>
+	void AddEnemyBullet(EnemyBullet* enemyBullet);
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -60,8 +66,7 @@ private: // メンバ変数
 	ViewProjection viewProjection_;
 	//自キャラ
 	Player* player_ = nullptr;
-	//敵
-	Enemy* enemy_ = nullptr;
+	
 	//天球
 	Skydome* skydome_=nullptr;
 	//レールカメラ
@@ -76,4 +81,12 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	void CheckAllCollisions();
+#pragma region Enemy
+	//敵
+	std::list<Enemy*> enemys_;
+	void EnemyUpdate();
+	void EnemyDraw();
+	//エネミーの弾リスト
+	std::list<EnemyBullet*> enemyBullets_;
+#pragma endregion 敵
 };

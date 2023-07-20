@@ -13,6 +13,7 @@
 //クラスの前方宣言
 class Player;
 class Enemy;
+class GameScene;
 
 class PhaseState {
 public:
@@ -35,12 +36,17 @@ public:
 	void Update();
 
 	void Draw(const ViewProjection viewProjection);
-
+	//ワールド座標を渡す
 	Vector3 GetWorldPosition();
-	
+	/// <summary>
+	/// trueなら死亡
+	/// </summary>
+	/// <returns></returns>
+	bool Isdead() const { return isDead_; }
 	void SetPlayer(Player* player) { player_ = player; }
+	//ゲームシーンを渡す
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 	void OnCollision();
-	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
 	Vector3 GetTransform() { return worldTransform_.translation_; }
 	//ステートパターンで使う移動用関数
 	void WorldTransformAdd(const Vector3& velocity);
@@ -61,17 +67,16 @@ private:
 	const float kEnemySpeedY = 0.02f;
 	//移動量(Vector)
 	Vector3 velocity_ = {0, kEnemySpeedY, kEnemySpeed};
-
+	// デスフラグ
+	bool isDead_ = false;
 	//玉
-	std::list<EnemyBullet*> bullets_;
 	std::list<TimedCall*> timedCalls_;
 	//玉の発射
 	void Fire();
 	//自キャラ(ここでは絶対にnullptr)(setterで)
 	Player* player_ = nullptr;
-
-
 	//ステートパターン
 	PhaseState* state_;
-
+	//ゲームシーン
+	GameScene* gameScene_ = nullptr;
 };

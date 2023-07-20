@@ -14,7 +14,9 @@ GameScene::~GameScene() {
 	delete model_;
 	delete player_;
 	delete debugCamera_;
-	delete enemy_;
+	for (Enemy* enemy_ : enemys_) {
+		delete enemy_;
+	}
 	delete modelSkydome_;
 	delete skydome_;
 	delete railCamera_;
@@ -33,10 +35,14 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_, {0,0,25});
 	//敵
-	enemy_ = new Enemy();
-	enemy_->Initialize(model_);
-	//EnemyにPlayerのアドレスを渡す
-	enemy_->SetPlayer(player_);
+	enemys_.push_back(new Enemy());
+	for (Enemy* enemy_ : enemys_) {
+		enemy_->Initialize(model_);
+		//EnemyにPlayerのアドレスを渡す
+		enemy_->SetPlayer(player_);
+		enemy_->SetGameScene(this);
+	}
+	
 	//天球
 	modelSkydome_ = Model::CreateFromOBJ("skydome",true);
 	skydome_ = new Skydome;
@@ -74,7 +80,7 @@ if (isDebugCameraActive_) {
 	#endif
 
 	player_->Updete();
-	enemy_->Update();
+	EnemyUpdate();
 	skydome_->Update();
 	railCamera_->Update();
 	viewProjection_.matView = railCamera_->GetViewProjection().matView;
@@ -121,7 +127,7 @@ void GameScene::Draw() {
 
 	// 3Dモデルの描画
 	player_->Draw(viewProjection_);
-	enemy_->Draw(viewProjection_);
+	EnemyDraw();
 	skydome_->Draw(viewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -147,11 +153,14 @@ void GameScene::CheckAllCollisions() {
 	// 自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	// 敵弾リストの取得
-	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+	const std::list<EnemyBullet*>& enemyBullets = enemyBullets_;
 	// 自機のコライダーを登録
 	collisionManager_->AddCollider(player_);
 	// 敵機のコライダーを登録
-	collisionManager_->AddCollider(enemy_);
+	for (Enemy* enemy_ : enemys_) {
+		collisionManager_->AddCollider(enemy_);
+	}
+	
 	// 自機の弾
 	for (PlayerBullet* bullet : playerBullets) {
 		collisionManager_->AddCollider(bullet);
@@ -163,6 +172,42 @@ void GameScene::CheckAllCollisions() {
 	collisionManager_->CheckAllCollisions();
 	collisionManager_->ClearCollider();
 }
+#pragma region Enemy
 
+void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) { 
+	enemyBullets_.push_back(enemyBullet);
+}
+void GameScene::EnemyUpdate() {
+	for (Enemy* enemy_ : enemys_) {
+		enemy_->Update();
+	}
+	enemys_.remove_if([](Enemy* enemy_) {
+		if (enemy_->Isdead()) {
+			delete enemy_;
+			return true;
+		}
+		return false;
+	});
+	for (EnemyBullet* bullet_ : enemyBullets_) {
+		bullet_->Update();
+	}
+	enemyBullets_.remove_if([](EnemyBullet* bullet_) {
+		if (bullet_->Isdead()) {
+			delete bullet_;
+			return true;
+		}
+		return false;
+	});
+}
+void GameScene::EnemyDraw() {
+	for (Enemy* enemy_ : enemys_) {
+		enemy_->Draw(viewProjection_);
+	}
+	for (EnemyBullet* bullet_ : enemyBullets_) {
+		bullet_->Draw(viewProjection_);
+	}
+}
+
+#pragma endregion 敵
 
 
