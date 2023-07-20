@@ -31,7 +31,7 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 	//自キャラ
 	player_ = new Player();
-	player_->Initialize(model_,textureHandle_);
+	player_->Initialize(model_, textureHandle_, {0,0,25});
 	//敵
 	enemy_ = new Enemy();
 	enemy_->Initialize(model_);
@@ -52,11 +52,13 @@ void GameScene::Initialize() {
 	//レールカメラ
 	railCamera_ = new RailCamera;
 	railCamera_->Initialize(viewProjection_);
+	//親子関係
+	player_->SetParent(&railCamera_->GetWorldTransform());
 	
 }
 
 void GameScene::Update() { 
-	// デバッグとImGui
+	// デバッグとImGui 
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = true;

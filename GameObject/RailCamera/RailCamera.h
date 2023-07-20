@@ -9,6 +9,7 @@ public:
 	void Initialize(ViewProjection viewProjection);
 	void Update();
 	const ViewProjection& GetViewProjection() const { return viewProjection_; }
+	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 
 private:
 	//ワールド変換データ

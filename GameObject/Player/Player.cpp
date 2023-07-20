@@ -9,12 +9,15 @@ Player::~Player() {
 	}
 }
 
-void Player::Initialize(Model* model, uint32_t textureHandle) { 
+void Player::Initialize(Model* model, uint32_t textureHandle,Vector3 Position) { 
 	assert(model);
 	textureHandle_ = textureHandle;
 	model_ = model;
 	worldTransform_.Initialize();
 	input_ = Input::GetInstance();
+	//プレイヤーをずらす
+	worldTransform_.translation_ = Position;
+	worldTransform_.UpdateMatrix();
 	SetcollitionAttribute(kCollitionAttributePlayer);
 	SetcollisionMask(~kCollitionAttributePlayer);
 }
@@ -70,7 +73,10 @@ Vector3 Player::GetWorldPosition() {
 }
 
 void Player::OnCollision() { 
-	return;
+	return; }
+
+void Player::SetParent(const WorldTransform* parent) { 
+	worldTransform_.parent_ = parent; 
 }
 
 //private関数
@@ -118,10 +124,11 @@ void Player::Attack() {
 		const float kBulletSpeed = 1.0f;
 		//1フレームにつきZ方向に1.0f進む
 		Vector3 velocity(0, 0, kBulletSpeed);
+
 		//速度ベクトルを自機の向きに合わせて回転
 		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 		bullets_.push_back(newBullet);
 	}
 	
