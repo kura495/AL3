@@ -3,7 +3,7 @@
 #include<cassert>
 #include"scene/GameScene.h"
 
-void Enemy::Initialize(Model* model) {
+void Enemy::Initialize(Model* model,const Vector3& position) {
 	// modelチェック
 	assert(model);
 	// モデル読み込み
@@ -12,7 +12,8 @@ void Enemy::Initialize(Model* model) {
 	textureHandle_ = TextureManager::Load("sample.png");
 	// ワールドトランスフォーム初期化
 	worldTransform_.Initialize();
-	worldTransform_.translation_ = Add(worldTransform_.translation_, {10.0f, 0.0f, 0.0f});
+	worldTransform_.translation_ = Add(worldTransform_.translation_, position);
+	worldTransform_.UpdateMatrix();
 	//最初の状態
 	state_ = new PhaseApproach();
 	ApproachInitialize();

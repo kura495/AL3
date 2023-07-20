@@ -31,7 +31,7 @@ public:
 class Enemy : public Collider {
 public:
 
-	void Initialize(Model* model);
+	void Initialize(Model* model, const Vector3& position);
 
 	void Update();
 

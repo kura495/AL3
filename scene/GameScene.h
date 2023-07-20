@@ -81,12 +81,23 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	void CheckAllCollisions();
-#pragma region Enemy
+	/// <summary>
+	/// 敵発生データの読み込み
+	/// </summary>
+	void LoadEnemyPopData();
+	void UpdateEnemyPopCommands();
+	#pragma region Enemy
 	//敵
 	std::list<Enemy*> enemys_;
 	void EnemyUpdate();
 	void EnemyDraw();
-	//エネミーの弾リスト
+	void EnemySpawn(const Vector3& position);
+	//敵の弾リスト
 	std::list<EnemyBullet*> enemyBullets_;
+	//敵発生コマンド
+	std::stringstream enemyPopCommands;
+	//敵の待機フラグ
+	bool enemyWAITflag = false;
+	int enemyWAITtime = 0;
 #pragma endregion 敵
 };
