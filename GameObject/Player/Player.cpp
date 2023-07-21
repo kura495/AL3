@@ -7,6 +7,7 @@ Player::~Player() {
 	for (PlayerBullet* bullet_ : bullets_) {
 		delete bullet_;
 	}
+	delete sprite2DReticle_;
 }
 
 void Player::Initialize(Model* model, uint32_t textureHandle,Vector3 Position) { 
@@ -23,6 +24,8 @@ void Player::Initialize(Model* model, uint32_t textureHandle,Vector3 Position) {
 
 	ReticleModel = Model::Create();
 	worldTransform3DReticle_.Initialize();
+	uint32_t textureReticle = TextureManager::Load("reticle.png");
+	sprite2DReticle_ = Sprite::Create(textureReticle, {640, 360}, {1, 1, 1, 1}, {0.5f, 0.5f});
 }
 
 void Player::Updete() { 
@@ -143,6 +146,10 @@ void Player::Attack() {
 	
 }
 
+void Player::DrawUI() { 
+	sprite2DReticle_->Draw();
+}
+
 void Player::SetReticle() { 
 	const float kDistancePlayerTo3DReticle = 50.0f;
 	//自機から3Dレティクルへの距離(Z+向き)
@@ -159,4 +166,9 @@ void Player::SetReticle() {
 	worldTransform3DReticle_.translation_.y = GetWorldPosition().y + offset.y;
 	worldTransform3DReticle_.translation_.z = GetWorldPosition().z + offset.z;
 	worldTransform3DReticle_.UpdateMatrix();
+}
+
+void Player::Dreticle3DWorldToDreticle2DScreen() {
+
+
 }

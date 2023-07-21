@@ -32,6 +32,8 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("sample.png");
 	model_ = Model::Create();
 	viewProjection_.Initialize();
+	//レティクルのテクスチャ
+	TextureManager::Load("reticle.png");
 	//自キャラ
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_, {0,0,25});
@@ -55,6 +57,8 @@ void GameScene::Initialize() {
 	//親子関係
 	player_->SetParent(&railCamera_->GetWorldTransform());
 	
+	
+
 }
 
 void GameScene::Update() { 
@@ -136,6 +140,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	player_->DrawUI();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

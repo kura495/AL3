@@ -8,6 +8,7 @@
 #include"Utility/Collider.h"
 #include"Utility/CollisionConfig.h"
 #include"PlayerBullet.h"
+#include"Sprite.h"
 #include<list>
 class Player : public Collider {
 public:
@@ -19,7 +20,7 @@ public:
 	void Updete();
 
 	void Draw(const ViewProjection viewProjection_);
-
+	void DrawUI();
 	Vector3 GetWorldPosition();
 	void OnCollision();
 	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
@@ -41,5 +42,8 @@ private:
 
 	WorldTransform worldTransform3DReticle_;
 	void SetReticle();
+
 	Model* ReticleModel;
+	Sprite* sprite2DReticle_ = nullptr;
+	void Dreticle3DWorldToDreticle2DScreen();
 };
