@@ -51,6 +51,12 @@ public: // メンバ関数
 	/// </summary>
 	/// <param name="enemyBullet"></param>
 	void AddEnemyBullet(EnemyBullet* enemyBullet);
+	/// <summary>
+	/// CSVを読み込む
+	/// </summary>
+	/// <param name="filename"></param>
+	/// <returns></returns>
+	std::stringstream LoadCSVData(const std::string& filename);
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -84,14 +90,15 @@ private: // メンバ変数
 	/// <summary>
 	/// 敵発生データの読み込み
 	/// </summary>
-	void LoadEnemyPopData();
-	void UpdateEnemyPopCommands();
+
+
 	#pragma region Enemy
 	//敵
 	std::list<Enemy*> enemys_;
 	void EnemyUpdate();
 	void EnemyDraw();
 	void EnemySpawn(const Vector3& position);
+	void UpdateEnemyPopCommands();
 	//敵の弾リスト
 	std::list<EnemyBullet*> enemyBullets_;
 	//敵発生コマンド
