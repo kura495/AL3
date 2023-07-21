@@ -141,6 +141,9 @@
     <ClCompile Include="GameObject\RailCamera\RailCamera.cpp">
       <Filter>ソース ファイル\GameObject\RailCamera</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\LoadCSV.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="GameObject\RailCamera\RailCamera.h">
       <Filter>ヘッダー ファイル\GameObject\RailCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\LoadCSV.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -120,6 +120,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="Utility\CollisionManager.cpp" />
+    <ClCompile Include="Utility\LoadCSV.cpp" />
     <ClCompile Include="Utility\TimedCall.cpp" />
     <ClCompile Include="Utility\WorldTransformEx.cpp" />
   </ItemGroup>
@@ -164,6 +165,7 @@
     <ClInclude Include="Utility\CollisionConfig.h" />
     <ClInclude Include="Utility\CollisionManager.h" />
     <ClInclude Include="Utility\ImGuiSupport.h" />
+    <ClInclude Include="Utility\LoadCSV.h" />
     <ClInclude Include="Utility\TimedCall.h" />
   </ItemGroup>
   <ItemGroup>
