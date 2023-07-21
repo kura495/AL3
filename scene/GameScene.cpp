@@ -59,7 +59,23 @@ void GameScene::Initialize() {
 
 void GameScene::Update() { 
 	// デバッグとImGui 
-	#ifdef _DEBUG
+	
+    railCamera_->Update();
+	viewProjection_.matView = railCamera_->GetViewProjection().matView;
+	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+	viewProjection_.TransferMatrix();
+	UpdateEnemyPopCommands();
+	player_->Updete();
+	EnemyUpdate();
+	skydome_->Update();
+	CheckAllCollisions();
+	ImGui::Begin("Control");
+	ImGui::Text("DebugCamera : 0\n");
+	ImGui::Text("PlayerMove : ARROWKEY\n");
+	ImGui::Text("PlayerRotate : A D\n");
+	ImGui::Text("PlayerShot : SPACE\n");
+	ImGui::End();
+#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = true;
 	}
@@ -72,21 +88,6 @@ if (isDebugCameraActive_) {
 		viewProjection_.UpdateMatrix();
 	}
 	#endif
-	UpdateEnemyPopCommands();
-	player_->Updete();
-	EnemyUpdate();
-	skydome_->Update();
-	railCamera_->Update();
-	viewProjection_.matView = railCamera_->GetViewProjection().matView;
-	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
-	viewProjection_.TransferMatrix();
-	CheckAllCollisions();
-	ImGui::Begin("Control");
-	ImGui::Text("DebugCamera : 0\n");
-	ImGui::Text("PlayerMove : ARROWKEY\n");
-	ImGui::Text("PlayerRotate : A D\n");
-	ImGui::Text("PlayerShot : SPACE\n");
-	ImGui::End();
 }
 
 void GameScene::Draw() {

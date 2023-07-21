@@ -38,4 +38,8 @@ private:
 	Input* input_ = nullptr;
 	std::list<PlayerBullet*> bullets_;
 	
+
+	WorldTransform worldTransform3DReticle_;
+	void SetReticle();
+	Model* ReticleModel;
 };

@@ -20,6 +20,9 @@ void Player::Initialize(Model* model, uint32_t textureHandle,Vector3 Position) {
 	worldTransform_.UpdateMatrix();
 	SetcollitionAttribute(kCollitionAttributePlayer);
 	SetcollisionMask(~kCollitionAttributePlayer);
+
+	ReticleModel = Model::Create();
+	worldTransform3DReticle_.Initialize();
 }
 
 void Player::Updete() { 
@@ -41,7 +44,7 @@ void Player::Updete() {
 		for (PlayerBullet* bullet_ : bullets_) {
 		bullet_->Update();
 		}
-	
+	SetReticle();
 
 	//ImGuiの準備
 	float point[Vector3D] = {worldTransform_.translation_.x, worldTransform_.translation_.y,worldTransform_.translation_.z};
@@ -60,7 +63,7 @@ void Player::Draw(const ViewProjection viewProjection_) {
 	for (PlayerBullet* bullet_ : bullets_) {
 		bullet_->Draw(viewProjection_);
 	}
-	
+	ReticleModel->Draw(worldTransform3DReticle_, viewProjection_);
 }
 
 Vector3 Player::GetWorldPosition() {
@@ -123,8 +126,14 @@ void Player::Attack() {
 		//玉の速度
 		const float kBulletSpeed = 1.0f;
 		//1フレームにつきZ方向に1.0f進む
-		Vector3 velocity(0, 0, kBulletSpeed);
-
+		Vector3 velocity(0, 0, 0);
+		velocity.x = worldTransform3DReticle_.translation_.x - GetWorldPosition().x;
+		velocity.y = worldTransform3DReticle_.translation_.y - GetWorldPosition().y;
+		velocity.z = worldTransform3DReticle_.translation_.z - GetWorldPosition().z;
+		velocity = Normalize(velocity);
+		velocity.x *= kBulletSpeed;
+		velocity.y *= kBulletSpeed;
+		velocity.z *= kBulletSpeed;
 		//速度ベクトルを自機の向きに合わせて回転
 		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 		PlayerBullet* newBullet = new PlayerBullet();
@@ -132,4 +141,22 @@ void Player::Attack() {
 		bullets_.push_back(newBullet);
 	}
 	
+}
+
+void Player::SetReticle() { 
+	const float kDistancePlayerTo3DReticle = 50.0f;
+	//自機から3Dレティクルへの距離(Z+向き)
+	Vector3 offset = {0, 0, 1.0f};
+	//自機のワールド行列の回転を反映
+	offset = TransformNormal(offset,worldTransform_.constMap->matWorld);
+	//ベクトルの長さを整える
+	offset = Normalize(offset);
+	offset.x *= kDistancePlayerTo3DReticle;
+	offset.y *= kDistancePlayerTo3DReticle;
+	offset.z *= kDistancePlayerTo3DReticle;
+	//3Dレティクルの座標を設定
+	worldTransform3DReticle_.translation_.x = GetWorldPosition().x + offset.x;
+	worldTransform3DReticle_.translation_.y = GetWorldPosition().y + offset.y;
+	worldTransform3DReticle_.translation_.z = GetWorldPosition().z + offset.z;
+	worldTransform3DReticle_.UpdateMatrix();
 }
