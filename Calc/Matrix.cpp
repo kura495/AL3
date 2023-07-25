@@ -232,6 +232,7 @@ Matrix4x4 Inverse(const Matrix4x4& m) {
 	                 resultDet;
 	return result;
 }
+
 Vector3 Transformed(const Vector3& vector, const Matrix4x4& matrix) {
 	Vector3 result;
 	result.x = vector.x * matrix.m[0][0] + vector.y * matrix.m[1][0] + vector.z * matrix.m[2][0] +
@@ -246,5 +247,25 @@ Vector3 Transformed(const Vector3& vector, const Matrix4x4& matrix) {
 	result.x /= W;
 	result.y /= W;
 	result.z /= W;
+	return result;
+}
+Matrix4x4 MakeViewportMatrix(float left, float top, float width, float height, float minDepth, float maxDepth) {
+	Matrix4x4 result = {
+	    width / 2,
+	    0,
+	    0,
+	    0,
+	    0,
+	    -(height / 2),
+	    0,
+	    0,
+	    0,
+	    0,
+	    maxDepth - minDepth,
+	    0,
+	    left + (width / 2),
+	    top + (height / 2),
+	    minDepth,
+	    1};
 	return result;
 }

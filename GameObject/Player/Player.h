@@ -17,7 +17,7 @@ public:
 
 	void Initialize(Model* model, uint32_t textureHandle, Vector3 Position);
 
-	void Updete();
+	void Updete(const ViewProjection& viewProjection);
 
 	void Draw(const ViewProjection viewProjection_);
 	void DrawUI();
@@ -45,5 +45,5 @@ private:
 
 	Model* ReticleModel;
 	Sprite* sprite2DReticle_ = nullptr;
-	void Dreticle3DWorldToDreticle2DScreen();
+	void Dreticle3DWorldToDreticle2DScreen(const ViewProjection& viewProjection);
 };

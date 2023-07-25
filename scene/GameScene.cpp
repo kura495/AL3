@@ -69,7 +69,7 @@ void GameScene::Update() {
 	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 	viewProjection_.TransferMatrix();
 	UpdateEnemyPopCommands();
-	player_->Updete();
+	player_->Updete(viewProjection_);
 	EnemyUpdate();
 	skydome_->Update();
 	CheckAllCollisions();

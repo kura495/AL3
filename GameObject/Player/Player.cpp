@@ -28,7 +28,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle,Vector3 Position) {
 	sprite2DReticle_ = Sprite::Create(textureReticle, {640, 360}, {1, 1, 1, 1}, {0.5f, 0.5f});
 }
 
-void Player::Updete() { 
+void Player::Updete(const ViewProjection& viewProjection) { 
 	//デスフラグが立った玉を削除
 	bullets_.remove_if([](PlayerBullet* bullet) { 
 		if (bullet->IsDead()) {
@@ -41,13 +41,16 @@ void Player::Updete() {
 	Move();
 	//キャラの回転
 	Rotate();
+	
+	SetReticle();
+	Dreticle3DWorldToDreticle2DScreen(viewProjection);
 	//玉の発射
 	Attack();
 	//玉の更新
 		for (PlayerBullet* bullet_ : bullets_) {
 		bullet_->Update();
 		}
-	SetReticle();
+	
 
 	//ImGuiの準備
 	float point[Vector3D] = {worldTransform_.translation_.x, worldTransform_.translation_.y,worldTransform_.translation_.z};
@@ -168,7 +171,19 @@ void Player::SetReticle() {
 	worldTransform3DReticle_.UpdateMatrix();
 }
 
-void Player::Dreticle3DWorldToDreticle2DScreen() {
-
-
+void Player::Dreticle3DWorldToDreticle2DScreen(const ViewProjection& viewProjection) {
+		// 3Dレティクルのワールド行列からワールド座標を取得
+		Vector3 positionReticle = {
+		    worldTransform3DReticle_.matWorld_.m[3][0], worldTransform3DReticle_.matWorld_.m[3][1],
+		    worldTransform3DReticle_.matWorld_.m[3][2]};
+		// ビューポート行列
+		Matrix4x4 matViewport =
+		    MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
+		// ビュー行列とプロジェクション行列、ビューポート行列を合成
+		Matrix4x4 matViewProjectionViewport =
+		    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection, matViewport));
+		// ワールド→スクリーン座標変換(3D→2D)
+		positionReticle = Transformed(positionReticle, matViewProjectionViewport);
+		// スプライトのレティクルに座標を設定
+		sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
 }
