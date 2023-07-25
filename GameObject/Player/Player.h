@@ -45,5 +45,7 @@ private:
 
 	Model* ReticleModel;
 	Sprite* sprite2DReticle_ = nullptr;
+	HWND hwnd = nullptr;
 	void Dreticle3DWorldToDreticle2DScreen(const ViewProjection& viewProjection);
+	void GetMauseCursur();
 };

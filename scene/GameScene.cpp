@@ -28,37 +28,33 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-
-	textureHandle_ = TextureManager::Load("sample.png");
 	model_ = Model::Create();
 	viewProjection_.Initialize();
-	//レティクルのテクスチャ
-	TextureManager::Load("reticle.png");
+
+	textureHandle_ = TextureManager::Load("sample.png");
+	
 	//自キャラ
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_, {0,0,25});
 	
-	enemyPopCommands = LoadCSVData("CSV/enemyPop.csv");
-	//天球
-	modelSkydome_ = Model::CreateFromOBJ("skydome",true);
-	skydome_ = new Skydome;
-	skydome_->Initialize(modelSkydome_);
-
 	collisionManager_ = new CollisionManager();
-
-
-	debugCamera_ = new DebugCamera(1280,720);
-	AxisIndicator::GetInstance()->SetVisible(true);
-	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 
 	//レールカメラ
 	railCamera_ = new RailCamera;
 	railCamera_->Initialize(viewProjection_);
 	//親子関係
 	player_->SetParent(&railCamera_->GetWorldTransform());
-	
-	
+	//天球
+	modelSkydome_ = Model::CreateFromOBJ("skydome",true);
+	skydome_ = new Skydome;
+	skydome_->Initialize(modelSkydome_);
+	//レティクルのテクスチャ
+	TextureManager::Load("reticle.png");
+	enemyPopCommands = LoadCSVData("CSV/enemyPop.csv");
 
+	debugCamera_ = new DebugCamera(1280,720);
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
 void GameScene::Update() { 

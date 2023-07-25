@@ -19,13 +19,18 @@ void Player::Initialize(Model* model, uint32_t textureHandle,Vector3 Position) {
 	//プレイヤーをずらす
 	worldTransform_.translation_ = Position;
 	worldTransform_.UpdateMatrix();
+	//当たり判定の属性とマスク設定
 	SetcollitionAttribute(kCollitionAttributePlayer);
 	SetcollisionMask(~kCollitionAttributePlayer);
-
+	//レティクル
 	ReticleModel = Model::Create();
 	worldTransform3DReticle_.Initialize();
 	uint32_t textureReticle = TextureManager::Load("reticle.png");
 	sprite2DReticle_ = Sprite::Create(textureReticle, {640, 360}, {1, 1, 1, 1}, {0.5f, 0.5f});
+	
+	//マウス座標
+	hwnd = WinApp::GetInstance()->GetHwnd();
+
 }
 
 void Player::Updete(const ViewProjection& viewProjection) { 
@@ -41,7 +46,7 @@ void Player::Updete(const ViewProjection& viewProjection) {
 	Move();
 	//キャラの回転
 	Rotate();
-	
+	//
 	SetReticle();
 	Dreticle3DWorldToDreticle2DScreen(viewProjection);
 	//玉の発射
@@ -51,7 +56,6 @@ void Player::Updete(const ViewProjection& viewProjection) {
 		bullet_->Update();
 		}
 	
-
 	//ImGuiの準備
 	float point[Vector3D] = {worldTransform_.translation_.x, worldTransform_.translation_.y,worldTransform_.translation_.z};
 	ImGui::Begin("Player");
@@ -186,4 +190,10 @@ void Player::Dreticle3DWorldToDreticle2DScreen(const ViewProjection& viewProject
 		positionReticle = Transformed(positionReticle, matViewProjectionViewport);
 		// スプライトのレティクルに座標を設定
 		sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
+}
+
+void Player::GetMauseCursur() {
+
+
+
 }
