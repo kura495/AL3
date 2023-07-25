@@ -44,7 +44,7 @@ private:
 	WorldTransform worldTransform3DReticle_;
 	Model* ReticleModel;
 	Sprite* sprite2DReticle_ = nullptr;
-	Vector3 positionReticle;
+	Vector3 ReticlePos_;
 	void SetReticle();
 
 	void reticle3DWorldToreticle2DScreen(const ViewProjection& viewProjection);

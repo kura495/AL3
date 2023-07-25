@@ -144,17 +144,17 @@ void Player::Attack() {
 	if (input_->TriggerKey(DIK_SPACE)) {
 		//玉の速度
 		const float kBulletSpeed = 1.0f;
-		//1フレームにつきZ方向に1.0f進む
-		Vector3 velocity(0, 0, 0);
-		velocity.x = worldTransform3DReticle_.translation_.x - GetWorldPosition().x;
-		velocity.y = worldTransform3DReticle_.translation_.y - GetWorldPosition().y;
-		velocity.z = worldTransform3DReticle_.translation_.z - GetWorldPosition().z;
+
+		Vector3 worldPos=GetWorldPosition();
+		Vector3 ReticlePos = {
+		    worldTransform3DReticle_.matWorld_.m[3][0], worldTransform3DReticle_.matWorld_.m[3][1],
+		    worldTransform3DReticle_.matWorld_.m[3][2]};
+		Vector3 velocity = Subtract(ReticlePos, worldPos);
 		velocity = Normalize(velocity);
 		velocity.x *= kBulletSpeed;
 		velocity.y *= kBulletSpeed;
 		velocity.z *= kBulletSpeed;
 		//速度ベクトルを自機の向きに合わせて回転
-		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 		bullets_.push_back(newBullet);
@@ -187,7 +187,7 @@ void Player::SetReticle() {
 	/// <param name="viewProjection"></param>
 void Player::reticle3DWorldToreticle2DScreen(const ViewProjection& viewProjection) {
 		// 3Dレティクルのワールド行列からワールド座標を取得
-		positionReticle = {
+		ReticlePos_ = {
 		    worldTransform3DReticle_.matWorld_.m[3][0], worldTransform3DReticle_.matWorld_.m[3][1],
 		    worldTransform3DReticle_.matWorld_.m[3][2]};
 		// ビューポート行列
@@ -197,9 +197,9 @@ void Player::reticle3DWorldToreticle2DScreen(const ViewProjection& viewProjectio
 		Matrix4x4 matViewProjectionViewport =
 		    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection, matViewport));
 		// ワールド→スクリーン座標変換(3D→2D)
-		positionReticle = Transformed(positionReticle, matViewProjectionViewport);
+		ReticlePos_ = Transformed(ReticlePos_, matViewProjectionViewport);
 		// スプライトのレティクルに座標を設定
-		sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
+		sprite2DReticle_->SetPosition(Vector2(ReticlePos_.x, ReticlePos_.y));
 }
 	/// <summary>
 	/// マウスカーソルを取得
