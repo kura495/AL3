@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"Model.h"
 #include "WorldTransform.h"
 #include"Input.h"
@@ -10,6 +10,7 @@
 #include"PlayerBullet.h"
 #include"Sprite.h"
 #include<list>
+#include<Windows.h>
 class Player : public Collider {
 public:
 	Player();
@@ -39,13 +40,23 @@ private:
 	Input* input_ = nullptr;
 	std::list<PlayerBullet*> bullets_;
 	
-
+	//レティクル(2Dと3D)
 	WorldTransform worldTransform3DReticle_;
-	void SetReticle();
-
 	Model* ReticleModel;
 	Sprite* sprite2DReticle_ = nullptr;
+	Vector3 positionReticle;
+	void SetReticle();
+
+	void reticle3DWorldToreticle2DScreen(const ViewProjection& viewProjection);
+
+	//レティクル(マウス)
 	HWND hwnd = nullptr;
-	void Dreticle3DWorldToDreticle2DScreen(const ViewProjection& viewProjection);
+	POINT mousePosition;
+	Vector3 posNear;
+	Vector3 posFar;
+
 	void GetMauseCursur();
+
+	void SetMauseReticle(const ViewProjection& viewProjection);
+
 };
