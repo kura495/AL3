@@ -38,6 +38,9 @@ private:
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	Input* input_ = nullptr;
+	//ゲームパッドの状態を得る変数(XINPUT)
+	XINPUT_STATE joyState;
+
 	std::list<PlayerBullet*> bullets_;
 	
 	//レティクル(2Dと3D)
@@ -45,7 +48,7 @@ private:
 	Model* ReticleModel;
 	Sprite* sprite2DReticle_ = nullptr;
 	Vector3 ReticlePos_;
-	void SetReticle();
+	void Set3DReticle();
 
 	void reticle3DWorldToreticle2DScreen(const ViewProjection& viewProjection);
 
@@ -54,9 +57,7 @@ private:
 	POINT mousePosition;
 	Vector3 posNear;
 	Vector3 posFar;
-
-	void GetMauseCursur();
-
-	void SetMauseReticle(const ViewProjection& viewProjection);
-
+	void GetCursur();
+	void Set2DReticle(const ViewProjection& viewProjection);
+	Vector2 spritePosition;
 };
