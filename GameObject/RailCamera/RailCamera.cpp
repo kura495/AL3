@@ -34,7 +34,7 @@ void RailCamera::Update() {
 	ImGui::End();
 }
 
-void RailCamera::DrawLine() {
+void RailCamera::DrawRailLine() {
 	//線分で描画する用の頂点リスト
 	std::vector<Vector3> pointDrawing;
 	//線分の数
@@ -45,5 +45,10 @@ void RailCamera::DrawLine() {
 		Vector3 pos = /*Catmull - Rom */(controlPoints_, t);
 		//描画用頂点リストに追加
 		pointDrawing.push_back(pos);
+	}
+	// 3Dラインを描画する
+	for (int i = 0; i < segmentCount - 1; i++) {
+		PrimitiveDrawer::GetInstance()->DrawLine3d(
+		    pointDrawing[i], pointDrawing[i + 1], {1.0f, 0.0f, 0.0f, 1.0f});
 	}
 }
