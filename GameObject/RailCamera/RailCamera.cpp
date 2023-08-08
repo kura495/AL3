@@ -6,6 +6,14 @@ void RailCamera::Initialize(ViewProjection viewProjection) {
 	worldTransform_.rotation_ = viewProjection.rotation_;
 	worldTransform_.scale_ = {1,1,1};
 	viewProjection_.Initialize();
+	controlPoints_ = {
+	    {0,  0,  0},
+        {10, 10, 0},
+        {10, 15, 0},
+        {20, 15, 0},
+        {20, 0,  0},
+        {30, 0,  0},
+	};
 }
 
 void RailCamera::Update() { 
@@ -24,4 +32,15 @@ void RailCamera::Update() {
 	ImGui::SliderFloat3("translation", &worldTransform_.translation_.x, -50.0f, 50.0f);
 	ImGui::SliderFloat3("rotation", &worldTransform_.rotation_.x, 0.0f, 70.0f);
 	ImGui::End();
+}
+
+void RailCamera::DrawLine() {
+	//線分で描画する用の頂点リスト
+	std::vector<Vector3> pointDrawing;
+	//線分の数
+	const size_t segmentCount = 100;
+	//線分の数+1個分の頂点座標を計算
+	for (size_t i = 0; i < segmentCount + 1; i++) {
+	
+	}
 }
