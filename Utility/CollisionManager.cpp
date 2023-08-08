@@ -26,8 +26,8 @@ void CollisionManager::CheckCollisionPair(Collider* colliderA, Collider* collide
 	    (posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) +
 	    (posB.z - posA.z) * (posB.z - posA.z));
 	// コライダーのフィルターの値でビット演算
-	if ((colliderA->GetcollitionAttribute() & colliderB->GetcollisionMask()) == 0 ||
-	    (colliderB->GetcollitionAttribute() & colliderA->GetcollisionMask()) == 0) {
+	if ((colliderA->GetCollisionAttribute() & colliderB->GetcollisionMask()) == 0 ||
+	    (colliderB->GetCollisionAttribute() & colliderA->GetcollisionMask()) == 0) {
 		return;
 	}
 	if (Length <= colliderA->GetRadius() + colliderB->GetRadius()) {

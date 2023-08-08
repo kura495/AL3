@@ -13,7 +13,7 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 	worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
 	float VelocityXZ = sqrt((velocity_.x * velocity_.x) + (velocity_.z * velocity_.z));
 	worldTransform_.rotation_.x = std::atan2(-velocity_.y, VelocityXZ);
-	SetcollitionAttribute(kCollitionAttributeEnemy);
+	SetCollisionAttribute(kCollitionAttributeEnemy);
 	SetcollisionMask(~kCollitionAttributeEnemy);
 }
 

@@ -20,7 +20,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle,Vector3 Position) {
 	worldTransform_.translation_ = Position;
 	worldTransform_.UpdateMatrix();
 	//当たり判定の属性とマスク設定
-	SetcollitionAttribute(kCollitionAttributePlayer);
+	SetCollisionAttribute(kCollitionAttributePlayer);
 	SetcollisionMask(~kCollitionAttributePlayer);
 	//レティクル
 	ReticleModel = Model::Create();

@@ -10,19 +10,19 @@ public:
 	//衝突時に呼ばれる関数
 	virtual void OnCollision() = 0;
 	virtual Vector3 GetWorldPosition()=0;
-	uint32_t GetcollitionAttribute() const { return collisionAttribute_; }
+	uint32_t GetCollisionAttribute() const { return collisionAttribute_; }
 	/// <summary>
 	/// 衝突属性
 	/// </summary>
 	/// <param name="collisionAttribute"></param>
-	void SetcollitionAttribute(uint32_t collisionAttribute) {
+	void SetCollisionAttribute(uint32_t collisionAttribute) {
 		collisionAttribute_ = collisionAttribute;
 	}
 	uint32_t GetcollisionMask() const { return collisionMask_; }
 	/// <summary>
 	/// 衝突マスク
 	/// </summary>
-	/// <param name="collisionMask">基本はSetcollitionAttributeに入れたものに~を付けてビット反転</param>
+	/// <param name="collisionMask">基本はSetCollisionAttributeに入れたものに~を付けてビット反転</param>
 	void SetcollisionMask(uint32_t collisionMask){
 
 		collisionMask_ = collisionMask;

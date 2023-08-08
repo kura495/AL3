@@ -15,7 +15,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	worldTransform_.Initialize();
 	//初期値セット
 	worldTransform_.translation_ = position;
-	SetcollitionAttribute(kCollitionAttributePlayer);
+	SetCollisionAttribute(kCollitionAttributePlayer);
 	SetcollisionMask(~kCollitionAttributePlayer);
 }
 
