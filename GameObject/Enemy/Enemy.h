@@ -10,23 +10,16 @@
 #include<list>
 #include"Utility/TimedCall.h"
 #include"Utility/CollisionConfig.h"
+#include"State/PhaseApproach.h"
+#include"State/PhaseLeave.h"
 //クラスの前方宣言
 class Player;
-class Enemy;
+
 class GameScene;
 
-class PhaseState {
-public:
-	virtual void Update(Enemy* enemy, const Vector3& velocity) = 0;
-};
-class PhaseApproach : public PhaseState {
-public:
-	void Update(Enemy* enemy, const Vector3& velocity);
-};
-class PhaseLeave : public PhaseState {
-public:
-	void Update(Enemy* enemy, const Vector3& velocity);
-};
+
+
+
 
 class Enemy : public Collider {
 public:

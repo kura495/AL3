@@ -88,6 +88,12 @@
     <Filter Include="ヘッダー ファイル\GameObject\RailCamera">
       <UniqueIdentifier>{74164416-0de7-46c3-9512-b3371b0386f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameObject\Enemy\State">
+      <UniqueIdentifier>{e138811e-05e8-4ac1-8995-c7b0808adfd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\Enemy\State">
+      <UniqueIdentifier>{2cd972ea-eba2-46ce-8d68-b88dc0b241dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -140,6 +146,12 @@
     </ClCompile>
     <ClCompile Include="Utility\LoadCSV.cpp">
       <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Enemy\State\PhaseApproach.cpp">
+      <Filter>ソース ファイル\GameObject\Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Enemy\State\PhaseLeave.cpp">
+      <Filter>ソース ファイル\GameObject\Enemy\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +280,15 @@
     </ClInclude>
     <ClInclude Include="Utility\LoadCSV.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\State\Istate.h">
+      <Filter>ヘッダー ファイル\GameObject\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\State\PhaseApproach.h">
+      <Filter>ヘッダー ファイル\GameObject\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\State\PhaseLeave.h">
+      <Filter>ヘッダー ファイル\GameObject\Enemy\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
