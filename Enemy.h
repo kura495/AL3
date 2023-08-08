@@ -6,12 +6,9 @@
 #include"ImGuiSupport.h"
 #include"Phase.h"
 
-class Enemy;
 
-class PhaseState {
-public:
-	virtual void Update(Enemy* enemy, const Vector3& velocity) = 0;
-};
+
+
 class PhaseApproach : public PhaseState {
 public:
 	void Update(Enemy* enemy, const Vector3& velocity);

@@ -2,5 +2,8 @@
 #include<WorldTransform.h>
 #include"WorldTransformEx.h"
 #include"Affine.h"
-#include"Enemy.h"
-
+class Enemy;
+class PhaseState {
+public:
+	virtual void Update(Enemy* enemy, const Vector3& velocity) = 0;
+};
