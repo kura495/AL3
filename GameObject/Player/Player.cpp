@@ -195,7 +195,7 @@ void Player::reticle3DWorldToreticle2DScreen(const ViewProjection& viewProjectio
 		Matrix4x4 matViewProjectionViewport =
 		    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection, matViewport));
 		// ワールド→スクリーン座標変換(3D→2D)
-		ReticlePos_ = Transformed(ReticlePos_, matViewProjectionViewport);
+		ReticlePos_ = Transform(ReticlePos_, matViewProjectionViewport);
 		// スプライトのレティクルに座標を設定
 		sprite2DReticle_->SetPosition(Vector2(ReticlePos_.x, ReticlePos_.y));
 }
@@ -229,8 +229,8 @@ void Player::Set2DReticle(const ViewProjection& viewProjection) {
 	posFar = Vector3(
 	    (float)sprite2DReticle_->GetPosition().x, (float)sprite2DReticle_->GetPosition().y, 1);
 	// スクリーン座標系からワールド座標系
-	posNear = Transformed(posNear, matInverseVPV);
-	posFar = Transformed(posFar, matInverseVPV);
+	posNear = Transform(posNear, matInverseVPV);
+	posFar = Transform(posFar, matInverseVPV);
 	// レイの方向
 	Vector3 Direction = Subtract(posFar,posNear);
 	Direction = Normalize(Direction);

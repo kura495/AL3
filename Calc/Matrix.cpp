@@ -77,7 +77,6 @@ Matrix4x4 MakeScaleMatrix(const Vector3& scale) {
 	};
 	return result;
 }
-
 Matrix4x4 MakeRotateXMatrix(float radian) {
 	Matrix4x4 result = {
 	    1.0f,0.0f,0.0f,0.0f,
@@ -87,7 +86,6 @@ Matrix4x4 MakeRotateXMatrix(float radian) {
 	};
 	return result;
 }
-
 Matrix4x4 MakeRotateYMatrix(float radian) {
 	Matrix4x4 result = {
 		std::cos(radian), 0.0f, -std::sin(radian), 0.0f,
@@ -96,7 +94,6 @@ Matrix4x4 MakeRotateYMatrix(float radian) {
 		0.0f, 0.0f, 0.0f, 1.0f};
 	return result;
 }
-
 Matrix4x4 MakeRotateZMatrix(float radian) {
 	Matrix4x4 result = {
 	    std::cos(radian),std::sin(radian),0.0f,0.0f,
@@ -105,7 +102,6 @@ Matrix4x4 MakeRotateZMatrix(float radian) {
 		0.0f,0.0f,0.0f,1.0f};
 	return result;
 }
-
 Matrix4x4 MakeTranslateMatrix(const Vector3& translate) {
 	Matrix4x4 result = {
 	    1.0f, 0.0f, 0.0f, 0.0f,
@@ -115,7 +111,6 @@ Matrix4x4 MakeTranslateMatrix(const Vector3& translate) {
 	};
 	return result;
 }
-
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate) {
 	Matrix4x4 Scaleresult = MakeScaleMatrix(scale);
 	Matrix4x4 Rotateresult = Multiply(MakeRotateXMatrix(rotate.x),Multiply(MakeRotateYMatrix(rotate.y), MakeRotateZMatrix(rotate.z)));
@@ -232,7 +227,7 @@ Matrix4x4 Inverse(const Matrix4x4& m) {
 	return result;
 }
 
-Vector3 Transformed(const Vector3& vector, const Matrix4x4& matrix) {
+Vector3 Transform(const Vector3& vector, const Matrix4x4& matrix) {
 	Vector3 result;
 	result.x = vector.x * matrix.m[0][0] + vector.y * matrix.m[1][0] + vector.z * matrix.m[2][0] +
 	           1.0f * matrix.m[3][0];
