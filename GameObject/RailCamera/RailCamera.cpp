@@ -41,6 +41,9 @@ void RailCamera::DrawLine() {
 	const size_t segmentCount = 100;
 	//線分の数+1個分の頂点座標を計算
 	for (size_t i = 0; i < segmentCount + 1; i++) {
-	
+		float t = 1.0f / segmentCount * i;
+		Vector3 pos = /*Catmull - Rom */(controlPoints_, t);
+		//描画用頂点リストに追加
+		pointDrawing.push_back(pos);
 	}
 }

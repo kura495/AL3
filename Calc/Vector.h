@@ -17,3 +17,5 @@ Vector3 Normalize(const Vector3& v1);
 Vector3 VectorLerp(const Vector3& v1, const Vector3& v2, float t);
 Vector3 VectorSLerp(const Vector3& v1, const Vector3& v2, float t);
 float dot(const Vector3& v1, const Vector3& v2);
+
+Vector3 CatMull_Rom(const Vector3& point, const float& t);
