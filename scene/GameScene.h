@@ -9,7 +9,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include"Player.h"
-#include"Enemy.h"
+#include"Enemy/Enemy.h"
 #include"DebugCamera.h"
     /// <summary>
 /// ゲームシーン

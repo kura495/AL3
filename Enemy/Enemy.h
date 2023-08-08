@@ -4,20 +4,9 @@
 #include"WorldTransformEx.h"
 #include"ImGuiManager.h"
 #include"ImGuiSupport.h"
-#include"Phase.h"
-
-
-
-
-class PhaseApproach : public PhaseState {
-public:
-	void Update(Enemy* enemy, const Vector3& velocity);
-};
-class PhaseLeave : public PhaseState {
-public:
-	void Update(Enemy* enemy, const Vector3& velocity);
-};
-
+#include"State/Istate.h"
+#include"State/PhaseLeave.h"
+#include"State/PhaseApproach.h"
 class Enemy {
 public:
 
