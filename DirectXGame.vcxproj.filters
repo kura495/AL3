@@ -153,6 +153,9 @@
     <ClCompile Include="GameObject\Enemy\State\PhaseLeave.cpp">
       <Filter>ソース ファイル\GameObject\Enemy\State</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject\Enemy\State\Istate.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">

@@ -203,7 +203,7 @@ void Player::reticle3DWorldToreticle2DScreen(const ViewProjection& viewProjectio
 	/// マウスカーソルを取得
 	/// </summary>
 void Player::GetCursur() { 
-	Vector2 spritePosition = sprite2DReticle_->GetPosition();
+	spritePosition = sprite2DReticle_->GetPosition();
 	if (Input::GetInstance()->GetJoystickState(0,joyState)) {
 		spritePosition.x += (float)joyState.Gamepad.sThumbRX / SHRT_MAX * 10.0f;
 		spritePosition.y -= (float)joyState.Gamepad.sThumbRY / SHRT_MAX * 10.0f;

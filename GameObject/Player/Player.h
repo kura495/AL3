@@ -49,7 +49,6 @@ private:
 	Sprite* sprite2DReticle_ = nullptr;
 	Vector3 ReticlePos_;
 	void Set3DReticle();
-
 	void reticle3DWorldToreticle2DScreen(const ViewProjection& viewProjection);
 
 	//レティクル(マウス)
