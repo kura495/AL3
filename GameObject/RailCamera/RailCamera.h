@@ -2,6 +2,7 @@
 #include"WorldTransform.h"
 #include"ViewProjection.h"
 #include"Calc/Matrix.h"
+#include"Calc/Vector.h"
 #include"Utility/ImGuiSupport.h"
 #include"PrimitiveDrawer.h"
 #include<imgui.h>
@@ -10,6 +11,7 @@ class RailCamera {
 public:
 	void Initialize(ViewProjection viewProjection);
 	void Update();
+	void Draw();
 	
 	void DrawRailLine(); 
 	

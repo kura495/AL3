@@ -4,6 +4,7 @@
 #include<numbers>
 #include<cassert>
 #include <algorithm>
+#include<vector>
 Vector3 Add(const Vector3& m1, const Vector3& m2);
 Vector3 Subtract(const Vector3& m1, const Vector3& m2);
 Vector3 Normalize(const Vector3& v1);
@@ -18,4 +19,4 @@ Vector3 VectorLerp(const Vector3& v1, const Vector3& v2, float t);
 Vector3 VectorSLerp(const Vector3& v1, const Vector3& v2, float t);
 float dot(const Vector3& v1, const Vector3& v2);
 
-Vector3 CatMull_Rom(const Vector3& point, const float& t);
+Vector3 CatMull_Rom(const std::vector<Vector3>& controlPoints, const float& t);

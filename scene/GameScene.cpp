@@ -126,6 +126,7 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 	EnemyDraw();
 	skydome_->Draw(viewProjection_);
+	railCamera_->Draw();
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 

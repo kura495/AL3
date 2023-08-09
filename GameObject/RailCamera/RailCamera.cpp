@@ -34,6 +34,10 @@ void RailCamera::Update() {
 	ImGui::End();
 }
 
+void RailCamera::Draw() { 
+	DrawRailLine();
+}
+
 void RailCamera::DrawRailLine() {
 	//線分で描画する用の頂点リスト
 	std::vector<Vector3> pointDrawing;
@@ -42,7 +46,7 @@ void RailCamera::DrawRailLine() {
 	//線分の数+1個分の頂点座標を計算
 	for (size_t i = 0; i < segmentCount + 1; i++) {
 		float t = 1.0f / segmentCount * i;
-		Vector3 pos = /*Catmull - Rom */(controlPoints_, t);
+		Vector3 pos = /*Catmull - Rom */ CatMull_Rom(controlPoints_, t);
 		//描画用頂点リストに追加
 		pointDrawing.push_back(pos);
 	}
