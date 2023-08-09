@@ -7,12 +7,12 @@ void RailCamera::Initialize(ViewProjection viewProjection) {
 	worldTransform_.scale_ = {1,1,1};
 	viewProjection_.Initialize();
 	controlPoints_ = {
-	    {0,  0,  0},
-        {10, 10, 0},
-        {10, 15, 0},
-        {20, 15, 0},
-        {20, 0,  0},
-        {30, 0,  0},
+	    {0,  0,  0 },
+        {10, 10, 0 },
+        {10, 15, 0 },
+        {20, 15, 0 },
+        {20, 0,  0 },
+        {30, 0,  0 },
 	};
 }
 
@@ -42,6 +42,7 @@ void RailCamera::DrawRailLine() {
 	//線分で描画する用の頂点リスト
 	std::vector<Vector3> pointDrawing;
 	//線分の数
+	//減らすとカクカク、増やすとなめらか
 	const size_t segmentCount = 100;
 	//線分の数+1個分の頂点座標を計算
 	for (size_t i = 0; i < segmentCount + 1; i++) {
@@ -53,6 +54,6 @@ void RailCamera::DrawRailLine() {
 	// 3Dラインを描画する
 	for (int i = 0; i < segmentCount - 1; i++) {
 		PrimitiveDrawer::GetInstance()->DrawLine3d(
-		    pointDrawing[i], pointDrawing[i + 1], {1.0f, 0.0f, 0.0f, 1.0f});
+		    pointDrawing[i], pointDrawing[i + 1],/*赤色*/{1.0f, 0.0f, 0.0f, 1.0f});
 	}
 }
