@@ -49,7 +49,7 @@ float dot(const Vector3& v1, const Vector3& v2) {
 	return result;
 }
 
-
+//キャットムルロム曲線
 Vector3 CatMull_Rom(const std::vector<Vector3>& controlPoints, const float& t) {
 	//要素数を取得する
 	//size関数は要素数を返す　例　std::vector<int>sanple = {1, 2, 3, } の時 sanple.size() = 3
@@ -87,24 +87,64 @@ Vector3 CatMull_Rom(const std::vector<Vector3>& controlPoints, const float& t) {
 	} else {
 		v1 = controlPoints[elements - 1];
 	}
-	Vector3 result = Hermite(p0, v0, p1, v1, tSegment);
+	Vector3 result;
+	//エルミート曲線の式に、全ての制御点を通るように変更を加えた式
+	result.x =0.5f*
+		(((-p0.x + 3.0f * p1.x - 3.0f * v0.x + v1.x) * (tSegment * tSegment * tSegment)) +
+		((2.0f * p0.x - 5.0f * p1.x + 4.0f * v0.x - v1.x) * (tSegment * tSegment)) +
+	    ((2.0f * p1.x) + (-p0.x + v0.x) * tSegment));
+	result.y =0.5f * 
+	    (((-p0.y + 3.0f * p1.y - 3.0f * v0.y + v1.y) * (tSegment * tSegment * tSegment)) +
+	    ((2.0f * p0.y - 5.0f * p1.y + 4.0f * v0.y - v1.y) * (tSegment * tSegment)) +
+		((2.0f * p1.y) + (-p0.y + v0.y) * tSegment));
+	result.z =0.5f * 
+	    (((-p0.z + 3.0f * p1.z - 3.0f * v0.z + v1.z) * (tSegment * tSegment * tSegment)) +
+	    ((2.0f * p0.z - 5.0f * p1.z + 4.0f * v0.z - v1.z) * (tSegment * tSegment)) +
+		((2.0f * p1.z) + (-p0.z + v0.z) * tSegment));
 	return result;
 }
 //エルミート曲線
 Vector3 Hermite(const Vector3& p0, const Vector3& v0, const Vector3& p1, const Vector3& v1,const float& t) {
 	Vector3 result;
-	result.x =
-	    0.5f * ((2.0f * p1.x) + (-p0.x + v0.x) * t +
+	// 2点p0とp1を通り,p0における接線がv0,p1における接線がv1となる3次曲線
+	// p(t) = a(t*t*t) + b(t*t) + ct + d
+	// 微分して傾きを求める式にする
+	// p'(t) = 3a(t*t) + 2bt + c
+	// t = 0 の時
+	// p(0) = d = p0
+	// p'(0) = c = v0
+	//　① つまり　d = p0 で、　c = v0
+	// t = 1 の時
+	// p(1) = a + b + c + d = p1 //式1
+	// p'(1) = 3a + 2b + c = v1 //式2
+	// 連立方程式 式1と式2を使う aを消してbを求める
+	// 3p1 - v1 = b + 2c + 3d　①をつかって
+	// b = 3p1 - 3p0 - v1 -2v0 // 2c と 3dを移動させて、b = の形にしている
+	// b = 3(p1 - p0) -v1 -2v0
+	// 連立方程式 式1と式2を使う bを消してaを求める
+	// v1 - 2p1 = a - c -2d ①を使って
+	// a = v1 - 2p1 + v0 + 2p0 // c と　-2dを移動させて、a = の形にしている
+	// a = -2(p1 + -p0) + v1 +v0
+	// つまり、
+	//p(t) = ( -2(p1 - p0) + v1 + v0)* t * t * t + 
+	//( 3(p1 - p0) -v1 -2v0) * t * t + 
+	//v0 * t +
+	//p0
+	//になる
+
+	result.x = (2.0f * p0.x + -2.0f *p1.x + v1.x + v0.x) * (t * t * t) +
+	           (-3.0f * p0.x + 3.0f * p1.x + -2.0f * v0.x - v1.x) * (t * t) + 
+				v0.x * t +
+				p0.x;
+
+	/*result.x = (-p0.x + 3.0f * p1.x - 3.0f * v0.x + v1.x) * (t * t * t)) +
 	            (2.0f * p0.x - 5.0f * p1.x + 4.0f * v0.x - v1.x) * (t * t) +
-	            (-p0.x + 3.0f * p1.x - 3.0f * v0.x + v1.x) * (t * t * t));
-	result.y =
-	    0.5f * ((2.0f * p1.y) + (-p0.y + v0.y) * t +
-	            (2.0f * p0.y - 5.0f * p1.y + 4.0f * v0.y - v1.y) * (t * t) +
-	            (-p0.y + 3.0f * p1.y - 3.0f * v0.y + v1.y) * (t * t * t));
-	result.z =
-	    0.5f * ((2.0f * p1.z) + (-p0.z + v0.z) * t +
-	            (2.0f * p0.z - 5.0f * p1.z + 4.0f * v0.z - v1.z) * (t * t) +
-	            (-p0.z + 3.0f * p1.z - 3.0f * v0.z + v1.z) * (t * t * t));
+				(-p0.x + v0.x) * t +
+				0.5f * ((2.0f * p1.x);*/
+	result.y = (2.0f * p0.y + -2.0f * p1.y + v1.y + v0.y) * (t * t * t) +
+	           (-3.0f * p0.y + 3.0f * p1.y + -2.0f * v0.y - v1.y) * (t * t) + v0.y * t + p0.y;
+	result.z = (2.0f * p0.z + -2.0f * p1.z + v1.z + v0.z) * (t * t * t) +
+	           (-3.0f * p0.z + 3.0f * p1.z + -2.0f * v0.z - v1.z) * (t * t) + v0.z * t + p0.z;
 
 	return result;
 }

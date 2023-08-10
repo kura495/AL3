@@ -19,7 +19,7 @@ Vector3 VectorLerp(const Vector3& v1, const Vector3& v2, float t);
 Vector3 VectorSLerp(const Vector3& v1, const Vector3& v2, float t);
 float dot(const Vector3& v1, const Vector3& v2);
 /// <summary>
-/// CatMull-Rom曲線は、Hermite曲線を連続で繋げたもの
+/// CatMull-Rom曲線は、Hermite曲線を連続で繋げて、その間の制御点を全て通るようにしたもの
 /// </summary>
 /// <param name="controlPoints">std::Vector Vector3型 </param>
 /// <param name="t">　パラメータ　媒介変数</param>
