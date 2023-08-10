@@ -136,11 +136,6 @@ Vector3 Hermite(const Vector3& p0, const Vector3& v0, const Vector3& p1, const V
 	           (-3.0f * p0.x + 3.0f * p1.x + -2.0f * v0.x - v1.x) * (t * t) + 
 				v0.x * t +
 				p0.x;
-
-	/*result.x = (-p0.x + 3.0f * p1.x - 3.0f * v0.x + v1.x) * (t * t * t)) +
-	            (2.0f * p0.x - 5.0f * p1.x + 4.0f * v0.x - v1.x) * (t * t) +
-				(-p0.x + v0.x) * t +
-				0.5f * ((2.0f * p1.x);*/
 	result.y = (2.0f * p0.y + -2.0f * p1.y + v1.y + v0.y) * (t * t * t) +
 	           (-3.0f * p0.y + 3.0f * p1.y + -2.0f * v0.y - v1.y) * (t * t) + v0.y * t + p0.y;
 	result.z = (2.0f * p0.z + -2.0f * p1.z + v1.z + v0.z) * (t * t * t) +
