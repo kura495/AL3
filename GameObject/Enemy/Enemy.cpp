@@ -34,7 +34,6 @@ void Enemy::Update() {
 		return false;
 	});
 	
-
 	ImGui::Begin("Enemy");
 	float point[Vector3D] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,

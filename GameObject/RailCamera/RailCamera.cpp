@@ -1,6 +1,5 @@
 ﻿#include "RailCamera.h"
 
-
 void RailCamera::Initialize(ViewProjection viewProjection) { 
 	worldTransform_.translation_ = viewProjection.translation_;
 	worldTransform_.rotation_ = viewProjection.rotation_;
@@ -8,11 +7,16 @@ void RailCamera::Initialize(ViewProjection viewProjection) {
 	viewProjection_.Initialize();
 	controlPoints_ = {
 	    {0,  0,  0 },
-        {10, 10, 0 },
-        {10, 15, 0 },
-        {20, 15, 0 },
-        {20, 0,  0 },
-        {30, 0,  0 },
+        {10, 0,  10},
+        {20, 10, 20},
+        {30, 20, 30},
+        {40, 30, 30},
+        {50, 40, 20},
+	    {60, 30, 10},
+        {70, 20, 0 },
+        {60, 10, 0 },
+        {10, 0,  0 },
+        {0,  0,  0 },
 	};
 }
 

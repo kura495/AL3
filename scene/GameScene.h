@@ -82,6 +82,7 @@ private: // メンバ変数
 	bool isDebugCameraActive_ = false;
 	//CorisionManager
 	CollisionManager* collisionManager_;
+	std::vector<Vector3> controlPoints_;
 
 	/// <summary>
 	/// ゲームシーン用
