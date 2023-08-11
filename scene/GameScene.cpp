@@ -35,13 +35,13 @@ void GameScene::Initialize() {
 	
 	//自キャラ
 	player_ = new Player();
-	player_->Initialize(model_, textureHandle_, {0,0,25});
+	player_->Initialize(model_, textureHandle_, {0,0,0});
 	
 	collisionManager_ = new CollisionManager();
 
 	//レールカメラ
 	railCamera_ = new RailCamera;
-	railCamera_->Initialize(viewProjection_);
+	railCamera_->Initialize({0, 0, 0}, {0, 0, 0});
 	//親子関係
 	player_->SetParent(&railCamera_->GetWorldTransform());
 	//天球
@@ -65,7 +65,7 @@ void GameScene::Update() {
     railCamera_->Update();
 	viewProjection_.matView = railCamera_->GetViewProjection().matView;
 	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
-	viewProjection_.TransferMatrix();
+	viewProjection_.UpdateMatrix();
 	UpdateEnemyPopCommands();
 	player_->Updete(viewProjection_);
 	EnemyUpdate();

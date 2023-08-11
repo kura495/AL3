@@ -9,7 +9,7 @@
 #include<vector>
 class RailCamera {
 public:
-	void Initialize(ViewProjection viewProjection);
+	void Initialize(const Vector3& position, const Vector3& rotation);
 	void Update();
 	void Draw();
 	
@@ -27,5 +27,9 @@ private:
 	//レールカメラの移動曲線
 	//スプライン曲線制御点(通過点)
 	std::vector<Vector3> controlPoints_;
-	
+	// スプライン曲線の頂点リスト
+	std::vector<Vector3> pointDrawing;
+	// 線分の数
+	// 減らすとカクカク、増やすとなめらか
+	const size_t segmentCount = 100;
 };

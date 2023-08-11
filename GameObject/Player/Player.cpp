@@ -49,6 +49,7 @@ void Player::Updete(const ViewProjection& viewProjection) {
 	//レティクル
 	Set3DReticle();
 	GetCursur();
+	reticle3DWorldToreticle2DScreen(viewProjection);
 	Set2DReticle(viewProjection);
 	// 玉の発射
 	Attack();
@@ -60,6 +61,7 @@ void Player::Updete(const ViewProjection& viewProjection) {
 	//ImGui
 	#pragma region ImGui 
 	ImGui::Begin("Player");
+	    ImGui::SliderFloat3("translation", &worldTransform_.translation_.x, -50.0f, 50.0f);
 	ImGui::Text("Reticle");
 	ImGui::Text("2DReticle:(%f,%f)", mousePosition.x, mousePosition.y);
 	ImGui::Text("Near:(%+.2f,%+.2f,%+.2f)", posNear.x, posNear.y,posNear.z);
@@ -197,7 +199,7 @@ void Player::reticle3DWorldToreticle2DScreen(const ViewProjection& viewProjectio
 		// ワールド→スクリーン座標変換(3D→2D)
 		ReticlePos_ = Transform(ReticlePos_, matViewProjectionViewport);
 		// スプライトのレティクルに座標を設定
-		sprite2DReticle_->SetPosition(Vector2(ReticlePos_.x, ReticlePos_.y));
+		//sprite2DReticle_->SetPosition(Vector2(ReticlePos_.x, ReticlePos_.y));
 }
 	/// <summary>
 	/// マウスカーソルを取得
@@ -235,7 +237,7 @@ void Player::Set2DReticle(const ViewProjection& viewProjection) {
 	Vector3 Direction = Subtract(posFar,posNear);
 	Direction = Normalize(Direction);
 	// カメラから標準オブジェクトの距離
-	const float kDistanceTestObject = 50.0f;
+	const float kDistanceTestObject = 100.0f;
 	//mouseDirection.z -= kDistanceTestObject;
 	worldTransform3DReticle_.translation_.x = posNear.x + Direction.x * kDistanceTestObject;
 	worldTransform3DReticle_.translation_.y = posNear.y + Direction.y * kDistanceTestObject;

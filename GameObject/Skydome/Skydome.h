@@ -6,7 +6,7 @@ class Skydome {
 public:
 	void Initialize(Model* model);
 	void Update();
-	void Draw(const ViewProjection viewProjection_);
+	void Draw(const ViewProjection& viewProjection_);
 
 private:
 	WorldTransform worldTransform_;
