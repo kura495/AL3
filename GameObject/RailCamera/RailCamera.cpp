@@ -31,10 +31,10 @@ void RailCamera::Initialize(const Vector3& position,const Vector3&rotation) {
 
 void RailCamera::Update() { 
 	worldTransform_.translation_.z += 0.05f;
-	worldTransform_.matWorld_ =
-	    MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+	worldTransform_.matWorld_ = MakeAffineMatrix(
+	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	viewProjection_.matView = Inverse(worldTransform_.matWorld_);
-	viewProjection_.UpdateMatrix();
+	//viewProjection_.matProjection;
 	ImGui::Begin("Camera");
 	float transform[Vector3D] = {
 	    viewProjection_.translation_.x, viewProjection_.translation_.y,

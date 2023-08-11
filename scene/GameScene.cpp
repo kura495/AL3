@@ -35,15 +35,10 @@ void GameScene::Initialize() {
 	
 	//自キャラ
 	player_ = new Player();
-	player_->Initialize(model_, textureHandle_, {0,0,0});
+	player_->Initialize(model_, textureHandle_, {0,0,-25});
 	
 	collisionManager_ = new CollisionManager();
 
-	//レールカメラ
-	railCamera_ = new RailCamera;
-	railCamera_->Initialize({0, 0, 0}, {0, 0, 0});
-	//親子関係
-	player_->SetParent(&railCamera_->GetWorldTransform());
 	//天球
 	modelSkydome_ = Model::CreateFromOBJ("skydome",true);
 	skydome_ = new Skydome;
@@ -51,6 +46,12 @@ void GameScene::Initialize() {
 	//レティクルのテクスチャ
 	TextureManager::Load("reticle.png");
 	enemyPopCommands = LoadCSVData("CSV/enemyPop.csv");
+
+	//レールカメラ
+	railCamera_ = new RailCamera;
+	railCamera_->Initialize({0, 0, 0}, {0, 0, 0});
+	//親子関係
+	//player_->SetParent(&railCamera_->GetWorldTransform());
 
 	debugCamera_ = new DebugCamera(1280,720);
 	AxisIndicator::GetInstance()->SetVisible(true);
@@ -63,8 +64,8 @@ void GameScene::Update() {
 	// デバッグとImGui 
 	
     railCamera_->Update();
-	viewProjection_.matView = railCamera_->GetViewProjection().matView;
-	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+	viewProjection_.matView = railCamera_->GetViewProjection().constMap->view;
+	viewProjection_.matProjection = railCamera_->GetViewProjection().constMap->projection;
 	viewProjection_.UpdateMatrix();
 	UpdateEnemyPopCommands();
 	player_->Updete(viewProjection_);
@@ -104,7 +105,6 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
-
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
