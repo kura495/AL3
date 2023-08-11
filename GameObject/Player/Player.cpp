@@ -237,7 +237,7 @@ void Player::Set2DReticle(const ViewProjection& viewProjection) {
 	Vector3 Direction = Subtract(posFar,posNear);
 	Direction = Normalize(Direction);
 	// カメラから標準オブジェクトの距離
-	const float kDistanceTestObject = 100.0f;
+	const float kDistanceTestObject = 50.0f;
 	//mouseDirection.z -= kDistanceTestObject;
 	worldTransform3DReticle_.translation_.x = posNear.x + Direction.x * kDistanceTestObject;
 	worldTransform3DReticle_.translation_.y = posNear.y + Direction.y * kDistanceTestObject;

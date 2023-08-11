@@ -35,7 +35,7 @@ void GameScene::Initialize() {
 	
 	//自キャラ
 	player_ = new Player();
-	player_->Initialize(model_, textureHandle_, {0,0,-25});
+	player_->Initialize(model_, textureHandle_, {0,0,10});
 	
 	collisionManager_ = new CollisionManager();
 
@@ -51,7 +51,7 @@ void GameScene::Initialize() {
 	railCamera_ = new RailCamera;
 	railCamera_->Initialize(viewProjection_,{0, 0, 0}, {0, 0, 0});
 	//親子関係
-	//player_->SetParent(&railCamera_->GetWorldTransform());
+	player_->SetParent(&railCamera_->GetWorldTransform());
 
 	debugCamera_ = new DebugCamera(1280,720);
 	AxisIndicator::GetInstance()->SetVisible(true);
@@ -62,11 +62,30 @@ void GameScene::Initialize() {
 
 void GameScene::Update() { 
 	// デバッグとImGui 
-	
-    railCamera_->Update();
+
+	railCamera_->Update();
 	viewProjection_.matView = railCamera_->GetViewProjection().matView;
 	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 	viewProjection_.TransferMatrix();
+#ifdef _DEBUG
+	if (input_->TriggerKey(DIK_0)) {
+		isDebugCameraActive_ = true;
+	}
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		viewProjection_.matView = Multiply(
+		    railCamera_->GetViewProjection().matView,
+		    debugCamera_->GetViewProjection().constMap->view);
+		viewProjection_.matProjection = Multiply(
+		    railCamera_->GetViewProjection().matProjection,
+		    debugCamera_->GetViewProjection().constMap->projection);
+		viewProjection_.TransferMatrix();
+		if (input_->TriggerKey(DIK_0)) {
+			isDebugCameraActive_ = false;
+		}
+	}
+#endif
+   
 	UpdateEnemyPopCommands();
 	player_->Updete(viewProjection_);
 	EnemyUpdate();
@@ -78,19 +97,8 @@ void GameScene::Update() {
 	ImGui::Text("PlayerRotate : A D\n");
 	ImGui::Text("PlayerShot : SPACE\n");
 	ImGui::End();
-#ifdef _DEBUG
-	if (input_->TriggerKey(DIK_0)) {
-		isDebugCameraActive_ = true;
-	}
-if (isDebugCameraActive_) {
-		debugCamera_->Update();
-		viewProjection_.matView = debugCamera_->GetViewProjection().constMap->view;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().constMap->projection;
-		viewProjection_.TransferMatrix();
-	} else {
-		viewProjection_.UpdateMatrix();
-	}
-	#endif
+	
+
 }
 
 void GameScene::Draw() {
