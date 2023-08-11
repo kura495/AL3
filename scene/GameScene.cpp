@@ -35,7 +35,7 @@ void GameScene::Initialize() {
 	
 	//自キャラ
 	player_ = new Player();
-	player_->Initialize(model_, textureHandle_, {0,0,10});
+	player_->Initialize(model_, textureHandle_, {0,0,25});
 	
 	collisionManager_ = new CollisionManager();
 
@@ -68,8 +68,10 @@ void GameScene::Update() {
 	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 	viewProjection_.TransferMatrix();
 #ifdef _DEBUG
-	if (input_->TriggerKey(DIK_0)) {
+	if (input_->PushKey(DIK_0)) {
 		isDebugCameraActive_ = true;
+	} else {
+		isDebugCameraActive_ = false;
 	}
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
@@ -80,9 +82,6 @@ void GameScene::Update() {
 		    railCamera_->GetViewProjection().matProjection,
 		    debugCamera_->GetViewProjection().constMap->projection);
 		viewProjection_.TransferMatrix();
-		if (input_->TriggerKey(DIK_0)) {
-			isDebugCameraActive_ = false;
-		}
 	}
 #endif
    

@@ -9,12 +9,11 @@ void RailCamera::Initialize(const ViewProjection& view, const Vector3& position,
 	worldTransform_.scale_ = {1,1,1};
 	
 	controlPoints_ = {
-	    {0,  0,  0 },
-        {10, 0,  10},
-        {20, 10, 20},
-        {30, 20, 30},
-        {40, 30, 30},
-        {50, 40, 20},
+        {10, -10,  30},
+        {20, 0, 20},
+        {30, 10, 30},
+        {40, 20, 30},
+        {50, 30, 20},
 	    {60, 30, 10},
         {70, 20, 0 },
         {60, 10, 0 },
@@ -37,12 +36,6 @@ void RailCamera::Update() {
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	viewProjection_.matView = Inverse(worldTransform_.matWorld_);
 	ImGui::Begin("Camera");
-	/*float transform[Vector3D] = {
-	    viewProjection_.translation_.x, viewProjection_.translation_.y,
-	    viewProjection_.translation_.z
-	};
-	float rotate[Vector3D] = {
-	    viewProjection_.rotation_.x, viewProjection_.rotation_.y, viewProjection_.rotation_.z};*/
 	ImGui::SliderFloat3("translation", &worldTransform_.translation_.x, -50.0f, 50.0f);
 	ImGui::SliderFloat3("rotation", &worldTransform_.rotation_.x, 0.0f, 70.0f);
 	ImGui::End();
