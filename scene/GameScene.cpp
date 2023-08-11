@@ -49,7 +49,7 @@ void GameScene::Initialize() {
 
 	//レールカメラ
 	railCamera_ = new RailCamera;
-	railCamera_->Initialize({0, 0, 0}, {0, 0, 0});
+	railCamera_->Initialize(viewProjection_,{0, 0, 0}, {0, 0, 0});
 	//親子関係
 	//player_->SetParent(&railCamera_->GetWorldTransform());
 
@@ -64,9 +64,9 @@ void GameScene::Update() {
 	// デバッグとImGui 
 	
     railCamera_->Update();
-	viewProjection_.matView = railCamera_->GetViewProjection().constMap->view;
-	viewProjection_.matProjection = railCamera_->GetViewProjection().constMap->projection;
-	viewProjection_.UpdateMatrix();
+	viewProjection_.matView = railCamera_->GetViewProjection().matView;
+	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+	viewProjection_.TransferMatrix();
 	UpdateEnemyPopCommands();
 	player_->Updete(viewProjection_);
 	EnemyUpdate();

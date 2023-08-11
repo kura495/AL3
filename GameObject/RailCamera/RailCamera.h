@@ -9,7 +9,7 @@
 #include<vector>
 class RailCamera {
 public:
-	void Initialize(const Vector3& position, const Vector3& rotation);
+	void Initialize(const ViewProjection& view,const Vector3& position, const Vector3& rotation);
 	void Update();
 	void Draw();
 	
