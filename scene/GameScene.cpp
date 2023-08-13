@@ -75,12 +75,8 @@ void GameScene::Update() {
 	}
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
-		viewProjection_.matView = Multiply(
-		    railCamera_->GetViewProjection().matView,
-		    debugCamera_->GetViewProjection().constMap->view);
-		viewProjection_.matProjection = Multiply(
-		    railCamera_->GetViewProjection().matProjection,
-		    debugCamera_->GetViewProjection().constMap->projection);
+		viewProjection_.matView = debugCamera_->GetViewProjection().constMap->view;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().constMap->projection;
 		viewProjection_.TransferMatrix();
 	}
 #endif

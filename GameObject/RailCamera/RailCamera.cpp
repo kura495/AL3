@@ -9,16 +9,18 @@ void RailCamera::Initialize(const ViewProjection& view, const Vector3& position,
 	worldTransform_.scale_ = {1,1,1};
 	
 	controlPoints_ = {
-	    {10, -10, 30},
-        {20, 0,   20},
-        {30, 10,  30},
-        {40, 20,  30},
-        {50, 30,  20},
-	    {60, 30,  10},
-        {70, 20,  0 },
-        {60, 10,  0 },
-        {10, 0,   0 },
-        {0,  0,   0 },
+	    {0,  0,  0 },
+        {0,  10, 20},
+        {10, 20, 30},
+        {10, 30, 40},
+        {10, 30, 50},
+        {20, 30, 60},
+	    {30, 20, 50},
+        {20, 20, 40},
+        {20, 20, 30},
+        {10, 10, 20},
+        {0,  0,  10},
+        {0,  0,  0 },
 	};
 	
 	// 線分の数+1個分の頂点座標を計算
@@ -35,14 +37,12 @@ void RailCamera::Update() {
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	viewProjection_.matView = Inverse(worldTransform_.matWorld_);
-	ImGui::Begin("Camera");
-	ImGui::SliderFloat3("translation", &worldTransform_.translation_.x, -50.0f, 50.0f);
-	ImGui::SliderFloat3("rotation", &worldTransform_.rotation_.x, 0.0f, 70.0f);
-	ImGui::End();
+	ImGui();
 }
 
 void RailCamera::Draw() { 
 	DrawRailLine();
+	
 }
 
 void RailCamera::DrawRailLine() {
@@ -51,4 +51,11 @@ void RailCamera::DrawRailLine() {
 		PrimitiveDrawer::GetInstance()->DrawLine3d(
 		    pointDrawing[i], pointDrawing[i + 1],/*赤色*/{1.0f, 0.0f, 0.0f, 1.0f});
 	}
+}
+
+void RailCamera::ImGui() {
+	ImGui::Begin("Camera");
+	ImGui::SliderFloat3("translation", &worldTransform_.translation_.x, -50.0f, 50.0f);
+	ImGui::SliderFloat3("rotation", &worldTransform_.rotation_.x, 0.0f, 70.0f);
+	ImGui::End();
 }

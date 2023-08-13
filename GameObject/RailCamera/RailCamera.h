@@ -12,13 +12,14 @@ public:
 	void Initialize(const ViewProjection& view,const Vector3& position, const Vector3& rotation);
 	void Update();
 	void Draw();
-	
-	void DrawRailLine(); 
+	 
 	
 	const ViewProjection& GetViewProjection() const { return viewProjection_; }
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 	
 private:
+	void DrawRailLine();
+	void ImGui();
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 	// ビュープロジェクション
@@ -32,4 +33,7 @@ private:
 	// 線分の数
 	// 減らすとカクカク、増やすとなめらか
 	const size_t segmentCount = 100;
+	//カメラのレール移動
+	int eyePoint=0;
+	int targetPoint = 1;
 };
