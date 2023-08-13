@@ -36,4 +36,5 @@ private:
 	//カメラのレール移動
 	int eyePoint=0;
 	int targetPoint = 1;
+	float t = 0;
 };

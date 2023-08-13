@@ -25,7 +25,7 @@ void RailCamera::Initialize(const ViewProjection& view, const Vector3& position,
 	
 	// 線分の数+1個分の頂点座標を計算
 	for (size_t i = 0; i < segmentCount + 1; i++) {
-		float t = 1.0f / segmentCount * i;
+		t = 1.0f / segmentCount * i;
 		Vector3 pos = /*Catmull - Rom */ CatMull_Rom(controlPoints_, t);
 		// 描画用頂点リストに追加
 		pointDrawing.push_back(pos);
@@ -33,7 +33,20 @@ void RailCamera::Initialize(const ViewProjection& view, const Vector3& position,
 }
 
 void RailCamera::Update() { 
-	worldTransform_.translation_.z += 0.05f;
+	//worldTransform_.translation_.z += 0.05f;
+	
+	Vector3 eyePosition = pointDrawing[eyePoint];
+	worldTransform_.translation_ =eyePosition;
+	if (eyePoint < segmentCount){
+		if (t<=1) {
+			t += 0.1f;
+			
+		} else {
+			t = 0;
+			
+		}
+		eyePoint++;
+	}
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	viewProjection_.matView = Inverse(worldTransform_.matWorld_);
