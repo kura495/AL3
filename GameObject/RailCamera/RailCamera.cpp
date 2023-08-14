@@ -32,21 +32,28 @@ void RailCamera::Initialize(const ViewProjection& view, const Vector3& position,
 	}
 }
 
-void RailCamera::Update() { 
-	//worldTransform_.translation_.z += 0.05f;
+void RailCamera::Update() {
 	
-	Vector3 eyePosition = pointDrawing[eyePoint];
-	worldTransform_.translation_ =eyePosition;
-	if (eyePoint < segmentCount){
-		if (t<=1) {
-			t += 0.1f;
-			
-		} else {
+	if (eyePoint < segmentCount) {
+		
+		if (t > 1) {
 			t = 0;
-			
+			eyePoint++;
+			if (targetPoint < segmentCount) {
+				targetPoint++;
+			}
 		}
-		eyePoint++;
+		if (t <= 1) {
+			eyePosition = VectorLerp(pointDrawing[eyePoint], pointDrawing[targetPoint], t);
+			worldTransform_.translation_ = eyePosition;
+			
+			
+			t += 0.05f;
+		}
+		
+		
 	}
+	
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	viewProjection_.matView = Inverse(worldTransform_.matWorld_);
@@ -55,7 +62,6 @@ void RailCamera::Update() {
 
 void RailCamera::Draw() { 
 	DrawRailLine();
-	
 }
 
 void RailCamera::DrawRailLine() {
@@ -70,5 +76,8 @@ void RailCamera::ImGui() {
 	ImGui::Begin("Camera");
 	ImGui::SliderFloat3("translation", &worldTransform_.translation_.x, -50.0f, 50.0f);
 	ImGui::SliderFloat3("rotation", &worldTransform_.rotation_.x, 0.0f, 70.0f);
+	ImGui::SliderFloat("t",&t,0,1);
+	ImGui::DragInt("eyePoint : ",&eyePoint,0,1);
+	ImGui::DragInt("targetPoint : ",&targetPoint,0,1);
 	ImGui::End();
 }

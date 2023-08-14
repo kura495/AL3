@@ -68,7 +68,7 @@ void GameScene::Update() {
 	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 	viewProjection_.TransferMatrix();
 #ifdef _DEBUG
-	if (input_->PushKey(DIK_0)) {
+	if (input_->PushKey(DIK_LALT)) {
 		isDebugCameraActive_ = true;
 	} else {
 		isDebugCameraActive_ = false;
@@ -87,7 +87,7 @@ void GameScene::Update() {
 	skydome_->Update();
 	CheckAllCollisions();
 	ImGui::Begin("Control");
-	ImGui::Text("DebugCamera : 0\n");
+	ImGui::Text("DebugCamera : LALT\n");
 	ImGui::Text("PlayerMove : ARROWKEY\n");
 	ImGui::Text("PlayerRotate : A D\n");
 	ImGui::Text("PlayerShot : SPACE\n");
