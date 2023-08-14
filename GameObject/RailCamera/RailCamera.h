@@ -37,6 +37,6 @@ private:
 	int eyePoint=0;
 	int targetPoint = 1;
 	float t = 0;
-	Vector3 eyePosition = {0,0,0};
+	Vector3 eyePosition = {0, 0, 0};
 	Vector3 targetPosition = {0, 0, 0};
 };

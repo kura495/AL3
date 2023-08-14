@@ -46,8 +46,6 @@ void RailCamera::Update() {
 		if (t <= 1) {
 			eyePosition = VectorLerp(pointDrawing[eyePoint], pointDrawing[targetPoint], t);
 			worldTransform_.translation_ = eyePosition;
-			
-			
 			t += 0.05f;
 		}
 		
