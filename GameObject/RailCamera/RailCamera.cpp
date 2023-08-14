@@ -42,15 +42,21 @@ void RailCamera::Update() {
 			if (targetPoint < segmentCount) {
 				targetPoint++;
 			}
+			if (forwardPoint < segmentCount) {
+				forwardPoint++;
+			}
 		}
 		if (t <= 1) {
 			eyePosition = VectorLerp(pointDrawing[eyePoint], pointDrawing[targetPoint], t);
 			worldTransform_.translation_ = eyePosition;
+			targetPosition = VectorLerp(pointDrawing[targetPoint], pointDrawing[forwardPoint], t);
 			t += 0.05f;
 		}
-		
-		
 	}
+	Vector3 Totarget = Subtract(targetPosition,eyePosition );
+	worldTransform_.rotation_.y = std::atan2(Totarget.x, Totarget.z);
+	float VelocityXZ = sqrt((Totarget.x * Totarget.x) + (Totarget.z * Totarget.z));
+	worldTransform_.rotation_.x = std::atan2(-Totarget.y, VelocityXZ);
 	
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);

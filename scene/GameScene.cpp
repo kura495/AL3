@@ -35,7 +35,7 @@ void GameScene::Initialize() {
 	
 	//自キャラ
 	player_ = new Player();
-	player_->Initialize(model_, textureHandle_, {0,0,25});
+	player_->Initialize(model_, textureHandle_, {0,0,0});
 	
 	collisionManager_ = new CollisionManager();
 

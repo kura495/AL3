@@ -36,6 +36,7 @@ private:
 	//カメラのレール移動
 	int eyePoint=0;
 	int targetPoint = 1;
+	int forwardPoint = 2;
 	float t = 0;
 	Vector3 eyePosition = {0, 0, 0};
 	Vector3 targetPosition = {0, 0, 0};
