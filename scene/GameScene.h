@@ -9,6 +9,7 @@
 #include "WorldTransform.h"
 #include <memory>
 #include "GameObject/Player/Player.h"
+#include "GameObject/Skydome/Skydome.h"
 
 /// <summary>
 /// ゲームシーン
