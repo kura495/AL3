@@ -58,6 +58,9 @@
     <Filter Include="ソース ファイル\GameObject\Player">
       <UniqueIdentifier>{5047078e-70f9-41e9-8c62-6a5f0182dd2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameObject\Skydome">
+      <UniqueIdentifier>{a0176f1a-6790-4059-ae16-2d66a8f9d681}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
