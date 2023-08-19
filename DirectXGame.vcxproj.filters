@@ -70,6 +70,18 @@
     <Filter Include="ヘッダー ファイル\GameObject\Skydome">
       <UniqueIdentifier>{070d5688-af1a-4ad3-b401-b45ffceca756}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Utility">
+      <UniqueIdentifier>{5ef65df2-996e-4cb5-9607-a9a1a39c2fe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Calc">
+      <UniqueIdentifier>{4059e6df-c954-4559-be65-d4ac66fff3d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Calc">
+      <UniqueIdentifier>{b82fabfd-8e56-4de7-b9d8-632b17f00fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Utility">
+      <UniqueIdentifier>{5458c133-8fc2-41cb-ba67-a004a6dd51fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -88,7 +100,13 @@
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\Player\Player.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Skydome\Skydome.cpp">
+      <Filter>ソース ファイル\GameObject\Skydome</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldTransformEX.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,7 +195,10 @@
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\Player\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Skydome\Skydome.h">
+      <Filter>ヘッダー ファイル\GameObject\Skydome</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
