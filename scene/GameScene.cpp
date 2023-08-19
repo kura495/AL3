@@ -21,7 +21,11 @@ void GameScene::Initialize() {
 	//プレイヤークラス
 	player_ = std::make_unique<Player>();
 	player_->Initialize(model_.get(), textureHandle_);
-	
+	//天球
+	skydomeModel = Model::CreateFromOBJ("skydome",true);
+	skydome_ = std::make_unique<Skydome>();
+	skydome_->Initialize();
+
 	viewProjection_.Initialize();
 }
 

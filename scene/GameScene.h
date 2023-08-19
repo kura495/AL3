@@ -59,4 +59,8 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	
+	//天球
+	std::unique_ptr<Skydome> skydome_ = nullptr;
+	Model* skydomeModel = nullptr;
+
 };

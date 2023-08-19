@@ -108,6 +108,12 @@
     <ClCompile Include="WorldTransformEX.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Calc\Matrix.cpp">
+      <Filter>ソース ファイル\Calc</Filter>
+    </ClCompile>
+    <ClCompile Include="Calc\Vector.cpp">
+      <Filter>ソース ファイル\Calc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -199,6 +205,12 @@
     </ClInclude>
     <ClInclude Include="GameObject\Skydome\Skydome.h">
       <Filter>ヘッダー ファイル\GameObject\Skydome</Filter>
+    </ClInclude>
+    <ClInclude Include="Calc\Matrix.h">
+      <Filter>ヘッダー ファイル\Calc</Filter>
+    </ClInclude>
+    <ClInclude Include="Calc\Vector.h">
+      <Filter>ヘッダー ファイル\Calc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
