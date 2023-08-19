@@ -16,11 +16,13 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	textureHandle_ = TextureManager::Load("sample.png");
-	model_ = Model::Create();
+	//3Dモデル生成
+	model_.reset(Model::Create());
+	//プレイヤークラス
+	player_ = std::make_unique<Player>();
+	player_->Initialize(model_.get(), textureHandle_);
+	
 	viewProjection_.Initialize();
-	player_ = new Player();
-	player_->Initialize(model_,textureHandle_);
-
 }
 
 void GameScene::Update() { player_->Updete(); }
