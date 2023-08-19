@@ -61,6 +61,15 @@
     <Filter Include="ソース ファイル\GameObject\Skydome">
       <UniqueIdentifier>{a0176f1a-6790-4059-ae16-2d66a8f9d681}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject">
+      <UniqueIdentifier>{ac2d219f-891d-46c6-a6d2-ea6748027666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\Player">
+      <UniqueIdentifier>{4644e978-fd15-4ad2-8d3f-ec9f56b44902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\Skydome">
+      <UniqueIdentifier>{070d5688-af1a-4ad3-b401-b45ffceca756}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
