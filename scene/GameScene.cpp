@@ -7,11 +7,7 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {
-
-	delete model_;
-	delete player_;
-}
+GameScene::~GameScene() {}
 
 void GameScene::Initialize() {
 
