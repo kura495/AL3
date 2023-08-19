@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "DebugCamera.h"
 #include <memory>
 #include "GameObject/Player/Player.h"
 #include "GameObject/Skydome/Skydome.h"
@@ -63,4 +64,8 @@ private: // メンバ変数
 	std::unique_ptr<Skydome> skydome_ = nullptr;
 	Model* skydomeModel = nullptr;
 
+
+	//デバッグカメラ
+	std::unique_ptr<DebugCamera> debugCamera_ = nullptr;
+	int isDebugCameraActive_ = false;
 };

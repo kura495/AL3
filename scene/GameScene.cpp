@@ -24,12 +24,37 @@ void GameScene::Initialize() {
 	//天球
 	skydomeModel = Model::CreateFromOBJ("skydome",true);
 	skydome_ = std::make_unique<Skydome>();
-	skydome_->Initialize();
+	skydome_->Initialize(skydomeModel);
 
 	viewProjection_.Initialize();
+
+	//デバッグカメラ
+	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
+	//軸表示
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
-void GameScene::Update() { player_->Updete(); }
+void GameScene::Update() { 
+	player_->Updete();
+	skydome_->Update();
+
+	#ifdef _DEBUG
+	if (input_->PushKey(DIK_LALT)) {
+		isDebugCameraActive_ = true;
+	} else {
+		isDebugCameraActive_ = false;
+	}
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		viewProjection_.matView = debugCamera_->GetViewProjection().constMap->view;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().constMap->projection;
+		viewProjection_.TransferMatrix();
+	} else {
+		viewProjection_.UpdateMatrix();
+	}
+#endif
+}
 
 void GameScene::Draw() {
 
@@ -61,8 +86,11 @@ void GameScene::Draw() {
 	
 
 	// 3Dモデルの描画
-	player_->Draw(viewProjection_);
 
+	//プレイヤー
+	player_->Draw(viewProjection_);
+	//天球
+	skydome_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
