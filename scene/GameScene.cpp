@@ -15,19 +15,23 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	textureHandle_ = TextureManager::Load("sample.png");
-	//3Dモデル生成
-	model_.reset(Model::Create());
+	//textureHandle_ = TextureManager::Load("sample.png");
 	//プレイヤークラス
+	playerModel_.reset(Model::CreateFromOBJ("player", true));
 	player_ = std::make_unique<Player>();
-	player_->Initialize(model_.get(), textureHandle_);
+	player_->Initialize(playerModel_.get());
 	//天球
-	skydomeModel = Model::CreateFromOBJ("skydome",true);
+	skydomeModel.reset(Model::CreateFromOBJ("skydome", true));
 	skydome_ = std::make_unique<Skydome>();
-	skydome_->Initialize(skydomeModel);
+	skydome_->Initialize(skydomeModel.get());
+	//地面
+	groundModel.reset(Model::CreateFromOBJ("ground", true));
+	ground_ = std::make_unique<Ground>();
+	ground_->Initialize(groundModel.get());
 
 	viewProjection_.Initialize();
-
+	viewProjection_.translation_.y = 5.0f;
+	viewProjection_.UpdateMatrix();
 	//デバッグカメラ
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 	//軸表示
@@ -38,6 +42,7 @@ void GameScene::Initialize() {
 void GameScene::Update() { 
 	player_->Updete();
 	skydome_->Update();
+	ground_->Update();
 
 	#ifdef _DEBUG
 	if (input_->PushKey(DIK_LALT)) {
@@ -91,6 +96,8 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 	//天球
 	skydome_->Draw(viewProjection_);
+	//地面
+	ground_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

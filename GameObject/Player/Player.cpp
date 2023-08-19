@@ -1,9 +1,8 @@
 #include"Player.h"
 #include<cassert>
 
-void Player::Initialize(Model* model, uint32_t& textureHandle) { 
+void Player::Initialize(Model* model) { 
 	assert(model);
-	textureHandle_ = textureHandle;
 	model_ = model;
 	worldTransform_.Initialize();
 }
@@ -13,7 +12,7 @@ void Player::Updete() {
 }
 
 void Player::Draw(ViewProjection viewProjection_) {
-	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
+	model_->Draw(worldTransform_, viewProjection_);
 
 }
 	
