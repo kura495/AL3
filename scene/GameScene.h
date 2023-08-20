@@ -63,6 +63,7 @@ private: // メンバ変数
 	std::unique_ptr<Model> modelFighterHead_ = nullptr;
 	std::unique_ptr<Model> modelFighterL_arm_ = nullptr;
 	std::unique_ptr<Model> modelFighterR_arm_ = nullptr;
+	std::unique_ptr<Model> modelFighterWeapon_ = nullptr;
 	//自キャラを追従するカメラ
 	std::unique_ptr<FollowCamera> followCamera_ = nullptr;
 	//敵キャラ
