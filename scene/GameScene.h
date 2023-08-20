@@ -57,7 +57,11 @@ private: // メンバ変数
 	ViewProjection viewProjection_;
 	//自キャラ
 	std::unique_ptr<Player> player_ = nullptr;
-	std::unique_ptr<Model> playerModel_ = nullptr;
+	//std::unique_ptr<Model> playerModel_ = nullptr;
+	std::unique_ptr<Model> modelFighterBody_ = nullptr;
+	std::unique_ptr<Model> modelFighterHead_ = nullptr;
+	std::unique_ptr<Model> modelFighterL_arm_ = nullptr;
+	std::unique_ptr<Model> modelFighterR_arm_ = nullptr;
 	//自キャラを追従するカメラ
 	std::unique_ptr<FollowCamera> followCamera_ = nullptr;
 

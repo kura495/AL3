@@ -17,9 +17,15 @@ void GameScene::Initialize() {
 
 	//textureHandle_ = TextureManager::Load("sample.png");
 	//プレイヤークラス
-	playerModel_.reset(Model::CreateFromOBJ("player", true));
+	//playerModel_.reset(Model::CreateFromOBJ("player", true));
+	modelFighterBody_.reset(Model::CreateFromOBJ("float_Body", true));
+	modelFighterHead_.reset(Model::CreateFromOBJ("float_Head", true));
+	modelFighterL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
+	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
 	player_ = std::make_unique<Player>();
-	player_->Initialize(playerModel_.get());
+	player_->Initialize(
+	    modelFighterBody_.get(), modelFighterHead_.get(), modelFighterL_arm_.get(),
+	    modelFighterR_arm_.get());
 	//自キャラを追従するカメラ
 	followCamera_ = std::make_unique<FollowCamera>();
 	followCamera_->Initalize();
