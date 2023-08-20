@@ -2,9 +2,9 @@
 
 
 void Player::Initialize(const std::vector<Model*>& models) {
+	//基底クラスの初期化
 	BaseCharacter::Initialize(models);
 	
-
 	worldTransformBody_.Initialize();
 	worldTransformHead_.Initialize();
 	worldTransformL_arm_.Initialize();
@@ -14,7 +14,7 @@ void Player::Initialize(const std::vector<Model*>& models) {
 
 }
 
-void Player::Updete() { 
+void Player::Update() { 
 	worldTransform_.TransferMatrix();
 
 	//ゲームパッドの状態取得
@@ -43,7 +43,7 @@ void Player::Updete() {
 	}
 	UpdateFloatingGimmick();
 
-	worldTransform_.UpdateMatrix();
+	BaseCharacter::Update();
 	worldTransformBody_.UpdateMatrix();
 	worldTransformHead_.UpdateMatrix();
 	worldTransformL_arm_.UpdateMatrix();

@@ -112,6 +112,7 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="Calc\Matrix.cpp" />
     <ClCompile Include="Calc\Vector.cpp" />
+    <ClCompile Include="GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="GameObject\FollowCamera\FollowCamera.cpp" />
     <ClCompile Include="GameObject\Ground\Ground.cpp" />
     <ClCompile Include="GameObject\Player\Player.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="base\WinApp.h" />
     <ClInclude Include="Calc\Matrix.h" />
     <ClInclude Include="Calc\Vector.h" />
+    <ClInclude Include="GameObject\Enemy\Enemy.h" />
     <ClInclude Include="GameObject\FollowCamera\FollowCamera.h" />
     <ClInclude Include="GameObject\Ground\Ground.h" />
     <ClInclude Include="GameObject\Player\Player.h" />

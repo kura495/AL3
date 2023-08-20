@@ -10,6 +10,7 @@
 #include "DebugCamera.h"
 #include <memory>
 #include "GameObject/Player/Player.h"
+#include "GameObject/Enemy/Enemy.h"
 #include "GameObject/Skydome/Skydome.h"
 #include "GameObject/Ground/Ground.h"
 #include "GameObject/FollowCamera/FollowCamera.h"
@@ -64,6 +65,9 @@ private: // メンバ変数
 	std::unique_ptr<Model> modelFighterR_arm_ = nullptr;
 	//自キャラを追従するカメラ
 	std::unique_ptr<FollowCamera> followCamera_ = nullptr;
+	//敵キャラ
+	std::unique_ptr<Enemy> enemy_ = nullptr;
+	std::unique_ptr<Model> enemyModel_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用

@@ -17,10 +17,10 @@ enum modelNumber {
 
 class Player :public BaseCharacter{
 public:
-	void Initialize(const std::vector<Model*>& models)override;
-	void Updete();
+	void Initialize(const std::vector<Model*>& models) override;
+	void Update() override;
 
-	void Draw(const ViewProjection& viewProjection_)override;
+	void Draw(const ViewProjection& viewProjection_) override;
 
 	void SetViewProjection(const ViewProjection* viewProjection) {
 		viewProjection_ = viewProjection;

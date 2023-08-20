@@ -20,11 +20,9 @@ void GameScene::Initialize() {
 	modelFighterHead_.reset(Model::CreateFromOBJ("float_Head", true));
 	modelFighterL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
 	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
-
 	std::vector<Model*> playerModels = {
 	    modelFighterBody_.get(), modelFighterHead_.get(), modelFighterL_arm_.get(),modelFighterR_arm_.get()};
 	player_ = std::make_unique<Player>();
-
 	player_->Initialize(playerModels);
 	//自キャラを追従するカメラ
 	followCamera_ = std::make_unique<FollowCamera>();
@@ -32,6 +30,12 @@ void GameScene::Initialize() {
 	followCamera_->SetTarget(&player_->GetWorldTransform());
 	//プレイヤーに追従カメラのビュープロジェクションを登録
 	player_->SetViewProjection(&followCamera_->GetViewProjection());
+	//敵キャラ
+	enemyModel_.reset(Model::CreateFromOBJ("enemy", true));
+	std::vector<Model*> enemyModels = { enemyModel_.get()};
+	enemy_ = std::make_unique<Enemy>();
+	enemy_->Initialize(enemyModels);
+
 	//天球
 	skydomeModel.reset(Model::CreateFromOBJ("skydome", true));
 	skydome_ = std::make_unique<Skydome>();
@@ -53,7 +57,9 @@ void GameScene::Initialize() {
 
 void GameScene::Update() { 
 	//プレイヤー
-	player_->Updete();
+	player_->Update();
+	//敵
+	enemy_->Update();
 	//天球
 	skydome_->Update();
 	//地面
@@ -111,6 +117,8 @@ void GameScene::Draw() {
 
 	//プレイヤー
 	player_->Draw(viewProjection_);
+	//敵
+	enemy_->Draw(viewProjection_);
 	//天球
 	skydome_->Draw(viewProjection_);
 	//地面
