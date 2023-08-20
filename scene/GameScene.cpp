@@ -22,7 +22,7 @@ void GameScene::Initialize() {
 	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
 	modelFighterWeapon_.reset(Model::CreateFromOBJ("weapon", true));
 	std::vector<Model*> playerModels = {
-	    modelFighterBody_.get(), modelFighterHead_.get(), modelFighterL_arm_.get(),modelFighterR_arm_.get()};
+	    modelFighterBody_.get(), modelFighterHead_.get(), modelFighterL_arm_.get(),modelFighterR_arm_.get(), modelFighterWeapon_.get()};
 	player_ = std::make_unique<Player>();
 	player_->Initialize(playerModels);
 	//自キャラを追従するカメラ

@@ -1,8 +1,9 @@
 ﻿#pragma once
-#include "BaseClass/BaseCharacter.h"
 #include <numbers>
 #include <cassert>
 #include <imgui.h>
+#include <optional>
+#include "BaseClass/BaseCharacter.h"
 #include "Model.h"
 #include "WorldTransform.h"
 #include "Input.h"
@@ -13,8 +14,12 @@ enum modelNumber {
 	kModelIndexHead,
 	kModelIndexL_arm,
 	kModelIndexR_arm,
+	kModelIndexWeapon,
 };
-
+enum class Behavior {
+	kRoot,//通常
+	kAttack,//攻撃
+};
 class Player :public BaseCharacter{
 public:
 	void Initialize(const std::vector<Model*>& models) override;
@@ -35,9 +40,11 @@ private:
 	WorldTransform worldTransformHead_;
 	WorldTransform worldTransformL_arm_;
 	WorldTransform worldTransformR_arm_;
+	WorldTransform worldTransformWeapon_;
 	//ゲームパッド
 	XINPUT_STATE joyState;
 
+	// 浮遊ギミック
 	void SetParent(const WorldTransform* parent);
 	void InitializeFloatingGimmick();
 	void UpdateFloatingGimmick();
@@ -45,4 +52,16 @@ private:
 	float floatingParameter_ = 0.0f;
 	int floatcycle_ = 120;
 	float floatingAmplitude_ = 0.2f;
+
+	//RootBehavior
+	//次のふるまいリクエスト
+	std::optional<Behavior> behaviorRequest_ = std::nullopt;
+	Behavior behavior_ = Behavior::kRoot;
+	//通常
+	void BehaviorRootInitialize();
+	void BehaviorRootUpdate();
+	//攻撃
+	void BehaviorAttackInitialize();
+	void BehaviorAttackUpdate();
+	int attackAnimationFrame;
 };
