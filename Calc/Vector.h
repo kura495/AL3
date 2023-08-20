@@ -16,4 +16,5 @@ Vector3 Normalize(const Vector3& v1);
 /// <returns></returns>
 Vector3 VectorLerp(const Vector3& v1, const Vector3& v2, float t);
 Vector3 VectorSLerp(const Vector3& v1, const Vector3& v2, float t);
-float dot(const Vector3& v1, const Vector3& v2);
+float Dot(const Vector3& v1, const Vector3& v2);
+float Length(const Vector3& v);

@@ -82,6 +82,18 @@
     <Filter Include="ヘッダー ファイル\Utility">
       <UniqueIdentifier>{5458c133-8fc2-41cb-ba67-a004a6dd51fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameObject\FollowCamera">
+      <UniqueIdentifier>{efe362bd-1f7a-4a75-b0f0-ffcfd5303422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\FollowCamera">
+      <UniqueIdentifier>{a38c84be-c9ba-4aab-b5b3-0083b98bbaeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\Ground">
+      <UniqueIdentifier>{065f7e8f-8493-437a-9a4d-11c50cd58c38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\Ground">
+      <UniqueIdentifier>{4fd24556-558f-4eb3-8384-df60347ee732}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -105,14 +117,20 @@
     <ClCompile Include="GameObject\Skydome\Skydome.cpp">
       <Filter>ソース ファイル\GameObject\Skydome</Filter>
     </ClCompile>
-    <ClCompile Include="WorldTransformEX.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="Calc\Matrix.cpp">
       <Filter>ソース ファイル\Calc</Filter>
     </ClCompile>
     <ClCompile Include="Calc\Vector.cpp">
       <Filter>ソース ファイル\Calc</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\WorldTransformEX.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Ground\Ground.cpp">
+      <Filter>ソース ファイル\GameObject\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="FollowCamera.cpp">
+      <Filter>ソース ファイル\GameObject\FollowCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +229,12 @@
     </ClInclude>
     <ClInclude Include="Calc\Vector.h">
       <Filter>ヘッダー ファイル\Calc</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Ground\Ground.h">
+      <Filter>ヘッダー ファイル\GameObject\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\FollowCamera\FollowCamera.h">
+      <Filter>ヘッダー ファイル\GameObject\FollowCamera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
