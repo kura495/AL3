@@ -1,32 +1,32 @@
-#pragma once
+ï»¿#pragma once
 #include <vector>
 #include "Model.h"
 #include "WorldTransform.h"
 #include "ViewProjection.h"
 class BaseCharacter {
 protected:
-	//ƒ‚ƒfƒ‹ƒf[ƒ^”z—ñ
+	//ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿é…åˆ—
 	std::vector<Model*> models_;
-	//ƒ[ƒ‹ƒh•ÏŠ·ƒf[ƒ^
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›ãƒ‡ãƒ¼ã‚¿
 	WorldTransform worldTransform_;
 
 public:
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
 	/// <param name="models"></param>
 	virtual void Initialize(const std::vector<Model*>&models);
 	/// <summary>
-	/// XVˆ—
+	/// æ›´æ–°å‡¦ç†
 	/// </summary>
 	virtual void Update();
 	/// <summary>
-	/// •`‰æˆ—
+	/// æç”»å‡¦ç†
 	/// </summary>
 	/// <param name="viewProjection"></param>
 	virtual void Draw(const ViewProjection& viewProjection);
 	/// <summary>
-	/// ƒ[ƒ‹ƒh•ÏŠ·ƒf[ƒ^‚ğæ“¾
+	/// ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 	/// </summary>
 	/// <returns></returns>
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }

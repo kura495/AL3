@@ -8,14 +8,20 @@
 #include "Input.h"
 #include "Calc/Matrix.h"
 #include "Calc/Vector.h"
-class Player {
+enum modelNumber {
+	kModelIndexBody,
+	kModelIndexHead,
+	kModelIndexL_arm,
+	kModelIndexR_arm,
+};
+
+class Player :public BaseCharacter{
 public:
-	void Initialize(Model* modelBody, Model* modelHead, Model* modelL_arm, Model* modelR_arm);
+	void Initialize(const std::vector<Model*>& models)override;
 	void Updete();
 
-	void Draw(const ViewProjection& viewProjection_);
+	void Draw(const ViewProjection& viewProjection_)override;
 
-	const WorldTransform& GetWorldTransform() { return worldTransformBase_; };
 	void SetViewProjection(const ViewProjection* viewProjection) {
 		viewProjection_ = viewProjection;
 	}
@@ -23,15 +29,7 @@ public:
 private:
 	//カメラのビュープロジェクション
 	const ViewProjection* viewProjection_ = nullptr;
-	
-	Model* model_ = nullptr;
-	Model* modelBody_ = nullptr;
-	Model* modelHead_ = nullptr;
-	Model* modelL_arm_ = nullptr;
-	Model* modelR_arm_ = nullptr;
-	uint32_t textureHandle_ = 0u;
-	//ローカル座標
-	WorldTransform worldTransformBase_;
+
 	//各パーツのローカル座標
 	WorldTransform worldTransformBody_;
 	WorldTransform worldTransformHead_;

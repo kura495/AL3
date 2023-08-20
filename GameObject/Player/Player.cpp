@@ -1,27 +1,21 @@
 ﻿#include"Player.h"
 
 
-void Player::Initialize(Model* modelBody, Model* modelHead, Model* modelL_arm, Model* modelR_arm) {
-	assert(modelBody);
-	assert(modelHead);
-	assert(modelL_arm);
-	assert(modelR_arm);
-	modelBody_ = modelBody;
-	modelHead_ = modelHead;
-	modelL_arm_ = modelL_arm;
-	modelR_arm_ = modelR_arm;
-	worldTransformBase_.Initialize();
+void Player::Initialize(const std::vector<Model*>& models) {
+	BaseCharacter::Initialize(models);
+	
+
 	worldTransformBody_.Initialize();
 	worldTransformHead_.Initialize();
 	worldTransformL_arm_.Initialize();
 	worldTransformR_arm_.Initialize();
 	SetParent(&worldTransformBody_);
-	worldTransformBody_.parent_ = &worldTransformBase_;
+	worldTransformBody_.parent_ = &worldTransform_;
 
 }
 
 void Player::Updete() { 
-	worldTransformBase_.TransferMatrix();
+	worldTransform_.TransferMatrix();
 
 	//ゲームパッドの状態取得
 	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
@@ -41,15 +35,15 @@ void Player::Updete() {
 		//移動ベクトルをカメラの角度だけ回転
 		move = TransformNormal(move, rotateMatrix);
 		//移動
-		worldTransformBase_.translation_ = Add(worldTransformBase_.translation_, move);
+		worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 		//プレイヤーの向きを移動方向に合わせる
 		//playerのY軸周り角度(θy)
-		worldTransformBase_.rotation_.y = std::atan2(move.x, move.z);
+		worldTransform_.rotation_.y = std::atan2(move.x, move.z);
 		
 	}
 	UpdateFloatingGimmick();
 
-	worldTransformBase_.UpdateMatrix();
+	worldTransform_.UpdateMatrix();
 	worldTransformBody_.UpdateMatrix();
 	worldTransformHead_.UpdateMatrix();
 	worldTransformL_arm_.UpdateMatrix();
@@ -57,10 +51,10 @@ void Player::Updete() {
 }
 
 void Player::Draw(const ViewProjection& viewProjection) {
-	modelBody_->Draw(worldTransformBody_, viewProjection);
-	modelHead_->Draw(worldTransformHead_, viewProjection);
-	modelL_arm_->Draw(worldTransformL_arm_, viewProjection);
-	modelR_arm_->Draw(worldTransformR_arm_, viewProjection);
+	models_[kModelIndexBody]->Draw(worldTransformBody_, viewProjection);
+	models_[kModelIndexHead]->Draw(worldTransformHead_, viewProjection);
+	models_[kModelIndexL_arm]->Draw(worldTransformL_arm_, viewProjection);
+	models_[kModelIndexR_arm]->Draw(worldTransformR_arm_, viewProjection);
 
 }
 
