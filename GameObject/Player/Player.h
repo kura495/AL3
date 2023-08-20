@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "BaseClass/BaseCharacter.h"
 #include <numbers>
 #include <cassert>
 #include <imgui.h>
