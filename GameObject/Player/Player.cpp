@@ -23,20 +23,24 @@ void Player::Updete() {
 		move.x =Normalize(move).x * speed;
 		move.y =Normalize(move).y * speed;
 		move.z =Normalize(move).z * speed;
-		//行列の再計算
-		//移動量
+		//カメラの正面方向に移動するようにする
+		//回転行列を作る
+		Matrix4x4 rotateMatrix = MakeRotateMatrix(viewProjection_->rotation_);
+		//移動ベクトルをカメラの角度だけ回転
+		move = TransformNormal(move, rotateMatrix);
+		//移動
 		worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+		//プレイヤーの向きを移動方向に合わせる
 		//playerのY軸周り角度(θy)
-		//worldTransform_.rotation_.y = std::atan2(move.x, move.z);
+		worldTransform_.rotation_.y = std::atan2(move.x, move.z);
 		
 	}
 	
-
 	worldTransform_.UpdateMatrix();
 }
 
-void Player::Draw(ViewProjection viewProjection_) {
-	model_->Draw(worldTransform_, viewProjection_);
+void Player::Draw(const ViewProjection& viewProjection) {
+	model_->Draw(worldTransform_, viewProjection);
 
 }
 	

@@ -12,6 +12,7 @@
 #include "GameObject/Player/Player.h"
 #include "GameObject/Skydome/Skydome.h"
 #include "GameObject/Ground/Ground.h"
+#include "GameObject/FollowCamera/FollowCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -57,6 +58,9 @@ private: // メンバ変数
 	//自キャラ
 	std::unique_ptr<Player> player_ = nullptr;
 	std::unique_ptr<Model> playerModel_ = nullptr;
+	//自キャラを追従するカメラ
+	std::unique_ptr<FollowCamera> followCamera_ = nullptr;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

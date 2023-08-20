@@ -11,13 +11,22 @@ public:
 
 	void Updete();
 
-	void Draw(ViewProjection viewProjection_);
+	void Draw(const ViewProjection& viewProjection_);
+
+	const WorldTransform& GetWorldTransform() { return worldTransform_; };
+	void SetViewProjection(const ViewProjection* viewProjection) {
+		viewProjection_ = viewProjection;
+	}
 
 private:
+	//カメラのビュープロジェクション
+	const ViewProjection* viewProjection_ = nullptr;
+	//ローカル座標
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 
 	//ゲームパッド
 	XINPUT_STATE joyState;
+
 };

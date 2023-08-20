@@ -20,6 +20,12 @@ void GameScene::Initialize() {
 	playerModel_.reset(Model::CreateFromOBJ("player", true));
 	player_ = std::make_unique<Player>();
 	player_->Initialize(playerModel_.get());
+	//自キャラを追従するカメラ
+	followCamera_ = std::make_unique<FollowCamera>();
+	followCamera_->Initalize();
+	followCamera_->SetTarget(&player_->GetWorldTransform());
+	//プレイヤーに追従カメラのビュープロジェクションを登録
+	player_->SetViewProjection(&followCamera_->GetViewProjection());
 	//天球
 	skydomeModel.reset(Model::CreateFromOBJ("skydome", true));
 	skydome_ = std::make_unique<Skydome>();
@@ -40,10 +46,17 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() { 
+	//プレイヤー
 	player_->Updete();
+	//天球
 	skydome_->Update();
+	//地面
 	ground_->Update();
-
+	//プレイヤー追従カメラ
+	followCamera_->Update();
+	viewProjection_.matView = followCamera_->GetViewProjection().constMap->view;
+	viewProjection_.matProjection = followCamera_->GetViewProjection().constMap->projection;
+	viewProjection_.TransferMatrix();
 	#ifdef _DEBUG
 	if (input_->PushKey(DIK_LALT)) {
 		isDebugCameraActive_ = true;
@@ -55,8 +68,6 @@ void GameScene::Update() {
 		viewProjection_.matView = debugCamera_->GetViewProjection().constMap->view;
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().constMap->projection;
 		viewProjection_.TransferMatrix();
-	} else {
-		viewProjection_.UpdateMatrix();
 	}
 #endif
 }
