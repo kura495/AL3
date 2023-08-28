@@ -45,6 +45,8 @@ public:
 	
 
 private:
+	
+	void ImGui();
 	//カメラのビュープロジェクション
 	const ViewProjection* viewProjection_ = nullptr;
 
@@ -81,5 +83,6 @@ private:
 	//攻撃
 	void BehaviorAttackInitialize();
 	void BehaviorAttackUpdate();
-	int attackAnimationFrame;
+	int attackAnimationFrame = 0;
+
 };

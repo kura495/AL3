@@ -13,6 +13,7 @@ void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity) 
 	worldTransform_.Initialize();
 	// 初期値セット
 	worldTransform_.translation_ = position;
+	worldTransform_.translation_.y += 1;
 	SetcollitionAttribute(kCollitionAttributePlayer);
 	SetcollisionMask(~kCollitionAttributePlayer);
 }

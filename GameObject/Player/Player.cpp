@@ -32,12 +32,13 @@ void Player::Update() {
 		}
 		return false;
 	});
-	//弾の発射
-
 	worldTransform_.TransferMatrix();
-
+	//弾の発射
 	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-		behaviorRequest_ = Behavior::kAttack;
+		if (attackAnimationFrame == 0) {
+			behaviorRequest_ = Behavior::kAttack;
+		}
+		
 	}
 	if (behaviorRequest_) {
 		//ふるまいの変更
@@ -62,6 +63,7 @@ void Player::Update() {
 		BehaviorRootUpdate();
 		break;
 	case Behavior::kAttack:
+		BehaviorRootUpdate();
 		BehaviorAttackUpdate();
 		break;
 	}
@@ -70,6 +72,7 @@ void Player::Update() {
 		bullet_->Update();
 	}
 
+	ImGui();
 	BaseCharacter::Update();
 	worldTransformBody_.UpdateMatrix();
 	worldTransformHead_.UpdateMatrix();
@@ -83,13 +86,10 @@ void Player::Draw(const ViewProjection& viewProjection) {
 	models_[kModelIndexHead]->Draw(worldTransformHead_, viewProjection);
 	models_[kModelIndexL_arm]->Draw(worldTransformL_arm_, viewProjection);
 	models_[kModelIndexR_arm]->Draw(worldTransformR_arm_, viewProjection);
-	if (behavior_ == Behavior::kAttack) {
-		for (PlayerBullet* bullet_ : bullets_) {
-			bullet_->Draw(viewProjection);
-		}
-	}
-	
 
+	for (PlayerBullet* bullet_ : bullets_) {
+		bullet_->Draw(viewProjection);
+	}
 }
 
 void Player::OnCollision() { 
@@ -105,12 +105,18 @@ Vector3 Player::GetWorldPosition() {
 	return worldPos;
 }
 
+void Player::ImGui() {
+	ImGui::Begin("Player");
+	ImGui::SliderFloat3("Head", &worldTransformHead_.translation_.x, 0.0f, 10.0f);
+	ImGui::SliderFloat3("ArmL", &worldTransformL_arm_.translation_.x, 0.0f, 10.0f);
+	ImGui::SliderFloat3("ArmR", &worldTransformR_arm_.translation_.x, 0.0f, 10.0f);
+	ImGui::SliderInt("cycle", &floatcycle_, 1, 120);
+	ImGui::SliderFloat("Amplitude", &floatingAmplitude_, 0.0f, 10.0f);
+	ImGui::InputInt("attackAnimationFrame", &attackAnimationFrame, 0,1);
+	ImGui::End();
+}
+
 void Player::Shot() {
-	// ゲームパッド未接続なら何もせず抜ける
-	if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
-		return;
-	}
-	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 		// 玉の速度
 		const float kBulletSpeed = 1.0f;
 
@@ -123,9 +129,7 @@ void Player::Shot() {
 		// 速度ベクトルを自機の向きに合わせて回転
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(GetWorldPosition(), velocity);
-		bullets_.push_back(newBullet);
-	}
-
+	    bullets_.push_back(newBullet);
 }
 
 void Player::SetParent(const WorldTransform* parent) {
@@ -141,13 +145,7 @@ void Player::InitializeFloatingGimmick() {
 }
 
 void Player::UpdateFloatingGimmick() {
-	ImGui::Begin("Player");
-	ImGui::SliderFloat3("Head", &worldTransformHead_.translation_.x, 0.0f,10.0f);
-	ImGui::SliderFloat3("ArmL", &worldTransformL_arm_.translation_.x, 0.0f, 10.0f);
-	ImGui::SliderFloat3("ArmR", &worldTransformR_arm_.translation_.x, 0.0f, 10.0f);
-	ImGui::SliderInt("cycle", &floatcycle_,1, 120);
-	ImGui::SliderFloat("Amplitude", &floatingAmplitude_, 0.0f, 10.0f);
-	ImGui::End();
+	
 	// 浮遊移動のサイクル<frame>
 	const uint16_t T = (uint16_t)floatcycle_;
 	// 1フレームでのパラメータ加算値
@@ -203,18 +201,16 @@ void Player::BehaviorRootUpdate() {
 
 void Player::BehaviorAttackInitialize() {
 	attackAnimationFrame = 0;
-	
+	Shot();
 }
 
 void Player::BehaviorAttackUpdate() {
-	if (attackAnimationFrame == 0) {
-		Shot();
-	}
-	
+	attackAnimationFrame++;
 	if (attackAnimationFrame > 10) {
 		behaviorRequest_ = Behavior::kRoot;
+		attackAnimationFrame = 0;
 	}
-	attackAnimationFrame++;
+	
 }
 	
 
