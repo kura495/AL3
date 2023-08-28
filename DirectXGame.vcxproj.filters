@@ -94,6 +94,12 @@
     <Filter Include="ソース ファイル\GameObject\Ground">
       <UniqueIdentifier>{4fd24556-558f-4eb3-8384-df60347ee732}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameObject\Enemy">
+      <UniqueIdentifier>{2d152b13-9d55-4a82-8a45-4151dce699e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\Enemy">
+      <UniqueIdentifier>{6fda5d2d-30c7-45c0-acd1-0b9c1447f994}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -129,8 +135,20 @@
     <ClCompile Include="GameObject\Ground\Ground.cpp">
       <Filter>ソース ファイル\GameObject\Ground</Filter>
     </ClCompile>
-    <ClCompile Include="FollowCamera.cpp">
+    <ClCompile Include="BaseClass\BaseCharacter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBullet.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FollowCamera\FollowCamera.cpp">
       <Filter>ソース ファイル\GameObject\FollowCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Enemy\Enemy.cpp">
+      <Filter>ソース ファイル\GameObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\CollisionManager.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +253,24 @@
     </ClInclude>
     <ClInclude Include="GameObject\FollowCamera\FollowCamera.h">
       <Filter>ヘッダー ファイル\GameObject\FollowCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseClass\BaseCharacter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBullet.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Collider.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\CollisionConfig.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\CollisionManager.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Enemy\Enemy.h">
+      <Filter>ヘッダー ファイル\GameObject\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
