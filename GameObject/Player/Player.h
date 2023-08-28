@@ -45,6 +45,7 @@ public:
 	
 
 private:
+	const int kBulletinterval = 20;
 	
 	void ImGui();
 	//カメラのビュープロジェクション

@@ -1,13 +1,15 @@
 ﻿#include "FollowCamera.h"
 
 void FollowCamera::Initalize() { 
+
 	viewProjection_.Initialize();
 }
 
 void FollowCamera::Update() {
 	if (target_) {
 		// 追従対象からカメラまでのオフセット
-		Vector3 offset = {0.0f, 2.0f, -15.0f};
+		Vector3 offset = {2.0f, 2.0f, -10.0f};
+		
 		// カメラの角度から回転行列を計算
 		Matrix4x4 rotateMatrix = MakeRotateMatrix(viewProjection_.rotation_);
 

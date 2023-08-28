@@ -20,7 +20,6 @@ void Player::Initialize(const std::vector<Model*>& models) {
 	worldTransformWeapon_.Initialize();
 	SetParent(&worldTransformBody_);
 	worldTransformBody_.parent_ = &worldTransform_;
-
 }
 
 void Player::Update() { 
@@ -206,7 +205,7 @@ void Player::BehaviorAttackInitialize() {
 
 void Player::BehaviorAttackUpdate() {
 	attackAnimationFrame++;
-	if (attackAnimationFrame > 10) {
+	if (attackAnimationFrame > kBulletinterval) {
 		behaviorRequest_ = Behavior::kRoot;
 		attackAnimationFrame = 0;
 	}

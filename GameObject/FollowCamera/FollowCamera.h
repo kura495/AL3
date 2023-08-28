@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "ImGuiManager.h"
 #include "Input.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
@@ -19,5 +20,5 @@ private:
 	const WorldTransform* target_ = nullptr;
 	// ゲームパッド
 	XINPUT_STATE joyState;
-
+	
 };
