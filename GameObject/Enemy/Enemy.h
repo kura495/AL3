@@ -11,6 +11,6 @@ public:
 	Vector3 GetWorldPosition() override;
 
 private:
-
+	int HP = 1;
 };
 
