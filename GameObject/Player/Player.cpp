@@ -5,10 +5,13 @@ void Player::Initialize(const std::vector<Model*>& models) {
 	//基底クラスの初期化
 	BaseCharacter::Initialize(models);
 	// 腕の座標
-
 	worldTransformL_arm_.translation_.y = 1.0f;
 	worldTransformR_arm_.translation_.y = 1.0f;
 	worldTransformWeapon_.translation_.y = 2.0f;
+
+	// 当たり判定の属性とマスク設定
+	SetcollitionAttribute(kCollitionAttributePlayer);
+	SetcollisionMask(~kCollitionAttributePlayer);
 
 	worldTransformBody_.Initialize();
 	worldTransformHead_.Initialize();
@@ -21,10 +24,18 @@ void Player::Initialize(const std::vector<Model*>& models) {
 }
 
 void Player::Update() { 
+	// デスフラグが立った玉を削除
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+	//弾の発射
+
 	worldTransform_.TransferMatrix();
-	if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
-		return;
-	}
+
 	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 		behaviorRequest_ = Behavior::kAttack;
 	}
@@ -54,6 +65,10 @@ void Player::Update() {
 		BehaviorAttackUpdate();
 		break;
 	}
+	// 玉の更新
+	for (PlayerBullet* bullet_ : bullets_) {
+		bullet_->Update();
+	}
 
 	BaseCharacter::Update();
 	worldTransformBody_.UpdateMatrix();
@@ -69,7 +84,9 @@ void Player::Draw(const ViewProjection& viewProjection) {
 	models_[kModelIndexL_arm]->Draw(worldTransformL_arm_, viewProjection);
 	models_[kModelIndexR_arm]->Draw(worldTransformR_arm_, viewProjection);
 	if (behavior_ == Behavior::kAttack) {
-		models_[kModelIndexWeapon]->Draw(worldTransformWeapon_, viewProjection);
+		for (PlayerBullet* bullet_ : bullets_) {
+			bullet_->Draw(viewProjection);
+		}
 	}
 	
 
@@ -86,6 +103,29 @@ Vector3 Player::GetWorldPosition() {
 	worldPos.y = worldTransform_.matWorld_.m[3][1];
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 	return worldPos;
+}
+
+void Player::Shot() {
+	// ゲームパッド未接続なら何もせず抜ける
+	if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
+		return;
+	}
+	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+		// 玉の速度
+		const float kBulletSpeed = 1.0f;
+
+		Vector3 worldPos = GetWorldPosition();
+		Vector3 velocity = move;
+		velocity = Normalize(velocity);
+		velocity.x *= kBulletSpeed;
+		velocity.y *= kBulletSpeed;
+		velocity.z *= kBulletSpeed;
+		// 速度ベクトルを自機の向きに合わせて回転
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(GetWorldPosition(), velocity);
+		bullets_.push_back(newBullet);
+	}
+
 }
 
 void Player::SetParent(const WorldTransform* parent) {
@@ -139,7 +179,7 @@ void Player::BehaviorRootUpdate() {
 			// 速さ
 			const float speed = 0.3f;
 			// 移動量
-			Vector3 move{
+			move = {
 			    (float)joyState.Gamepad.sThumbLX / SHRT_MAX, 0.0f,
 			    (float)joyState.Gamepad.sThumbLY / SHRT_MAX};
 			// 正規化をして斜めの移動量を正しくする
@@ -162,28 +202,16 @@ void Player::BehaviorRootUpdate() {
 }
 
 void Player::BehaviorAttackInitialize() {
-	worldTransformL_arm_.rotation_.x = (float)std::numbers::pi;
-	worldTransformR_arm_.rotation_.x = (float)std::numbers::pi;
-	worldTransformWeapon_.rotation_.x = 0.0f;
 	attackAnimationFrame = 0;
 	
 }
 
 void Player::BehaviorAttackUpdate() {
-	if (attackAnimationFrame < 10) {
-		// 腕の挙動
-		worldTransformL_arm_.rotation_.x -= 0.05f;
-		worldTransformR_arm_.rotation_.x -= 0.05f;
-
-		// 武器の挙動
-		worldTransformWeapon_.rotation_.x -= 0.05f;
-	} else if (worldTransformWeapon_.rotation_.x <= 2.0f * (float)std::numbers::pi / 4) {
-		// 腕の挙動
-		worldTransformL_arm_.rotation_.x += 0.1f;
-		worldTransformR_arm_.rotation_.x += 0.1f;
-		// 武器の挙動
-		worldTransformWeapon_.rotation_.x += 0.1f;
-	} else {
+	if (attackAnimationFrame == 0) {
+		Shot();
+	}
+	
+	if (attackAnimationFrame > 10) {
 		behaviorRequest_ = Behavior::kRoot;
 	}
 	attackAnimationFrame++;

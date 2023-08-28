@@ -2,11 +2,9 @@
 #include "PlayerBullet.h"
 #include <cassert>
 
-void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
-	// modelチェック
-	assert(model);
+void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity) {
 	// モデル読み込み
-	model_ = model;
+	model_ = Model::Create();
 	// テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("sample.png");
 	// プレイヤーの向きを玉にも反映

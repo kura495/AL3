@@ -9,6 +9,9 @@
 #include "Input.h"
 #include "Calc/Matrix.h"
 #include "Calc/Vector.h"
+#include "Utility/CollisionConfig.h"
+#include "PlayerBullet.h"
+
 enum modelNumber {
 	kModelIndexBody,
 	kModelIndexHead,
@@ -23,7 +26,11 @@ enum class Behavior {
 class Player : public BaseCharacter{
 public:
 	Player(){};
-	~Player(){};
+	~Player() {
+		for (PlayerBullet* bullet_ : bullets_) {
+			delete bullet_;
+		}
+	};
 	void Initialize(const std::vector<Model*>& models) override;
 	void Update() override;
 
@@ -49,6 +56,11 @@ private:
 	WorldTransform worldTransformWeapon_;
 	//ゲームパッド
 	XINPUT_STATE joyState;
+
+	std::list<PlayerBullet*> bullets_;
+	void Shot();
+
+	Vector3 move;
 
 	// 浮遊ギミック
 	void SetParent(const WorldTransform* parent);
