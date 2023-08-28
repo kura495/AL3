@@ -25,3 +25,16 @@ void Enemy::Update() {
 
 void Enemy::Draw(const ViewProjection& viewProjection){ 
 	BaseCharacter::Draw(viewProjection); }
+
+void Enemy::OnCollision() { 
+	return;
+}
+
+Vector3 Enemy::GetWorldPosition() {
+	Vector3 worldPos;
+	worldTransform_.UpdateMatrix();
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos;
+}

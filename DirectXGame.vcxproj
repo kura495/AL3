@@ -119,6 +119,7 @@
     <ClCompile Include="GameObject\Skydome\Skydome.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
+    <ClCompile Include="Utility\CollisionManager.cpp" />
     <ClCompile Include="Utility\WorldTransformEX.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,9 @@
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="scene\GameScene.h" />
+    <ClInclude Include="Utility\Collider.h" />
+    <ClInclude Include="Utility\CollisionConfig.h" />
+    <ClInclude Include="Utility\CollisionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">

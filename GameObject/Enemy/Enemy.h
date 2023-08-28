@@ -7,7 +7,10 @@ public:
 	void Initialize(const std::vector<Model*>& models) override;
 	void Update() override;
 	void Draw(const ViewProjection& viewProjection) override;
+	void OnCollision() override;
+	Vector3 GetWorldPosition() override;
 
 private:
+
 };
 

@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include <vector>
 #include "Model.h"
+#include "Utility/Collider.h"
 #include "WorldTransform.h"
 #include "ViewProjection.h"
-class BaseCharacter {
+class BaseCharacter :public Collider{
 protected:
 	//モデルデータ配列
 	std::vector<Model*> models_;
@@ -32,5 +33,5 @@ public:
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }
 
 private:
-
+	
 };

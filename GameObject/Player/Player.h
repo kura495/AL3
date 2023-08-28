@@ -20,8 +20,10 @@ enum class Behavior {
 	kRoot,//通常
 	kAttack,//攻撃
 };
-class Player :public BaseCharacter{
+class Player : public BaseCharacter{
 public:
+	Player(){};
+	~Player(){};
 	void Initialize(const std::vector<Model*>& models) override;
 	void Update() override;
 
@@ -30,6 +32,10 @@ public:
 	void SetViewProjection(const ViewProjection* viewProjection) {
 		viewProjection_ = viewProjection;
 	}
+
+	void OnCollision() override;
+	Vector3 GetWorldPosition() override;
+	
 
 private:
 	//カメラのビュープロジェクション
