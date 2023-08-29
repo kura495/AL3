@@ -8,8 +8,10 @@ void FollowCamera::Initalize() {
 void FollowCamera::Update() {
 	if (target_) {
 		// 追従対象からカメラまでのオフセット
-		Vector3 offset = {2.0f, 2.0f, -10.0f};
-		
+		ImGui::Begin("Camera");
+		//ImGui::SliderFloat3("offset", &offset.x, -10,10);
+		ImGui::End();
+		Vector3 offset = {1.5f, 3.0f, -10.0f};
 		// カメラの角度から回転行列を計算
 		Matrix4x4 rotateMatrix = MakeRotateMatrix(viewProjection_.rotation_);
 
