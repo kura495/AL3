@@ -42,7 +42,6 @@ void Player::Update() {
 		switch (behavior_) {
 		case Behavior::kRoot:
 		default:
-			BehaviorRootInitialize();
 			break;
 		case Behavior::kAttack:
 			BehaviorAttackInitialize();
@@ -125,12 +124,6 @@ void Player::ImGui() {
 	ImGui::SliderFloat("Amplitude", &floatingAmplitude_, 0.0f, 10.0f);
 	ImGui::InputInt("attackAnimationFrame", &attackAnimationFrame, 0,1);
 	ImGui::End();
-	ImGui::Begin("3Dreticle");
-	ImGui::InputFloat4("worldTransform3DReticle_0_0", &worldTransform3DReticle_0.matWorld_.m[0][0]);
-	ImGui::InputFloat4("worldTransform3DReticle_0_1", &worldTransform3DReticle_0.matWorld_.m[1][0]);
-	ImGui::InputFloat4("worldTransform3DReticle_0_2", &worldTransform3DReticle_0.matWorld_.m[2][0]);
-	ImGui::InputFloat4("worldTransform3DReticle_0_3", &worldTransform3DReticle_0.matWorld_.m[3][0]);
-	ImGui::End();
 }
 
 void Player::Shot() {
@@ -176,15 +169,6 @@ void Player::UpdateFloatingGimmick() {
 	const float floatingAmplitude = floatingAmplitude_;
 	// 浮遊を座標に反映
 	worldTransformBody_.translation_.y = std::sin(floatingParameter_) * floatingAmplitude;
-
-}
-
-void Player::BehaviorRootInitialize() {
-	worldTransformL_arm_.rotation_.x = 0.0f;
-	worldTransformR_arm_.rotation_.x = 0.0f;
-	worldTransformWeapon_.rotation_.x = 0.0f;
-	// 浮遊ギミックの初期化
-	InitializeFloatingGimmick();
 
 }
 
@@ -234,7 +218,7 @@ void Player::BehaviorAttackUpdate() {
 	/// <summary>
 /// レティクルの位置を決める
 /// </summary>
-void Player::Set3DReticle(WorldTransform& worldTransform3DReticle_, float ReticleDistanse) {
+void Player::Set3DReticle(WorldTransform& worldTransform3DReticle_,const float ReticleDistanse) {
 	const float kDistancePlayerTo3DReticle = ReticleDistanse;
 	// 自機から3Dレティクルへの距離(Z+向き)
 	Vector3 offset = {0.0f, 0.0f, 1.0f};

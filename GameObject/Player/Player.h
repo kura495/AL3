@@ -79,7 +79,6 @@ private:
 	std::optional<Behavior> behaviorRequest_ = std::nullopt;
 	Behavior behavior_ = Behavior::kRoot;
 	//通常
-	void BehaviorRootInitialize();
 	void BehaviorRootUpdate();
 	//攻撃
 	void BehaviorAttackInitialize();
@@ -91,7 +90,7 @@ private:
 	/// </summary>
 	/// <param name="worldTransform3DReticle_"></param>
 	/// <param name="ReticleDistanse">レティクルへの距離</param>
-	void Set3DReticle(WorldTransform& worldTransform3DReticle_, float ReticleDistanse);
+	void Set3DReticle(WorldTransform& worldTransform3DReticle_,const float ReticleDistanse);
 	WorldTransform worldTransform3DReticle_0;
 	WorldTransform worldTransform3DReticle_1;
 	std::vector<Model*> ReticleModel;
