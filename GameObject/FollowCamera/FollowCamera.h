@@ -20,5 +20,5 @@ private:
 	const WorldTransform* target_ = nullptr;
 	// ゲームパッド
 	XINPUT_STATE joyState;
-	
+	float kRadian;
 };

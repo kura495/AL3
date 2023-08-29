@@ -29,7 +29,7 @@ void Player::Initialize(const std::vector<Model*>& models) {
 }
 
 void Player::Update() { 
-	// 弾の発射
+	//RBを押したらAttackBehavior
 	if(joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 		if (attackAnimationFrame == 0) {
 			behaviorRequest_ = Behavior::kAttack;
@@ -212,7 +212,6 @@ void Player::BehaviorAttackUpdate() {
 		behaviorRequest_ = Behavior::kRoot;
 		attackAnimationFrame = 0;
 	}
-	
 }
 
 	/// <summary>

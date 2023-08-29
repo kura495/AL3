@@ -19,7 +19,12 @@ void FollowCamera::Update() {
 	}
 	//スティックでのカメラ回転
 	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
-		const float kRadian = 0.02f;
+		if (joyState.Gamepad.sThumbRX <= 30000 && joyState.Gamepad.sThumbRX >= -30000) {
+			kRadian = 0.02f;
+		} else {
+			kRadian = 0.04f;
+		}
+
 		viewProjection_.rotation_.y += (float)joyState.Gamepad.sThumbRX / SHRT_MAX * kRadian;
 	}
 	
