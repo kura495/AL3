@@ -86,4 +86,14 @@ private:
 	void BehaviorAttackUpdate();
 	int attackAnimationFrame = 0;
 
+	/// <summary>
+	/// レティクルの位置
+	/// </summary>
+	/// <param name="worldTransform3DReticle_"></param>
+	/// <param name="ReticleDistanse">レティクルへの距離</param>
+	void Set3DReticle(WorldTransform& worldTransform3DReticle_, float ReticleDistanse);
+	WorldTransform worldTransform3DReticle_0;
+	WorldTransform worldTransform3DReticle_1;
+	std::vector<Model*> ReticleModel;
+
 };

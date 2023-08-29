@@ -20,29 +20,25 @@ void Player::Initialize(const std::vector<Model*>& models) {
 	worldTransformWeapon_.Initialize();
 	SetParent(&worldTransformBody_);
 	worldTransformBody_.parent_ = &worldTransform_;
+	//レティクル
+	//ReticleModel.reset(Model::Create());
+	ReticleModel.push_back(Model::CreateFromOBJ("Reticle", true));
+	ReticleModel.push_back(Model::CreateFromOBJ("Reticle", true));
+	worldTransform3DReticle_0.Initialize();
+	worldTransform3DReticle_1.Initialize();
 }
 
 void Player::Update() { 
-	// デスフラグが立った玉を削除
-	bullets_.remove_if([](PlayerBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
-	worldTransform_.TransferMatrix();
-	//弾の発射
-	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+	// 弾の発射
+	if(joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 		if (attackAnimationFrame == 0) {
 			behaviorRequest_ = Behavior::kAttack;
 		}
-		
 	}
 	if (behaviorRequest_) {
-		//ふるまいの変更
+		// ふるまいの変更
 		behavior_ = behaviorRequest_.value();
-		//各振る舞いごとの初期化を実行
+		// 各振る舞いごとの初期化を実行
 		switch (behavior_) {
 		case Behavior::kRoot:
 		default:
@@ -52,7 +48,7 @@ void Player::Update() {
 			BehaviorAttackInitialize();
 			break;
 		}
-		//ふるまいリクエストをリセット
+		// ふるまいリクエストをリセット
 		behaviorRequest_ = std::nullopt;
 	}
 	//ふるまいの更新処理
@@ -66,13 +62,26 @@ void Player::Update() {
 		BehaviorAttackUpdate();
 		break;
 	}
-	// 玉の更新
+	BaseCharacter::Update();
+	Set3DReticle(worldTransform3DReticle_0, 10.0f);
+	Set3DReticle(worldTransform3DReticle_1, 20.0f);
+
+	// デスフラグが立った弾を削除
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+	
+	// 弾の更新
 	for (PlayerBullet* bullet_ : bullets_) {
 		bullet_->Update();
 	}
 
 	ImGui();
-	BaseCharacter::Update();
+	
 	worldTransformBody_.UpdateMatrix();
 	worldTransformHead_.UpdateMatrix();
 	worldTransformL_arm_.UpdateMatrix();
@@ -89,6 +98,9 @@ void Player::Draw(const ViewProjection& viewProjection) {
 	for (PlayerBullet* bullet_ : bullets_) {
 		bullet_->Draw(viewProjection);
 	}
+
+	ReticleModel[0]->Draw(worldTransform3DReticle_0, viewProjection);
+	ReticleModel[1]->Draw(worldTransform3DReticle_1, viewProjection);
 }
 
 void Player::OnCollision() { 
@@ -113,6 +125,12 @@ void Player::ImGui() {
 	ImGui::SliderFloat("Amplitude", &floatingAmplitude_, 0.0f, 10.0f);
 	ImGui::InputInt("attackAnimationFrame", &attackAnimationFrame, 0,1);
 	ImGui::End();
+	ImGui::Begin("3Dreticle");
+	ImGui::InputFloat4("worldTransform3DReticle_0_0", &worldTransform3DReticle_0.matWorld_.m[0][0]);
+	ImGui::InputFloat4("worldTransform3DReticle_0_1", &worldTransform3DReticle_0.matWorld_.m[1][0]);
+	ImGui::InputFloat4("worldTransform3DReticle_0_2", &worldTransform3DReticle_0.matWorld_.m[2][0]);
+	ImGui::InputFloat4("worldTransform3DReticle_0_3", &worldTransform3DReticle_0.matWorld_.m[3][0]);
+	ImGui::End();
 }
 
 void Player::Shot() {
@@ -129,6 +147,7 @@ void Player::Shot() {
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(GetWorldPosition(), velocity);
 	    bullets_.push_back(newBullet);
+
 }
 
 void Player::SetParent(const WorldTransform* parent) {
@@ -211,5 +230,25 @@ void Player::BehaviorAttackUpdate() {
 	}
 	
 }
-	
+
+	/// <summary>
+/// レティクルの位置を決める
+/// </summary>
+void Player::Set3DReticle(WorldTransform& worldTransform3DReticle_, float ReticleDistanse) {
+	const float kDistancePlayerTo3DReticle = ReticleDistanse;
+	// 自機から3Dレティクルへの距離(Z+向き)
+	Vector3 offset = {0.0f, 0.0f, 1.0f};
+	// 自機のワールド行列の回転を反映
+	offset = TransformNormal(offset, worldTransform_.constMap->matWorld);
+	// ベクトルの長さを整える
+	offset = Normalize(offset);
+	offset.x *= kDistancePlayerTo3DReticle;
+	offset.y *= kDistancePlayerTo3DReticle;
+	offset.z *= kDistancePlayerTo3DReticle;
+	// 3Dレティクルの座標を設定
+	worldTransform3DReticle_.translation_.x = GetWorldPosition().x + offset.x;
+	worldTransform3DReticle_.translation_.y = GetWorldPosition().y + offset.y + 1.0f;
+	worldTransform3DReticle_.translation_.z = GetWorldPosition().z + offset.z;
+	worldTransform3DReticle_.UpdateMatrix();
+}
 

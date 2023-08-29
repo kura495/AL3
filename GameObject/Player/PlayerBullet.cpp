@@ -14,6 +14,9 @@ void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity) 
 	// 初期値セット
 	worldTransform_.translation_ = position;
 	worldTransform_.translation_.y += 1;
+	worldTransform_.scale_.x = 0.5f;
+	worldTransform_.scale_.y = 0.5f;
+	worldTransform_.scale_.z = 0.5f;
 	SetcollitionAttribute(kCollitionAttributePlayer);
 	SetcollisionMask(~kCollitionAttributePlayer);
 }
