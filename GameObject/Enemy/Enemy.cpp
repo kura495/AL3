@@ -3,7 +3,11 @@
 void Enemy::Initialize(const std::vector<Model*>& models){
 	//基底クラスの初期化
 	BaseCharacter::Initialize(models);
-
+	SetRadius(Radius_);
+	SetcollitionAttribute(kCollitionAttributeEnemy);
+	SetcollisionMask(~kCollitionAttributeEnemy);
+	worldTransform_.translation_ = {1.0f,0.0f,10.0f};
+	worldTransform_.UpdateMatrix();
 }
 
 void Enemy::Update() {
@@ -15,7 +19,9 @@ void Enemy::Update() {
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 
 	// 移動量
-	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity);
+	//当たり判定テストのためコメントアウト中 TODO:コメントアウトを消す　
+	//worldTransform_.translation_ = Add(worldTransform_.translation_, velocity);
+	
 	// 自機のY軸周り角度(θy)
 	worldTransform_.rotation_.y += 0.03f;
 
@@ -24,10 +30,12 @@ void Enemy::Update() {
 }
 
 void Enemy::Draw(const ViewProjection& viewProjection){ 
-	BaseCharacter::Draw(viewProjection); }
+	BaseCharacter::Draw(viewProjection); 
+}
 
 void Enemy::OnCollision() { 
-	return;
+	// TODO : コメントアウトを消す
+	//IsAlive_ = FALSE;
 }
 
 Vector3 Enemy::GetWorldPosition() {

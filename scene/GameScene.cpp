@@ -1,6 +1,6 @@
+#include <cassert>
 #include "GameScene.h"
 #include "TextureManager.h"
-#include <cassert>
 #include "ImGuiManager.h"
 #include"PrimitiveDrawer.h"
 #include"AxisIndicator.h"
@@ -45,6 +45,9 @@ void GameScene::Initialize() {
 	groundModel.reset(Model::CreateFromOBJ("ground", true));
 	ground_ = std::make_unique<Ground>();
 	ground_->Initialize(groundModel.get());
+	//コリジョン
+	collisionManager_ = std::make_unique<CollisionManager>();
+
 
 	viewProjection_.Initialize();
 	viewProjection_.translation_.y = 5.0f;
@@ -60,7 +63,10 @@ void GameScene::Update() {
 	//プレイヤー
 	player_->Update();
 	//敵
-	enemy_->Update();
+	if (enemy_.get()->GetIsAlive()) {
+		enemy_->Update();
+	}
+
 	//天球
 	skydome_->Update();
 	//地面
@@ -70,6 +76,10 @@ void GameScene::Update() {
 	viewProjection_.matView = followCamera_->GetViewProjection().constMap->view;
 	viewProjection_.matProjection = followCamera_->GetViewProjection().constMap->projection;
 	viewProjection_.TransferMatrix();
+	//当たり判定
+	CheckAllCollisions();
+
+	//デバッグカメラ
 	#ifdef _DEBUG
 	if (input_->PushKey(DIK_LALT)) {
 		isDebugCameraActive_ = true;
@@ -119,7 +129,10 @@ void GameScene::Draw() {
 	//プレイヤー
 	player_->Draw(viewProjection_);
 	//敵
-	enemy_->Draw(viewProjection_);
+	if (enemy_.get()->GetIsAlive()) {
+		enemy_->Draw(viewProjection_);
+	}
+	
 	//天球
 	skydome_->Draw(viewProjection_);
 	//地面
@@ -142,6 +155,21 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
 
-	
+void GameScene::CheckAllCollisions() {
+	// 自弾リストの取得
+	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	// 自機のコライダーを登録
+	// TODO : コメントアウト消す
+	collisionManager_->AddCollider(player_.get());
+	// 敵機のコライダーを登録
+	collisionManager_->AddCollider(enemy_.get());
+	// 自機の弾
+	for (PlayerBullet* bullet : playerBullets) {
+		collisionManager_->AddCollider(bullet);
+	}
+	collisionManager_->CheckAllCollisions();
+	collisionManager_->ClearCollider();
+
 }

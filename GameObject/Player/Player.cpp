@@ -9,7 +9,8 @@ void Player::Initialize(const std::vector<Model*>& models) {
 	worldTransformR_arm_.translation_.y = 1.0f;
 	worldTransformWeapon_.translation_.y = 2.0f;
 
-	// 当たり判定の属性とマスク設定
+	// 当たり判定とマスク設定
+	SetRadius(Radius);
 	SetcollitionAttribute(kCollitionAttributePlayer);
 	SetcollisionMask(~kCollitionAttributePlayer);
 

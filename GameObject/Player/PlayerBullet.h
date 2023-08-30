@@ -25,16 +25,20 @@ public:
 	Vector3 GetWorldPosition();
 
 private:
+	// 玉の寿命
+	static const int32_t kLifeTime = 60 * 5;
+	// デスタイマー
+	int32_t deathTimer_ = kLifeTime;
+	//半径
+	float Radius_ = 0.5f;
+
 	void Move();
 
 	Vector3 velocity_;
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
-	// 玉の寿命
-	static const int32_t kLifeTime = 60 * 5;
-	// デスタイマー
-	int32_t deathTimer_ = kLifeTime;
+	
 	// デスフラグ
 	bool isDead_ = false;
 };

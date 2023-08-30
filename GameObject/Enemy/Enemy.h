@@ -2,6 +2,8 @@
 #include "BaseClass/BaseCharacter.h"
 #include "Calc/Matrix.h"
 #include "Calc/Vector.h"
+#include "Utility/CollisionConfig.h"
+
 class Enemy : public BaseCharacter{
 public:
 	void Initialize(const std::vector<Model*>& models) override;
@@ -9,8 +11,10 @@ public:
 	void Draw(const ViewProjection& viewProjection) override;
 	void OnCollision() override;
 	Vector3 GetWorldPosition() override;
+	bool GetIsAlive() const { return IsAlive_; };
 
 private:
-	int HP = 1;
+	bool IsAlive_ = TRUE;
+	float Radius_ = 1.0f;
 };
 

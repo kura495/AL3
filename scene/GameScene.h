@@ -1,14 +1,19 @@
 #pragma once
-#include "Audio.h"
+//systems
+#include <memory>
+//Base
 #include "DirectXCommon.h"
-#include "Input.h"
-#include "Model.h"
 #include "SafeDelete.h"
 #include "Sprite.h"
+//Components
+#include "Audio.h"
+#include "Input.h"
+#include "Model.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "DebugCamera.h"
-#include <memory>
+#include "Utility/CollisionManager.h"
+//Object
 #include "GameObject/Player/Player.h"
 #include "GameObject/Enemy/Enemy.h"
 #include "GameObject/Skydome/Skydome.h"
@@ -58,7 +63,6 @@ private: // メンバ変数
 	ViewProjection viewProjection_;
 	//自キャラ
 	std::unique_ptr<Player> player_ = nullptr;
-	//std::unique_ptr<Model> playerModel_ = nullptr;
 	std::unique_ptr<Model> modelFighterBody_ = nullptr;
 	std::unique_ptr<Model> modelFighterHead_ = nullptr;
 	std::unique_ptr<Model> modelFighterL_arm_ = nullptr;
@@ -83,4 +87,7 @@ private: // メンバ変数
 	//デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_ = nullptr;
 	int isDebugCameraActive_ = false;
+	//コリジョン管理
+	void CheckAllCollisions();
+	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
 };

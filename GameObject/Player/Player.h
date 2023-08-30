@@ -42,11 +42,16 @@ public:
 
 	void OnCollision() override;
 	Vector3 GetWorldPosition() override;
-	
+	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 
 private:
+	float Radius = 1.0f;
+
+	//弾の発射までの間隔
 	const int kBulletinterval = 20;
-	
+
+
+	//
 	void ImGui();
 	//カメラのビュープロジェクション
 	const ViewProjection* viewProjection_ = nullptr;
@@ -59,10 +64,10 @@ private:
 	WorldTransform worldTransformWeapon_;
 	//ゲームパッド
 	XINPUT_STATE joyState;
-
+	//弾のリスト
 	std::list<PlayerBullet*> bullets_;
 	void Shot();
-
+	//キャラクターの移動量
 	Vector3 move;
 
 	// 浮遊ギミック
@@ -91,8 +96,11 @@ private:
 	/// <param name="worldTransform3DReticle_"></param>
 	/// <param name="ReticleDistanse">レティクルへの距離</param>
 	void Set3DReticle(WorldTransform& worldTransform3DReticle_,const float ReticleDistanse);
+	//レティクルのトランスフォーム
 	WorldTransform worldTransform3DReticle_0;
+	// レティクルのトランスフォーム
 	WorldTransform worldTransform3DReticle_1;
+	//レティクルモデルのリスト
 	std::vector<Model*> ReticleModel;
 
 };

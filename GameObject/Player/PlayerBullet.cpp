@@ -1,5 +1,4 @@
 ﻿#include "PlayerBullet.h"
-#include "PlayerBullet.h"
 #include <cassert>
 
 void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity) {
@@ -17,6 +16,9 @@ void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity) 
 	worldTransform_.scale_.x = 0.5f;
 	worldTransform_.scale_.y = 0.5f;
 	worldTransform_.scale_.z = 0.5f;
+
+	// 当たり判定とマスク設定
+	SetRadius(Radius_);
 	SetcollitionAttribute(kCollitionAttributePlayer);
 	SetcollisionMask(~kCollitionAttributePlayer);
 }
