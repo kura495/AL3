@@ -16,6 +16,6 @@ public:
 
 private:
 	bool IsAlive_ = TRUE;
-	float Radius_ = 1.0f;
+	float Radius_ = 2.0f;
 };
 
