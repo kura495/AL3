@@ -5,6 +5,7 @@
 #include "DirectXCommon.h"
 #include "SafeDelete.h"
 #include "Sprite.h"
+#include "Utility/LoadCSV.h"
 //Components
 #include "Audio.h"
 #include "Input.h"

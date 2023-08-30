@@ -215,7 +215,8 @@ void GameScene::UpdateEnemyPopCommands() {
 }
 void GameScene::EnemySpawn(const Vector3& position) {
 	Enemy* enemy_ = new Enemy();
-	enemy_->Initialize(enemyModels, position);
+	enemy_->Initialize(enemyModels);
+	enemy_->SetPosition(position);
 	// 敵
 	enemys_.push_back(enemy_);
 }
