@@ -6,7 +6,7 @@
 
 class Enemy : public BaseCharacter{
 public:
-	void Initialize(const std::vector<Model*>& models) override;
+	void Initialize(const std::vector<Model*>& models, const Vector3& position) override;
 	void Update() override;
 	void Draw(const ViewProjection& viewProjection) override;
 	void OnCollision() override;

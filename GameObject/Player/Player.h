@@ -49,8 +49,6 @@ private:
 
 	//弾の発射までの間隔
 	const int kBulletinterval = 20;
-
-
 	//
 	void ImGui();
 	//カメラのビュープロジェクション

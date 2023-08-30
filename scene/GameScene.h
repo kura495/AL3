@@ -71,8 +71,17 @@ private: // メンバ変数
 	//自キャラを追従するカメラ
 	std::unique_ptr<FollowCamera> followCamera_ = nullptr;
 	//敵キャラ
-	std::unique_ptr<Enemy> enemy_ = nullptr;
+	std::list<Enemy*> enemys_;
+	Enemy* enemy_ = nullptr;
 	std::unique_ptr<Model> enemyModel_ = nullptr;
+	std::vector<Model*> enemyModels;
+	// 敵発生コマンド
+	std::stringstream enemyPopCommands;
+	// 敵の待機フラグ
+	bool enemyWAITflag = false;
+	int enemyWAITtime = 0;
+	void UpdateEnemyPopCommands();
+	void EnemySpawn(const Vector3& position);
 
 	/// <summary>
 	/// ゲームシーン用

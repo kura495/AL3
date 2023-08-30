@@ -150,6 +150,9 @@
     <ClCompile Include="GameObject\Player\PlayerBullet.cpp">
       <Filter>ソース ファイル\GameObject\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\LoadCSV.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -271,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="GameObject\Player\PlayerBullet.h">
       <Filter>ヘッダー ファイル\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\LoadCSV.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

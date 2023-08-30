@@ -26,7 +26,7 @@ public:
 
 private:
 	// 玉の寿命
-	static const int32_t kLifeTime = 60 * 5;
+	static const int32_t kLifeTime = 60 * 2;
 	// デスタイマー
 	int32_t deathTimer_ = kLifeTime;
 	//半径

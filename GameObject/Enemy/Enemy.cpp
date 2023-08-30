@@ -1,12 +1,12 @@
 ﻿#include "Enemy.h"
 
-void Enemy::Initialize(const std::vector<Model*>& models){
+void Enemy::Initialize(const std::vector<Model*>& models, const Vector3& position){
 	//基底クラスの初期化
 	BaseCharacter::Initialize(models);
 	SetRadius(Radius_);
 	SetcollitionAttribute(kCollitionAttributeEnemy);
 	SetcollisionMask(~kCollitionAttributeEnemy);
-	worldTransform_.translation_ = {1.0f,0.0f,10.0f};
+	worldTransform_.translation_ = position;
 	worldTransform_.UpdateMatrix();
 }
 
@@ -35,7 +35,7 @@ void Enemy::Draw(const ViewProjection& viewProjection){
 
 void Enemy::OnCollision() { 
 	// TODO : コメントアウトを消す
-	//IsAlive_ = FALSE;
+	IsAlive_ = FALSE;
 }
 
 Vector3 Enemy::GetWorldPosition() {
