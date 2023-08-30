@@ -1,12 +1,12 @@
-#include "LoadCSV.h"
+ï»¿#include "LoadCSV.h"
 std::stringstream LoadCSVData(const std::string& filename) {
 	std::ifstream file;
 	file.open(filename);
 	assert(file.is_open());
-	// ƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ•¶š—ñƒXƒgƒŠ[ƒ€‚ÉƒRƒs[
+	// ãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’æ–‡å­—åˆ—ã‚¹ãƒˆãƒªãƒ¼ãƒ ã«ã‚³ãƒ”ãƒ¼
 	std::stringstream Commands;
 	Commands << file.rdbuf();
-	// ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+	// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
 	file.close();
 	return Commands;
 }

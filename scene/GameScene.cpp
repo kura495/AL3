@@ -73,6 +73,7 @@ void GameScene::Update() {
 		}
 		return false;
 	});
+	UpdateEnemyPopCommands();
 
 	//天球
 	skydome_->Update();

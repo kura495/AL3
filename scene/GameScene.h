@@ -73,7 +73,6 @@ private: // メンバ変数
 	std::unique_ptr<FollowCamera> followCamera_ = nullptr;
 	//敵キャラ
 	std::list<Enemy*> enemys_;
-	Enemy* enemy_ = nullptr;
 	std::unique_ptr<Model> enemyModel_ = nullptr;
 	std::vector<Model*> enemyModels;
 	// 敵発生コマンド
