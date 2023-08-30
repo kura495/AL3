@@ -1,6 +1,5 @@
 ﻿#include"Player.h"
 
-
 void Player::Initialize(const std::vector<Model*>& models) {
 	//基底クラスの初期化
 	BaseCharacter::Initialize(models);
@@ -12,7 +11,7 @@ void Player::Initialize(const std::vector<Model*>& models) {
 	// 当たり判定とマスク設定
 	SetRadius(Radius);
 	SetcollitionAttribute(kCollitionAttributePlayer);
-	SetcollisionMask(~kCollitionAttributePlayer);
+	SetcollisionMask(~kCollitionAttributePlayer & ~kCollitionAttributePlayerBullet);
 
 	worldTransformBody_.Initialize();
 	worldTransformHead_.Initialize();

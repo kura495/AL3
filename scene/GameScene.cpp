@@ -226,7 +226,6 @@ void GameScene::CheckAllCollisions() {
 	// 自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	// 自機のコライダーを登録
-	// TODO : コメントアウト消す
 	collisionManager_->AddCollider(player_.get());
 	// 敵機のコライダーを登録
 	for (Enemy* enemy : enemys_) {

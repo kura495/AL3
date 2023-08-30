@@ -19,8 +19,8 @@ void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity) 
 
 	// 当たり判定とマスク設定
 	SetRadius(Radius_);
-	SetcollitionAttribute(kCollitionAttributePlayer);
-	SetcollisionMask(~kCollitionAttributePlayer);
+	SetcollitionAttribute(kCollitionAttributePlayerBullet);
+	SetcollisionMask(~kCollitionAttributePlayerBullet & ~kCollitionAttributePlayer);
 }
 
 void PlayerBullet::Update() {

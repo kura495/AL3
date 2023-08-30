@@ -5,7 +5,7 @@ void Enemy::Initialize(const std::vector<Model*>& models){
 	BaseCharacter::Initialize(models);
 	SetRadius(Radius_);
 	SetcollitionAttribute(kCollitionAttributeEnemy);
-	SetcollisionMask(~kCollitionAttributeEnemy);
+	SetcollisionMask(~kCollitionAttributeEnemy&~kCollitionAttributePlayer);
 }
 
 void Enemy::Update() {
@@ -17,7 +17,7 @@ void Enemy::Update() {
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 
 	// 移動量
-	//当たり判定テストのためコメントアウト中 TODO:コメントアウトを消す　
+	//TODO:当たり判定テストのためコメントアウト中 コメントアウトを消す　
 	//worldTransform_.translation_ = Add(worldTransform_.translation_, velocity);
 	
 	// 自機のY軸周り角度(θy)
@@ -27,12 +27,11 @@ void Enemy::Update() {
 	BaseCharacter::Update();
 }
 
-void Enemy::Draw(const ViewProjection& viewProjection){ 
+void Enemy::Draw(const ViewProjection& viewProjection){
 	BaseCharacter::Draw(viewProjection); 
 }
 
 void Enemy::OnCollision() { 
-	// TODO : コメントアウトを消す
 	IsAlive_ = FALSE;
 }
 
