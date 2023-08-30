@@ -100,5 +100,4 @@ private:
 	WorldTransform worldTransform3DReticle_1;
 	//レティクルモデルのリスト
 	std::vector<Model*> ReticleModel;
-
 };

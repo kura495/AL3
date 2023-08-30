@@ -103,7 +103,9 @@ void Player::Draw(const ViewProjection& viewProjection) {
 }
 
 void Player::OnCollision() { 
-	return;
+	ImGui::Begin("Player");
+	ImGui::Text("OnCollition");
+	ImGui::End();
 }
 
 Vector3 Player::GetWorldPosition() {

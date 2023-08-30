@@ -15,7 +15,7 @@ public:
 	bool GetIsAlive() const { return IsAlive_; };
 
 private:
-	bool IsAlive_ = TRUE;
+	bool IsAlive_ = true;
 	float Radius_ = 2.0f;
 };
 

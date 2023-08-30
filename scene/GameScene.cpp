@@ -239,4 +239,6 @@ void GameScene::CheckAllCollisions() {
 	collisionManager_->CheckAllCollisions();
 	collisionManager_->ClearCollider();
 
+
+
 }

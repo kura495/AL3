@@ -32,7 +32,7 @@ void Enemy::Draw(const ViewProjection& viewProjection){
 }
 
 void Enemy::OnCollision() { 
-	IsAlive_ = FALSE;
+	IsAlive_ = false;
 }
 
 void Enemy::SetPosition(const Vector3& position){ 
