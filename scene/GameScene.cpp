@@ -79,8 +79,6 @@ void GameScene::Update() {
 	if (EnemyCount < 10) {
 		UpdateEnemyPopCommands();
 	}
-	
-
 	ImGui();
 
 	//天球

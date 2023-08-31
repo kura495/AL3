@@ -63,6 +63,7 @@ void Player::Update() {
 		BehaviorAttackUpdate();
 		break;
 	case Behavior::kHit:
+		BehaviorAttackUpdate();
 		BehaviorHitUpdate();
 		break;
 	}
@@ -132,6 +133,8 @@ void Player::ImGui() {
 	ImGui::SliderInt("cycle", &floatcycle_, 1, 120);
 	ImGui::SliderFloat("Amplitude", &floatingAmplitude_, 0.0f, 10.0f);
 	ImGui::InputInt("attackAnimationFrame", &attackAnimationFrame, 0,1);
+	ImGui::Text("Pos.x : %f , Pos.z : %f",worldTransform_.translation_.x,worldTransform_.translation_.z);
+	ImGui::Text("Behavior : %d", behavior_);
 	ImGui::End();
 }
 
@@ -201,10 +204,22 @@ void Player::BehaviorRootUpdate() {
 			// 移動ベクトルをカメラの角度だけ回転
 			move = TransformNormal(move, rotateMatrix);
 			// 移動
-			worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+				worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 			// プレイヤーの向きを移動方向に合わせる
 			// playerのY軸周り角度(θy)
 			worldTransform_.rotation_.y = std::atan2(move.x, move.z);
+			if (30 < worldTransform_.translation_.x) {
+				worldTransform_.translation_.x = 30;
+			} 
+			else if (-30 > worldTransform_.translation_.x){
+				worldTransform_.translation_.x = -30;
+			}
+			if (30 < worldTransform_.translation_.z) {
+				worldTransform_.translation_.z = 30;
+			} 
+			else if (-30 > worldTransform_.translation_.z){
+				worldTransform_.translation_.z = -30;
+			}
 		}
 	}
 	UpdateFloatingGimmick();
