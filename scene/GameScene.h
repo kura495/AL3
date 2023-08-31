@@ -55,6 +55,7 @@ public: // メンバ関数
 private: // メンバ変数
 	const int kEnemyMax = 10;
 	int EnemyLeft = kEnemyMax;
+	int EnemyCount = 0;
 
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;

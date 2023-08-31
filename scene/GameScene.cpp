@@ -69,13 +69,17 @@ void GameScene::Update() {
 	enemys_.remove_if([&](Enemy* enemy) {
 		if (!enemy->GetIsAlive()) {
 			EnemyLeft -= 1;
+			EnemyCount -= 1;
 			delete enemy;
 			
 			return true;
 		}
 		return false;
 	});
-	UpdateEnemyPopCommands();
+	if (EnemyCount < 10) {
+		UpdateEnemyPopCommands();
+	}
+	
 
 	ImGui();
 
@@ -205,7 +209,7 @@ void GameScene::UpdateEnemyPopCommands() {
 			float z = (float)std::atof(word.c_str());
 			// 敵をスポーン
 			EnemySpawn(Vector3(x, y, z));
-
+			EnemyCount += 1;
 		}
 		// WAITコマンド
 		else if (word.find("WAIT") == 0) {
@@ -248,6 +252,7 @@ void GameScene::CheckAllCollisions() {
 void GameScene::ImGui() { 
 	ImGui::Begin("GameScene");
 	ImGui::Text("EnemyLeft : %d", EnemyLeft);
+	ImGui::Text("EnemyCount : %d", EnemyCount);
 	ImGui::End();
 
 }
