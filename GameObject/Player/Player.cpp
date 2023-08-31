@@ -106,6 +106,7 @@ void Player::OnCollision() {
 	ImGui::Begin("Player");
 	ImGui::Text("OnCollition");
 	ImGui::End();
+
 }
 
 Vector3 Player::GetWorldPosition() {
