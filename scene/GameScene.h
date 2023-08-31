@@ -94,11 +94,13 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	int CurrentSceneNumber = PLAY;
+	int CurrentSceneNumber = TITLE;
 
-	void PlayInitalize();
+	void TitleUpdate();
+
 	void PlayUpdate();
-	int StartFrame = 0;
+
+	int Time = 0;
 
 	//天球
 	std::unique_ptr<Skydome> skydome_ = nullptr;
@@ -110,14 +112,18 @@ private: // メンバ変数
 	std::unique_ptr<DebugCamera> debugCamera_ = nullptr;
 	int isDebugCameraActive_ = false;
 
+	//ゲームタイトル
+	std::unique_ptr<Sprite> Title = nullptr;
+	int titleHundle;
+
 	//ゲームクリア
-	std::unique_ptr<Sprite> Claer = nullptr;
+	std::unique_ptr<Sprite> Clear = nullptr;
 	int ClaerHundle;
 
 	//コリジョン管理
 	void CheckAllCollisions();
 	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
 	// ゲームパッド
-	XINPUT_STATE joyState;
+	XINPUT_STATE joyStateG;
 	void ImGui();
 };

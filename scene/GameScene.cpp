@@ -51,9 +51,13 @@ void GameScene::Initialize() {
 	viewProjection_.translation_.y = 5.0f;
 	viewProjection_.UpdateMatrix();
 
+	//クリア
+	titleHundle = TextureManager::Load("Title.png");
+	Title.reset(Sprite::Create(titleHundle, {0, 0}));
+	//タイトル
 	ClaerHundle = TextureManager::Load("clear.png");
-	Claer.reset(Sprite::Create(ClaerHundle, {320, 160}));
-
+	Clear.reset(Sprite::Create(ClaerHundle, {320, 160}));
+	
 	//デバッグカメラ
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 	//軸表示
@@ -61,8 +65,17 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
-void GameScene::Update() { 
-	PlayUpdate();
+void GameScene::Update() {
+	Input::GetInstance()->GetJoystickState(0, joyStateG);
+	if (CurrentSceneNumber == TITLE) {
+		TitleUpdate();
+	}
+	if (CurrentSceneNumber == PLAY) {
+		PlayUpdate();
+	}
+	if (CurrentSceneNumber == CLEAR) {
+		
+	}
 }
 
 void GameScene::Draw() {
@@ -95,18 +108,20 @@ void GameScene::Draw() {
 	
 
 	// 3Dモデルの描画
-
+	
+	if (CurrentSceneNumber == PLAY || CurrentSceneNumber == CLEAR) {
 		// プレイヤー
 		player_->Draw(viewProjection_);
 		// 敵
 		for (Enemy* enemy : enemys_) {
 			enemy->Draw(viewProjection_);
 		}
+	}
+	// 天球
+	skydome_->Draw(viewProjection_);
+	// 地面
+	ground_->Draw(viewProjection_);
 
-		// 天球
-		skydome_->Draw(viewProjection_);
-		// 地面
-		ground_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -120,8 +135,11 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	if (EnemyLeft <= 0) {
-		Claer.get()->Draw();
+	if (CurrentSceneNumber == TITLE) {
+		Title.get()->Draw();
+	}
+	if (CurrentSceneNumber == CLEAR) {
+		Clear.get()->Draw();
 	}
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -205,36 +223,14 @@ void GameScene::CheckAllCollisions() {
 	collisionManager_->ClearCollider();
 }
 
-void GameScene::PlayInitalize() {
-	// プレイヤークラス
-	modelFighterBody_.reset(Model::CreateFromOBJ("float_Body", true));
-	modelFighterHead_.reset(Model::CreateFromOBJ("float_Head", true));
-	modelFighterL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
-	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
-	modelFighterWeapon_.reset(Model::CreateFromOBJ("weapon", true));
-	std::vector<Model*> playerModels = {
-	    modelFighterBody_.get(), modelFighterHead_.get(), modelFighterL_arm_.get(),
-	    modelFighterR_arm_.get(), modelFighterWeapon_.get()};
-	player_->Initialize(playerModels);
-	// 自キャラを追従するカメラ
-	followCamera_->Initalize();
-	followCamera_->SetTarget(&player_->GetWorldTransform());
-	// プレイヤーに追従カメラのビュープロジェクションを登録
-	player_->SetViewProjection(&followCamera_->GetViewProjection());
-	// 敵キャラ
-	enemyPopCommands = LoadCSVData("CSV/enemyPop.csv");
-
-	// 天球
-	skydome_->Initialize(skydomeModel.get());
-	// 地面
-	ground_->Initialize(groundModel.get());
-
-	viewProjection_.Initialize();
-	viewProjection_.translation_.y = 5.0f;
-	viewProjection_.UpdateMatrix();
+void GameScene::TitleUpdate() { 
+	if (joyStateG.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
+		CurrentSceneNumber = PLAY;
+	}
 }
 
 void GameScene::PlayUpdate() {
+	Time += 1 / 60;
 	// プレイヤー
 	player_->Update();
 	// 敵
@@ -256,6 +252,11 @@ void GameScene::PlayUpdate() {
 	if (EnemyCount < 10) {
 		UpdateEnemyPopCommands();
 	}
+
+	if (EnemyCount == 0) {
+		CurrentSceneNumber = CLEAR;
+	}
+
 	ImGui();
 
 	// 天球
