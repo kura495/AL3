@@ -45,7 +45,7 @@ public:
 	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 
 private:
-	float Radius = 1.0f;
+	float Radius = 3.0f;
 
 	//弾の発射までの間隔
 	const int kBulletinterval = 20;

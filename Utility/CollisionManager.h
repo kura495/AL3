@@ -7,6 +7,12 @@ public:
 	void AddCollider(Collider* collider) { colliders_.push_back(collider); }
 	void ClearCollider() { colliders_.clear(); }
 	void CheckAllCollisions();
+	/// <summary>
+	/// フィルターなし特殊判定用
+	/// </summary>
+	/// <param name="colliderA"></param>
+	/// <param name="colliderB"></param>
+	void CheckCollision(Collider* colliderA, Collider* colliderB);
 
 private:
 	/// <summary>

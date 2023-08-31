@@ -5,7 +5,7 @@ void Enemy::Initialize(const std::vector<Model*>& models){
 	BaseCharacter::Initialize(models);
 	SetRadius(Radius_);
 	SetcollitionAttribute(kCollitionAttributeEnemy);
-	SetcollisionMask(~kCollitionAttributeEnemy&~kCollitionAttributePlayer);
+	SetcollisionMask(~kCollitionAttributeEnemy  & ~kCollitionAttributePlayer);
 }
 
 void Enemy::Update() {
@@ -32,7 +32,7 @@ void Enemy::Draw(const ViewProjection& viewProjection){
 }
 
 void Enemy::OnCollision() { 
-	IsAlive_ = false;
+		IsAlive_ = false;
 }
 
 void Enemy::SetPosition(const Vector3& position){ 

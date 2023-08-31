@@ -16,6 +16,22 @@ void CollisionManager::CheckAllCollisions() {
 	}
 }
 
+void CollisionManager::CheckCollision(Collider* colliderA, Collider* colliderB) {
+	// 判定対象AとBの座標
+	Vector3 posA, posB;
+	posA = colliderA->GetWorldPosition();
+	posB = colliderB->GetWorldPosition();
+	float Length = (float)sqrt(
+	    (posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) +
+	    (posB.z - posA.z) * (posB.z - posA.z));
+	if (Length <= colliderA->GetRadius() + colliderB->GetRadius()) {
+		// コライダーAの衝突時コールバック
+		colliderA->OnCollision();
+		// コライダーBの衝突時コールバック
+		colliderB->OnCollision();
+	}
+}
+
 void CollisionManager::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
 	// 判定対象AとBの座標
 	Vector3 posA, posB;
