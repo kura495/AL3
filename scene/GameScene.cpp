@@ -250,9 +250,7 @@ void GameScene::CheckAllCollisions() {
 }
 
 void GameScene::ImGui() { 
-	ImGui::Begin("Time");
-	ImGui::Text("Time : %d",Time);
-	ImGui::End();
+
 }
 
 void GameScene::TitleUpdate() { 
