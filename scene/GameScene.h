@@ -125,5 +125,4 @@ private: // メンバ変数
 	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
 	// ゲームパッド
 	XINPUT_STATE joyStateG;
-	void ImGui();
 };

@@ -257,8 +257,6 @@ void GameScene::PlayUpdate() {
 		CurrentSceneNumber = CLEAR;
 	}
 
-	ImGui();
-
 	// 天球
 	skydome_->Update();
 	// 地面
@@ -285,10 +283,4 @@ void GameScene::PlayUpdate() {
 		viewProjection_.TransferMatrix();
 	}
 #endif
-}
-
-void GameScene::ImGui() {
-	ImGui::Begin("GameScene");
-	ImGui::Text("EnemyLeft : %d", EnemyLeft);
-	ImGui::End();
 }
