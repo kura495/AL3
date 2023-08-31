@@ -57,7 +57,7 @@ public: // メンバ関数
 	void Draw();
 
 private: // メンバ変数
-	const int kEnemyMax = 10;
+	const int kEnemyMax = 15;
 	int EnemyLeft = kEnemyMax;
 	int EnemyCount = 0;
 
@@ -109,6 +109,11 @@ private: // メンバ変数
 	//デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_ = nullptr;
 	int isDebugCameraActive_ = false;
+
+	//ゲームクリア
+	std::unique_ptr<Sprite> Claer = nullptr;
+	int ClaerHundle;
+
 	//コリジョン管理
 	void CheckAllCollisions();
 	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;

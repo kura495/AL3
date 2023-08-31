@@ -47,10 +47,13 @@ void GameScene::Initialize() {
 	//コリジョン
 	collisionManager_ = std::make_unique<CollisionManager>();
 
-
 	viewProjection_.Initialize();
 	viewProjection_.translation_.y = 5.0f;
 	viewProjection_.UpdateMatrix();
+
+	ClaerHundle = TextureManager::Load("clear.png");
+	Claer.reset(Sprite::Create(ClaerHundle, {320, 160}));
+
 	//デバッグカメラ
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 	//軸表示
@@ -117,7 +120,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-
+	if (EnemyLeft <= 0) {
+		Claer.get()->Draw();
+	}
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
@@ -281,13 +286,8 @@ void GameScene::PlayUpdate() {
 #endif
 }
 
-void GameScene::ImGui() { 
+void GameScene::ImGui() {
 	ImGui::Begin("GameScene");
 	ImGui::Text("EnemyLeft : %d", EnemyLeft);
 	ImGui::End();
-	if (EnemyLeft <= 0) {
-		ImGui::Begin("CLEAR");
-		ImGui::Text("CLEAR");
-		ImGui::End();
-	}
 }
