@@ -18,7 +18,7 @@ void Enemy::Update() {
 
 	// 移動量
 	//TODO:当たり判定テストのためコメントアウト中 コメントアウトを消す　
-	//worldTransform_.translation_ = Add(worldTransform_.translation_, velocity);
+	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity);
 	
 	// 自機のY軸周り角度(θy)
 	worldTransform_.rotation_.y += 0.03f;

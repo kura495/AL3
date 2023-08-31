@@ -45,6 +45,9 @@ void Player::Update() {
 		case Behavior::kAttack:
 			BehaviorAttackInitialize();
 			break;
+		case Behavior::kHit:
+			BehaviorHitInitalize();
+			break;
 		}
 		// ふるまいリクエストをリセット
 		behaviorRequest_ = std::nullopt;
@@ -58,6 +61,9 @@ void Player::Update() {
 	case Behavior::kAttack:
 		BehaviorRootUpdate();
 		BehaviorAttackUpdate();
+		break;
+	case Behavior::kHit:
+		BehaviorHitUpdate();
 		break;
 	}
 	BaseCharacter::Update();
@@ -217,13 +223,23 @@ void Player::BehaviorAttackUpdate() {
 	}
 }
 
-void Player::BehaviorHitInitalize() {
+void Player::BehaviorHitInitalize() { 
+	const float Scaler = 0.5f;
+	PushForceVector = Normalize(move);
 
-
+	PushForceVector.x = PushForceVector.x * Scaler;
+	PushForceVector.y = PushForceVector.y * Scaler;
+	PushForceVector.z = PushForceVector.z * Scaler;
+	HitAnimationFrame = 0;
 }
 
 void Player::BehaviorHitUpdate() {
-
+	if (HitAnimationFrame <= 20) {
+		worldTransform_.translation_ = Subtract(worldTransform_.translation_, PushForceVector);
+		HitAnimationFrame++;
+	} else {
+		behaviorRequest_ = Behavior::kRoot;
+	}
 
 }
 
