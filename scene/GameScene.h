@@ -20,7 +20,11 @@
 #include "GameObject/Skydome/Skydome.h"
 #include "GameObject/Ground/Ground.h"
 #include "GameObject/FollowCamera/FollowCamera.h"
-
+enum Scene {
+	TITLE,
+	PLAY,
+	CLEAR,
+};
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -90,7 +94,12 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	
+	int CurrentSceneNumber = Play;
+
+	void PlayInitalize();
+	void PlayUpdate();
+	int StartFrame = 0;
+
 	//天球
 	std::unique_ptr<Skydome> skydome_ = nullptr;
 	std::unique_ptr<Model> skydomeModel = nullptr;
@@ -103,6 +112,7 @@ private: // メンバ変数
 	//コリジョン管理
 	void CheckAllCollisions();
 	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
-
+	// ゲームパッド
+	XINPUT_STATE joyState;
 	void ImGui();
 };

@@ -59,54 +59,9 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() { 
-	//プレイヤー
-	player_->Update();
-	//敵
-	for (Enemy* enemy : enemys_) {
-		enemy->Update();
-	}
-	// デスフラグが立った敵を削除
-	enemys_.remove_if([&](Enemy* enemy) {
-		if (!enemy->GetIsAlive()) {
-			EnemyLeft -= 1;
-			EnemyCount -= 1;
-			delete enemy;
-			
-			return true;
-		}
-		return false;
-	});
-	if (EnemyCount < 10) {
-		UpdateEnemyPopCommands();
-	}
-	ImGui();
 
-	//天球
-	skydome_->Update();
-	//地面
-	ground_->Update();
-	//プレイヤー追従カメラ
-	followCamera_->Update();
-	viewProjection_.matView = followCamera_->GetViewProjection().constMap->view;
-	viewProjection_.matProjection = followCamera_->GetViewProjection().constMap->projection;
-	viewProjection_.TransferMatrix();
-	//当たり判定
-	CheckAllCollisions();
+		PlayUpdate();
 
-	//デバッグカメラ
-	#ifdef _DEBUG
-	if (input_->PushKey(DIK_LALT)) {
-		isDebugCameraActive_ = true;
-	} else {
-		isDebugCameraActive_ = false;
-	}
-	if (isDebugCameraActive_) {
-		debugCamera_->Update();
-		viewProjection_.matView = debugCamera_->GetViewProjection().constMap->view;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().constMap->projection;
-		viewProjection_.TransferMatrix();
-	}
-#endif
 }
 
 void GameScene::Draw() {
@@ -140,17 +95,17 @@ void GameScene::Draw() {
 
 	// 3Dモデルの描画
 
-	//プレイヤー
-	player_->Draw(viewProjection_);
-	//敵
-	for (Enemy* enemy : enemys_) {
-		enemy->Draw(viewProjection_);
-	}
-	
-	//天球
-	skydome_->Draw(viewProjection_);
-	//地面
-	ground_->Draw(viewProjection_);
+		// プレイヤー
+		player_->Draw(viewProjection_);
+		// 敵
+		for (Enemy* enemy : enemys_) {
+			enemy->Draw(viewProjection_);
+		}
+
+		// 天球
+		skydome_->Draw(viewProjection_);
+		// 地面
+		ground_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -246,6 +201,89 @@ void GameScene::CheckAllCollisions() {
 	collisionManager_->CheckAllCollisions();
 	collisionManager_->ClearCollider();
 }
+
+void GameScene::PlayInitalize() {
+	// プレイヤークラス
+	modelFighterBody_.reset(Model::CreateFromOBJ("float_Body", true));
+	modelFighterHead_.reset(Model::CreateFromOBJ("float_Head", true));
+	modelFighterL_arm_.reset(Model::CreateFromOBJ("float_L_arm", true));
+	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm", true));
+	modelFighterWeapon_.reset(Model::CreateFromOBJ("weapon", true));
+	std::vector<Model*> playerModels = {
+	    modelFighterBody_.get(), modelFighterHead_.get(), modelFighterL_arm_.get(),
+	    modelFighterR_arm_.get(), modelFighterWeapon_.get()};
+	player_->Initialize(playerModels);
+	// 自キャラを追従するカメラ
+	followCamera_->Initalize();
+	followCamera_->SetTarget(&player_->GetWorldTransform());
+	// プレイヤーに追従カメラのビュープロジェクションを登録
+	player_->SetViewProjection(&followCamera_->GetViewProjection());
+	// 敵キャラ
+	enemyPopCommands = LoadCSVData("CSV/enemyPop.csv");
+
+	// 天球
+	skydome_->Initialize(skydomeModel.get());
+	// 地面
+	ground_->Initialize(groundModel.get());
+
+	viewProjection_.Initialize();
+	viewProjection_.translation_.y = 5.0f;
+	viewProjection_.UpdateMatrix();
+}
+
+void GameScene::PlayUpdate() {
+	// プレイヤー
+	player_->Update();
+	// 敵
+	for (Enemy* enemy : enemys_) {
+		enemy->Update();
+	}
+
+	// デスフラグが立った敵を削除
+	enemys_.remove_if([&](Enemy* enemy) {
+		if (!enemy->GetIsAlive()) {
+			EnemyLeft -= 1;
+			EnemyCount -= 1;
+			delete enemy;
+
+			return true;
+		}
+		return false;
+	});
+	if (EnemyCount < 10) {
+		UpdateEnemyPopCommands();
+	}
+	ImGui();
+
+	// 天球
+	skydome_->Update();
+	// 地面
+	ground_->Update();
+	// プレイヤー追従カメラ
+	followCamera_->Update();
+	viewProjection_.matView = followCamera_->GetViewProjection().constMap->view;
+	viewProjection_.matProjection = followCamera_->GetViewProjection().constMap->projection;
+	viewProjection_.TransferMatrix();
+	// 当たり判定
+	CheckAllCollisions();
+
+// デバッグカメラ
+#ifdef _DEBUG
+	if (input_->PushKey(DIK_LALT)) {
+		isDebugCameraActive_ = true;
+	} else {
+		isDebugCameraActive_ = false;
+	}
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		viewProjection_.matView = debugCamera_->GetViewProjection().constMap->view;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().constMap->projection;
+		viewProjection_.TransferMatrix();
+	}
+#endif
+}
+
+
 
 void GameScene::ImGui() { 
 	ImGui::Begin("GameScene");
