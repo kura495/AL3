@@ -5,7 +5,7 @@ void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity) 
 	// モデル読み込み
 	model_ = Model::Create();
 	// テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("sample.png");
+	textureHandle_ = TextureManager::Load("Black.png");
 	// プレイヤーの向きを玉にも反映
 	velocity_ = velocity;
 	// ワールドトランスフォーム初期化

@@ -57,6 +57,30 @@ void GameScene::Initialize() {
 	//タイトル
 	ClaerHundle = TextureManager::Load("clear.png");
 	Clear.reset(Sprite::Create(ClaerHundle, {320, 160}));
+	//スコア
+	ScoreHundle[0] = TextureManager::Load("0.png");
+	ScoreHundle[1] = TextureManager::Load("1.png");
+	ScoreHundle[2] = TextureManager::Load("2.png");
+	ScoreHundle[3] = TextureManager::Load("3.png");
+	ScoreHundle[4] = TextureManager::Load("4.png");
+	ScoreHundle[5] = TextureManager::Load("5.png");
+	ScoreHundle[6] = TextureManager::Load("6.png");
+	ScoreHundle[7] = TextureManager::Load("7.png");
+	ScoreHundle[8] = TextureManager::Load("8.png");
+	ScoreHundle[9] = TextureManager::Load("9.png");
+	ScoreSprite = {
+	    Sprite::Create(ScoreHundle[0], {320, 200}),
+	    Sprite::Create(ScoreHundle[1], {320, 200}),
+	    Sprite::Create(ScoreHundle[2], {320, 200}),
+	    Sprite::Create(ScoreHundle[3], {320, 200}),
+	    Sprite::Create(ScoreHundle[4], {320, 200}),
+	    Sprite::Create(ScoreHundle[5], {320, 200}),
+	    Sprite::Create(ScoreHundle[6], {320, 200}),
+	    Sprite::Create(ScoreHundle[7], {320, 200}),
+	    Sprite::Create(ScoreHundle[8], {320, 200}),
+	    Sprite::Create(ScoreHundle[9], {320, 200}),
+	};
+
 	
 	//デバッグカメラ
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
@@ -72,9 +96,11 @@ void GameScene::Update() {
 	}
 	if (CurrentSceneNumber == PLAY) {
 		PlayUpdate();
+		ImGui();
 	}
 	if (CurrentSceneNumber == CLEAR) {
-		
+		ClearUpdate();
+		ImGui();
 	}
 }
 
@@ -223,6 +249,12 @@ void GameScene::CheckAllCollisions() {
 	collisionManager_->ClearCollider();
 }
 
+void GameScene::ImGui() { 
+	ImGui::Begin("Time");
+	ImGui::Text("Time : %d",Time);
+	ImGui::End();
+}
+
 void GameScene::TitleUpdate() { 
 	if (joyStateG.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
 		CurrentSceneNumber = PLAY;
@@ -230,7 +262,7 @@ void GameScene::TitleUpdate() {
 }
 
 void GameScene::PlayUpdate() {
-	Time += 1 / 60;
+	Time += 1;
 	// プレイヤー
 	player_->Update();
 	// 敵
@@ -283,4 +315,18 @@ void GameScene::PlayUpdate() {
 		viewProjection_.TransferMatrix();
 	}
 #endif
+}
+
+void GameScene::ClearUpdate() { 
+	Score[0] = Time / 60;
+
+	/*number1[0] = now_score / 10000;
+	now_score = now_score % 10000;
+	number1[1] = now_score / 1000;
+	now_score = now_score % 1000;
+	number1[2] = now_score / 100;
+	now_score = now_score % 100;
+	number1[3] = now_score / 10;
+	now_score = now_score % 10;
+	number1[4] = now_score;*/
 }

@@ -58,7 +58,7 @@ public: // メンバ関数
 
 private: // メンバ変数
 	const int kEnemyMax = 15;
-	int EnemyLeft = kEnemyMax;
+	int EnemyLeft = 1;
 	int EnemyCount = 0;
 
 	DirectXCommon* dxCommon_ = nullptr;
@@ -100,7 +100,14 @@ private: // メンバ変数
 
 	void PlayUpdate();
 
+	void ClearUpdate();
+
+	//時間
 	int Time = 0;
+	//スコア
+	int Score[4];
+	std::vector<Sprite*> ScoreSprite;
+	int ScoreHundle[9];
 
 	//天球
 	std::unique_ptr<Skydome> skydome_ = nullptr;
@@ -125,4 +132,5 @@ private: // メンバ変数
 	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
 	// ゲームパッド
 	XINPUT_STATE joyStateG;
+	void ImGui();
 };
