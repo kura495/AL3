@@ -53,6 +53,9 @@ public: // メンバ関数
 	void Draw();
 
 private: // メンバ変数
+	const int kEnemyMax = 10;
+	int EnemyLeft = kEnemyMax;
+
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -99,4 +102,6 @@ private: // メンバ変数
 	//コリジョン管理
 	void CheckAllCollisions();
 	std::unique_ptr<CollisionManager> collisionManager_ = nullptr;
+
+	void ImGui();
 };

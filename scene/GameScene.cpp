@@ -66,14 +66,18 @@ void GameScene::Update() {
 		enemy->Update();
 	}
 	// デスフラグが立った敵を削除
-	enemys_.remove_if([](Enemy* enemy) {
+	enemys_.remove_if([&](Enemy* enemy) {
 		if (!enemy->GetIsAlive()) {
+			EnemyLeft -= 1;
 			delete enemy;
+			
 			return true;
 		}
 		return false;
 	});
 	UpdateEnemyPopCommands();
+
+	ImGui();
 
 	//天球
 	skydome_->Update();
@@ -239,4 +243,11 @@ void GameScene::CheckAllCollisions() {
 	}
 	collisionManager_->CheckAllCollisions();
 	collisionManager_->ClearCollider();
+}
+
+void GameScene::ImGui() { 
+	ImGui::Begin("GameScene");
+	ImGui::Text("EnemyLeft : %d", EnemyLeft);
+	ImGui::End();
+
 }
