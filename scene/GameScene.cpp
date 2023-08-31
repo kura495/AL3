@@ -214,6 +214,7 @@ void GameScene::UpdateEnemyPopCommands() {
 		}
 	}
 }
+
 void GameScene::EnemySpawn(const Vector3& position) {
 	Enemy* enemy_ = new Enemy();
 	enemy_->Initialize(enemyModels);
@@ -238,7 +239,4 @@ void GameScene::CheckAllCollisions() {
 	}
 	collisionManager_->CheckAllCollisions();
 	collisionManager_->ClearCollider();
-
-
-
 }

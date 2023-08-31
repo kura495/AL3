@@ -22,6 +22,7 @@ enum modelNumber {
 enum class Behavior {
 	kRoot,//通常
 	kAttack,//攻撃
+	kHit,//敵に当たった
 };
 class Player : public BaseCharacter{
 public:
@@ -87,6 +88,11 @@ private:
 	void BehaviorAttackInitialize();
 	void BehaviorAttackUpdate();
 	int attackAnimationFrame = 0;
+	//当たった時
+	void BehaviorHitInitalize();
+	void BehaviorHitUpdate();
+	Vector3 PushForceVector = {0.0f, 0.0f, 0.0f};
+	int HitAnimationFrame = 0;
 
 	/// <summary>
 	/// レティクルの位置

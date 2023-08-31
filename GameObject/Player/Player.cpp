@@ -21,7 +21,6 @@ void Player::Initialize(const std::vector<Model*>& models) {
 	SetParent(&worldTransformBody_);
 	worldTransformBody_.parent_ = &worldTransform_;
 	//レティクル
-	//ReticleModel.reset(Model::Create());
 	ReticleModel.push_back(Model::CreateFromOBJ("Reticle", true));
 	ReticleModel.push_back(Model::CreateFromOBJ("Reticle", true));
 	worldTransform3DReticle_0.Initialize();
@@ -106,6 +105,7 @@ void Player::OnCollision() {
 	ImGui::Begin("Player");
 	ImGui::Text("OnCollition");
 	ImGui::End();
+	behaviorRequest_ = Behavior::kHit;
 
 }
 
@@ -217,7 +217,17 @@ void Player::BehaviorAttackUpdate() {
 	}
 }
 
-	/// <summary>
+void Player::BehaviorHitInitalize() {
+
+
+}
+
+void Player::BehaviorHitUpdate() {
+
+
+}
+
+/// <summary>
 /// レティクルの位置を決める
 /// </summary>
 void Player::Set3DReticle(WorldTransform& worldTransform3DReticle_,const float ReticleDistanse) {

@@ -65,16 +65,4 @@ void CollisionManager::CheckCollisionPair(Collider* colliderA, Collider* collide
 			colliderB->OnCollision();
 		    }
 	}
-
-	//// コライダーのフィルターの値でビット演算
-	//if ((colliderA->GetcollitionAttribute() & colliderB->GetcollisionMask()) == 0 ||
-	//    (colliderB->GetcollitionAttribute() & colliderA->GetcollisionMask()) == 0) {
-	//	return;
-	//}
-	//if (Length <= colliderA->GetRadius() + colliderB->GetRadius()) {
-	//	// コライダーAの衝突時コールバック
-	//	colliderA->OnCollision();
-	//	// コライダーBの衝突時コールバック
-	//	colliderB->OnCollision();
-	//}
 }
