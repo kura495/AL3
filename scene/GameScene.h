@@ -94,7 +94,7 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	int CurrentSceneNumber = Play;
+	int CurrentSceneNumber = PLAY;
 
 	void PlayInitalize();
 	void PlayUpdate();

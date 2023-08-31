@@ -59,9 +59,7 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() { 
-
-		PlayUpdate();
-
+	PlayUpdate();
 }
 
 void GameScene::Draw() {
@@ -283,12 +281,13 @@ void GameScene::PlayUpdate() {
 #endif
 }
 
-
-
 void GameScene::ImGui() { 
 	ImGui::Begin("GameScene");
 	ImGui::Text("EnemyLeft : %d", EnemyLeft);
-	ImGui::Text("EnemyCount : %d", EnemyCount);
 	ImGui::End();
-
+	if (EnemyLeft <= 0) {
+		ImGui::Begin("CLEAR");
+		ImGui::Text("CLEAR");
+		ImGui::End();
+	}
 }

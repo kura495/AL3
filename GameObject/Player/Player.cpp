@@ -85,7 +85,7 @@ void Player::Update() {
 		bullet_->Update();
 	}
 
-	ImGui();
+	//ImGui();
 	
 	worldTransformBody_.UpdateMatrix();
 	worldTransformHead_.UpdateMatrix();
