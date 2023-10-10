@@ -9,6 +9,7 @@
 #include "Input.h"
 #include "Calc/Matrix.h"
 #include "Calc/Vector.h"
+#include <optional>
 enum modelNumber {
 	kModelIndexBody,
 	kModelIndexHead,
